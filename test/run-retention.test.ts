@@ -395,6 +395,48 @@ test("delete keeps the coverage notes of a revision and removes an unfinished cl
   }
 });
 
+test("delete removes the recheck launches of the run, and then its source run can go", async () => {
+  const root = await workspace("recheck");
+  try {
+    const source = runId("source"),
+      first = runId("first recheck"),
+      second = runId("second recheck");
+    await saveRun(root, { id: source, title: "Saved builds", state: "complete" });
+    for (const id of [first, second])
+      await saveRun(root, { id, title: "Recheck", state: "complete", parents: [source] });
+    const key = `revision:${source}`;
+    const launch = (operationId: string) => ({
+      operationId,
+      part: "judge",
+      subjects: [{ subjectId: "build-1", sourceId: null }],
+      previewId: hashJson({ preview: operationId }),
+    });
+    const journal = await OperationJournal.open(root);
+    try {
+      journal.put("recheck_launches", key, [launch(first), launch(second)]);
+    } finally {
+      journal.close();
+    }
+    await deleteRun(root, first);
+    const read = async () => {
+      const after = await OperationJournal.open(root);
+      try {
+        return after.read("recheck_launches", key);
+      } finally {
+        after.close();
+      }
+    };
+    assert.deepEqual(await read(), [launch(second)], "the other launch stays");
+    await assert.rejects(deleteRun(root, source), /Delete the runs in this list first/);
+    await deleteRun(root, second);
+    assert.equal(await read(), null);
+    await deleteRun(root, source);
+    assert.equal((await listDeletedRuns(root)).total, 3);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
 test("a stop between the journal step and the file step leaves no half run", async () => {
   const root = await workspace("crash");
   const id = runId("crash");

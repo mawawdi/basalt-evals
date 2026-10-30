@@ -40,6 +40,18 @@ export function recordRecheckLaunch(
   journal.put(NAMESPACE, key, [...prior, launch]);
 }
 
+/** Remove the launches of a deleted run. A record without launches goes too. */
+export function forgetRecheckLaunches(journal: OperationJournal, operationId: string): void {
+  for (const { namespace, id } of journal.recordsContaining(`"${operationId}"`, 1000)) {
+    if (namespace !== NAMESPACE) continue;
+    const launches = journal.read<RecheckLaunch[]>(NAMESPACE, id) ?? [];
+    const others = launches.filter((launch) => launch.operationId !== operationId);
+    if (others.length === launches.length) continue;
+    if (others.length) journal.put(NAMESPACE, id, others);
+    else journal.remove(NAMESPACE, id);
+  }
+}
+
 /** The recorded launches for the builds of one run and one target revision. */
 export function recheckLaunches(
   journal: OperationJournal,

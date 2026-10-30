@@ -2312,7 +2312,9 @@ as the revision files do. They keep the identity of the preparation run and do n
 delete.
 
 One journal transaction removes the records of the run, its projection rows, its issues
-and its claims on shared computations. The same transaction writes the `deleted_runs`
+and its claims on shared computations. It also removes the launches of the run from
+`recheck_launches`, so a deleted recheck no longer keeps its source run. Later rechecks
+of the same builds do not read its answers. The same transaction writes the `deleted_runs`
 tombstone. The tombstone holds the run identity, the title, the charged USD, the time and
 the files that wait for removal.
 

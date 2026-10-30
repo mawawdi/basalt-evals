@@ -20,6 +20,7 @@ import type { OperationContext } from "../../contracts/src/launch.js";
 import { formatMoney } from "../../contracts/src/display.js";
 import { projectRun } from "./catalog-projection.js";
 import { readLifecycle } from "./lifecycle.js";
+import { forgetRecheckLaunches } from "./recheck-results.js";
 import { DELETED_RUNS, RUN_ARCHIVE } from "./run-visibility.js";
 
 /** A refusal that a person can resolve. The HTTP API returns it as a conflict. */
@@ -492,6 +493,8 @@ export async function deleteRun(root: string, id: string): Promise<DeletedRun> {
           journal.put("exemplar_comparison_units", comparisonSource, Object.fromEntries(units));
         else journal.remove("exemplar_comparison_units", comparisonSource);
       }
+      // A recheck lists the run under its target revision and its source run.
+      forgetRecheckLaunches(journal, id);
       // Claims that the run holds on shared work. A deleted run cannot complete them.
       for (const reference of journal.recordsContaining(`"${id}"`)) {
         const body = journal.read<{ state?: unknown; operationId?: unknown }>(
