@@ -17,6 +17,14 @@ jobs:
         with:
           node-version: "22"
           cache: npm
+      # Rokit reads the GitHub releases API. Without a token, shared runners reach the
+      # rate limit for anonymous requests and get 403.
+      - name: Give Rokit the job token
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$HOME/.rokit"
+          printf 'github = "%s"\n' "$GITHUB_TOKEN" > "$HOME/.rokit/auth.toml"
       - name: Install pinned Roblox tools
         uses: paradoxum-games/setup-rokit@c6a9749169e3a0146019b899cd0342556f773908
         with:
