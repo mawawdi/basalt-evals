@@ -1,0 +1,7 @@
+{
+  "schema": "basalt-evals/curated-criteria-map",
+  "status": "draft",
+  "note": "A person writes this map for the preparation parity study. Basalt does not write it. For each rubric criterion, write its ID (criterion-1 is the first list item), its exact text without the list marker, one executable criterion of evaluator.json and one sentence of rationale. The executable criteria are: initial-barrier-blocks, open-barrier-passes, reset-barrier-blocks, server-source, client-source, first-input-delivered, second-input-delivered, one-participant, first-cannot-open, pair-opens, pair-replicates, one-opening, timed-close, no-repeat-open, closed-waits, forgery-rejected, forgery-does-not-pair, late-press-rejected, disconnect-rejected, disconnect-removes-player, solo-is-closed, solo-status-visible, runtime-clean, gate-authority-and-collision, objective-clarity, unobstructed-play. List the Studio capabilities that the plan needs. Set the status to approved after a person checks the map.",
+  "criteria": [],
+  "requiredCapabilities": []
+}

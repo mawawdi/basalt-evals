@@ -1,0 +1,13 @@
+{
+  "name": "XpProgressEval",
+  "tree": {
+    "$className": "DataModel",
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Progress": { "$path": "src/client/Progress.client.luau" }
+      }
+    }
+  }
+}

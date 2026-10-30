@@ -1,0 +1,89 @@
+{
+  "schema": "basalt-evals/authored-corpus",
+  "id": "xp-ui-validation",
+  "taskDirectory": "studies/xp-ui/task",
+  "environment": {
+    "platform": "Roblox Studio",
+    "studioVersion": "0.739.0.7390687",
+    "captureProtocol": "studio-mcp-viewport",
+    "cameraProtocol": "Fullscreen responsive interface; Scriptable camera held at (14,9,24), lookAt (0,2,0), vertical FOV 60. No world-camera quality claim."
+  },
+  "protocol": {
+    "camera": "Fullscreen responsive interface; Scriptable camera held at (14,9,24), lookAt (0,2,0), vertical FOV 60. Holding the camera prevents hidden default follow-camera motion during acquisition.",
+    "player": "Single Studio Play client. Use the actual Gain XP button twice after reset. The loop is client-local; no multiplayer or server-XP claim.",
+    "lighting": "ClockTime 14, Brightness 2, Ambient and OutdoorAmbient RGB(110,110,110), GlobalShadows false. The fullscreen product UI covers the scene and is identical in behavior across variants.",
+    "graphics": "On the validated macOS Studio 0.739 setup, use Rendering > Graphics Mode OpenGL and restart Studio: Metal returned solid-magenta Play screenshots. Set EditQualityLevel to Level21 and require the Play client's QualityLevel to report Level21. This Studio build resets QualityLevel when Play starts; an Edit Command Bar assignment does not establish Play quality. Check the Client render.settings event in the trial trace; unavailable settings or deviations leave capture review incomplete. Keep the same renderer and quality across the corpus. Preserve original acquired bytes.",
+    "action": "The fixed gui_button plan collects three ordered states. BasaltEvalCaptureControls occupies only the top 9% of the native viewport. Mask that strip for judging after human verification; preserve all product UI. No resizing or required resolution. Use Run capture from the connected Edit plugin; do not click controls manually during a trial.",
+    "limitations": "Four reserved validation presentations in two new layout families. Same mechanic, camera, input sequence and previously human-approved rubric as development; no new mechanic or timing claim. Ordered stills cannot establish response latency. No model outputs or expert labels exist for this population. Keep all cases, including borderline and insufficient evidence; capture failures remain incomplete. Freeze exact clean evidence and independent expert labels before judge output. Do not tune on these candidates. See docs/VALIDATION_PROTOCOL.md.",
+    "phases": [
+      {
+        "id": "ready",
+        "captureId": "frame-ready",
+        "elapsedMs": null,
+        "candidateFactId": "ready-candidate",
+        "phaseFactId": "ready-phase"
+      },
+      {
+        "id": "leveled",
+        "captureId": "frame-leveled",
+        "elapsedMs": null,
+        "candidateFactId": "leveled-candidate",
+        "phaseFactId": "leveled-phase"
+      },
+      {
+        "id": "progress",
+        "captureId": "frame-progress",
+        "elapsedMs": null,
+        "candidateFactId": "progress-candidate",
+        "phaseFactId": "progress-phase"
+      }
+    ]
+  },
+  "rubricStatus": "draft_requires_human_review",
+  "variants": [
+    {
+      "id": "4788013e93d1",
+      "family": "dock",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/4788013e93d1.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "167efda7bf03",
+      "family": "rail",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/167efda7bf03.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "ae483c0509ab",
+      "family": "rail",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/ae483c0509ab.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "ed10139c9dd7",
+      "family": "dock",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/ed10139c9dd7.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    }
+  ]
+}

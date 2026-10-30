@@ -1,0 +1,3214 @@
+/* ---------- Shell: a cream header over a hairline-framed column ---------- */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+.band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 4px;
+  min-height: 56px;
+  padding-inline: max(20px, calc((100% - var(--frame-width)) / 2 + 20px));
+  background: var(--ash);
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.band :focus-visible {
+  outline-offset: -4px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  margin-right: 32px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 21px;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brandMark {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  fill: var(--basalt);
+}
+.brandFacet {
+  fill: var(--on-frame-muted);
+}
+.brandCaption {
+  margin-left: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+.primaryNav,
+.utilityNav {
+  display: flex;
+  align-items: stretch;
+}
+.utilityNav {
+  margin-left: auto;
+}
+.primaryNav a,
+.utilityNav a,
+.utilityMenu > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 0 14px;
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 400;
+  text-decoration: none;
+}
+.primaryNav a:hover,
+.utilityNav a:hover,
+.utilityMenu > summary:hover {
+  color: var(--olivine);
+}
+/* The current section carries a small square, the mark used for every status. */
+.primaryNav a[aria-current="page"]::before,
+.utilityNav > a[aria-current="page"]::before,
+.utilityMenu > summary[data-active]::after {
+  content: "";
+  order: -1;
+  width: 5px;
+  height: 5px;
+  background: currentColor;
+}
+.primaryNav a[aria-current="page"],
+.utilityNav > a[aria-current="page"],
+.utilityMenu > summary[data-active] {
+  font-weight: 500;
+}
+.utilityMenu {
+  position: relative;
+  display: flex;
+}
+.utilityMenu > summary {
+  list-style: none;
+}
+.utilityMenu > summary::before {
+  display: none;
+}
+.utilityMenu > summary::-webkit-details-marker {
+  display: none;
+}
+.utilityMenu[open] > summary svg {
+  transform: rotate(180deg);
+}
+.utilityPanel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 50;
+  display: grid;
+  width: 248px;
+  margin-top: -1px;
+  padding: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--sheet-radius);
+  box-shadow: 0 14px 36px var(--shadow);
+}
+.utilityPanel a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: var(--control-radius);
+  color: var(--ink);
+  font-size: 14.5px;
+  text-decoration: none;
+}
+.utilityPanel a:hover {
+  background: var(--paper-tint);
+}
+.utilityPanel a[aria-current="page"] {
+  background: var(--olivine-wash);
+  color: var(--olivine);
+  font-weight: 500;
+}
+.localLabel {
+  margin: 6px 4px 0;
+  padding: 10px 8px 4px;
+  border-top: 1px solid var(--rule);
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.bandEnd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  min-height: 56px;
+}
+/* The appearance switch sits beside notifications in both headers. */
+.themeToggle {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--control-radius);
+  background: transparent;
+  color: var(--ink);
+}
+.themeToggle:hover {
+  background: var(--paper-tint);
+}
+.menuButton {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--control-radius);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+/* The working column is framed by hairlines that run the full height of the page. */
+.main {
+  --gutter: 40px;
+  flex: 1;
+  width: 100%;
+  max-width: var(--frame-width);
+  margin: 0 auto;
+  padding: 36px var(--gutter) 96px;
+  border-inline: 1px solid var(--rule);
+  min-width: 0;
+}
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin-bottom: 18px;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  color: var(--olivine);
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.breadcrumb > span::before {
+  content: "/";
+  margin-right: 10px;
+  color: var(--rule-strong);
+}
+.skip {
+  position: fixed;
+  left: 12px;
+  top: -80px;
+  padding: 12px 20px;
+  z-index: 100;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--olivine);
+  border-radius: var(--control-radius);
+}
+.skip:focus {
+  top: 12px;
+}
+.mobileNavigation {
+  display: grid;
+  gap: 2px;
+}
+.mobileNavigation a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 8px 12px;
+  border-radius: var(--control-radius);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 19px;
+  text-decoration: none;
+}
+.mobileNavigation a[aria-current="page"] {
+  background: var(--olivine-wash);
+}
+.mobileNavigation a[aria-current="page"]::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+}
+.mobileGroup {
+  margin: 14px 12px 4px;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------- Blind review chrome ---------- */
+.reviewHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 56px;
+  gap: 20px;
+  padding: 8px max(20px, calc((100% - var(--frame-width)) / 2 + 20px));
+  background: var(--ash);
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  font-size: 14.5px;
+}
+.reviewHeader a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--olivine);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.reviewBrand {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--serif);
+  font-size: 19px;
+}
+.reviewPrivacy {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: var(--control-radius);
+  background: var(--paper-tint);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.reviewPrivacy::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--basalt);
+}
+/* The audit's answer comes first; effort and method follow. */
+.auditAnswer {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 28px;
+  padding: 20px 24px 22px;
+  background: var(--tile-result);
+}
+.auditAnswer h2 {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--olivine);
+}
+.auditFigure {
+  font-size: 46px;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.reviewerBar {
+  align-items: center;
+  gap: 4px 16px;
+  margin-bottom: 20px;
+  color: var(--slate);
+  font-size: 14.5px;
+}
+.reviewerBar strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.focusMain {
+  --gutter: 40px;
+  flex: 1;
+  width: 100%;
+  max-width: var(--frame-width);
+  margin: 0 auto;
+  padding: 32px var(--gutter) 80px;
+  border-inline: 1px solid var(--rule);
+}
+
+/* ---------- Page heading: a serif title over a hairline that spans the frame ---------- */
+.pageHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 calc(-1 * var(--gutter, 0px)) 32px;
+  padding: 4px var(--gutter, 0px) 28px;
+  border-bottom: 1px solid var(--rule);
+}
+.pageHeading > div:first-child {
+  min-width: 0;
+}
+.lede {
+  max-width: 62ch;
+  margin-top: 12px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.5;
+}
+.headingAction {
+  flex-shrink: 0;
+}
+
+/* ---------- Actions ---------- */
+.primary,
+.secondary,
+.textButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border-radius: var(--control-radius);
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+.primary {
+  background: var(--basalt);
+  color: var(--on-basalt);
+}
+.primary:hover:not(:disabled) {
+  background: var(--basalt-raised);
+  text-decoration: none;
+}
+/* An unavailable primary action keeps its shape but stops reading as solid spruce. */
+.primary:disabled {
+  opacity: 1;
+  background: var(--ash-deep);
+  color: var(--slate);
+}
+.secondary {
+  background: var(--paper);
+  border-color: var(--rule-strong);
+  color: var(--ink);
+}
+.secondary:hover:not(:disabled) {
+  border-color: var(--ink);
+  background: var(--paper-hover);
+  text-decoration: none;
+}
+.textButton {
+  color: var(--olivine);
+  background: transparent;
+  padding-inline: 8px;
+  margin-inline: -8px;
+}
+.resultTable th .textButton {
+  margin-inline: 0;
+}
+.textButton:hover:not(:disabled) {
+  background: var(--olivine-wash);
+  text-decoration: none;
+}
+/* A standalone link is an action, not prose: a mono label with an arrow, aligned to the
+   text edge, the wash reaching past it on hover. Links inside sentences stay underlined. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 6px 8px;
+  margin: -4px -8px;
+  border-radius: var(--control-radius);
+  color: var(--olivine);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+.action::after {
+  content: "";
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='black' stroke-width='1.4'%3E%3Cpath d='M1 6h9.5M6.5 2 10.5 6l-4 4'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.action:has(svg)::after {
+  display: none;
+}
+.action:hover {
+  background: var(--olivine-wash);
+  text-decoration: none;
+}
+.iconButton {
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--control-radius);
+  background: var(--paper);
+  flex-shrink: 0;
+}
+.iconButton:hover {
+  border-color: var(--ink);
+}
+
+/* ---------- Structure ---------- */
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--sheet-radius);
+  min-width: 0;
+}
+.panelBody {
+  padding: 24px;
+}
+.panelBody > h2 + * {
+  margin-top: 12px;
+}
+.panelBody > h3 + p {
+  margin-top: 8px;
+}
+.panelBody > p + p {
+  margin-top: 6px;
+}
+.panelBody > p + .primary,
+.panelBody > p + .secondary,
+.panelBody > p + .row {
+  margin-top: 16px;
+}
+.panel + .panel,
+.panel + .tableWrap,
+.tableWrap + .panel,
+p + .tableWrap {
+  margin-top: 12px;
+}
+/* A row of page actions sits apart from the content it acts on. */
+.row + .panel {
+  margin-top: 20px;
+}
+.columns > .panel,
+.reviewGrid > .panel,
+.stack > .panel,
+.form > .panel {
+  margin-top: 0;
+}
+.section {
+  margin-top: 32px;
+}
+/* Prose inside a disclosure keeps a readable line, and its follow-on note stays close. */
+details.section > p {
+  max-width: 72ch;
+}
+details.section > p + p {
+  margin-top: 6px;
+}
+/* Consecutive disclosures read as one list instead of separate, widely spaced sections. */
+details.section + details.section {
+  margin-top: 0;
+  border-top: 1px solid var(--rule);
+}
+/* A section heading leads its content instead of sitting on it. */
+.section > h2:first-child {
+  margin-bottom: 12px;
+}
+.sectionHeading {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.sectionHeading p {
+  color: var(--slate);
+  font-size: 14.5px;
+  margin-top: 6px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.stack {
+  display: grid;
+  gap: 20px;
+}
+.smallStack {
+  display: grid;
+  gap: 8px;
+}
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+}
+.columns + p {
+  margin-top: 14px;
+}
+/* A one-line status about restored or device-only setup sits apart from the cards below. */
+.setupNote {
+  margin-bottom: 16px;
+}
+.scopeNote {
+  max-width: 72ch;
+  margin: -4px 0 20px;
+  color: var(--slate);
+  font-size: 14.5px;
+}
+.small {
+  color: var(--slate);
+  font-size: 14px;
+}
+/* The authored question under the short name of a criterion. */
+.questionText {
+  margin: 4px 0 0;
+  color: var(--slate);
+  font-size: 14px;
+  font-weight: 400;
+}
+.form {
+  display: grid;
+  gap: 24px;
+}
+/* An inline form inside a page section keeps a readable width, and its actions size to
+   their labels instead of stretching across the column. */
+.narrowForm {
+  max-width: 40rem;
+  margin-top: 16px;
+  justify-items: start;
+}
+.narrowForm > .field,
+.narrowForm > .notice {
+  justify-self: stretch;
+}
+.field {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 0;
+}
+.field label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.field small {
+  color: var(--slate);
+  font-weight: 400;
+}
+.privateTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 7px;
+  border-radius: var(--control-radius);
+  color: var(--on-seal);
+  background: var(--seal);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.advanced {
+  border-top: 1px solid var(--rule);
+  padding-top: 8px;
+}
+.advanced > div {
+  padding-block: 16px;
+}
+.selectionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.field + .selectionGrid {
+  margin-top: 12px;
+}
+.choice {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  min-height: 52px;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--control-radius);
+  cursor: pointer;
+  font-size: 15px;
+}
+.choice:hover {
+  border-color: var(--ink);
+}
+.choice:has(input:checked) {
+  border-color: var(--basalt);
+  background: var(--olivine-wash);
+  box-shadow: inset 0 0 0 1px var(--basalt);
+}
+.choice input {
+  flex-shrink: 0;
+}
+.choice small {
+  display: block;
+  color: var(--slate);
+  font-weight: 400;
+}
+
+/* ---------- Feedback ---------- */
+.notice {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  padding: 14px 18px;
+  border: 1px solid var(--rule);
+  border-left-width: 3px;
+  border-radius: 0;
+  background: var(--paper);
+  font-size: 15px;
+  margin-bottom: 20px;
+  overflow-wrap: anywhere;
+}
+.notice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.notice > div {
+  min-width: 0;
+}
+/* A notice after running text starts its own block instead of touching the line above. */
+p + .notice {
+  margin-top: 16px;
+}
+/* A recovery action sits on its own line under the explanation, never glued to it. */
+.notice > div > :is(.primary, .secondary) {
+  display: flex;
+  width: fit-content;
+  margin-top: 12px;
+}
+/* Raw diagnostics read as a technical record, not as prose. */
+/* Unclear criteria: the person's own words first, then why Basalt can't check them. */
+.unclearCriteria {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+.unclearCriteria li {
+  display: grid;
+  gap: 4px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--rule-strong);
+  background: var(--paper);
+}
+.unclearCriteria q {
+  color: var(--ink);
+  font-weight: 500;
+}
+.unclearCriteria span {
+  color: var(--slate);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.diagnostics {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+/* The exact recorded error stays one click away from its plain summary. */
+.problemDetail {
+  margin-top: 6px;
+}
+.problemDetail > summary {
+  min-height: 36px;
+  padding: 6px 0;
+  color: var(--slate);
+  font-size: 14px;
+  font-weight: 400;
+}
+/* Commands and paths in a setup check, set as code that a person can copy. */
+.setupHelp code {
+  padding: 1px 5px;
+  border-radius: var(--control-radius);
+  background: var(--code-ground);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+/* Text from the build output, quoted exactly as data and never as an instruction. */
+.quote {
+  margin: 10px 0 0;
+  padding: 10px 14px;
+  border-left: 3px solid var(--ochre);
+  background: var(--code-ground);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.problemDetail code {
+  display: block;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: var(--control-radius);
+  background: var(--code-ground);
+  color: var(--ink);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.error {
+  border-left-color: var(--rust);
+}
+.error svg {
+  color: var(--rust);
+}
+.info {
+  border-left-color: var(--basalt);
+  background: var(--paper-tint);
+}
+/* A status is a mono tag led by a small square in its tone. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 8px;
+  border-radius: var(--control-radius);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  background: var(--ash-deep);
+  color: var(--ink);
+  max-width: 100%;
+  vertical-align: middle;
+  /* A table column never shrinks a status below its longest word, so "Matches" stays whole. */
+  overflow-wrap: normal;
+}
+.status > span {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  background: currentColor;
+}
+.good {
+  color: var(--ink);
+  background: var(--good-wash);
+}
+.good > span {
+  background: var(--basalt);
+}
+.warning {
+  color: var(--ochre-ink);
+  background: var(--ochre-wash);
+}
+.bad {
+  color: var(--rust-ink);
+  background: var(--rust-wash);
+}
+.active {
+  color: var(--olivine);
+  background: var(--olivine-wash);
+}
+.active > span {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.neutral {
+  color: var(--neutral-ink);
+  background: var(--ash-deep);
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding: 36px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.empty h2 {
+  font-size: 24px;
+}
+.empty p {
+  color: var(--slate);
+  max-width: 56ch;
+  font-size: 15.5px;
+}
+.empty > a {
+  margin-top: 8px;
+}
+.loading {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 32px 0;
+  color: var(--slate);
+  font-size: 15px;
+}
+.spin {
+  animation: spin 1.2s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Lists and tables ---------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+.tableWrap {
+  position: relative;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--sheet-radius);
+  background: var(--paper);
+}
+.tableWrap th {
+  background: var(--paper);
+}
+.tableWrap thead th {
+  background: var(--paper-tint);
+}
+.tableWrap tbody tr:hover > * {
+  background: var(--paper-hover);
+}
+.markdown {
+  display: grid;
+  gap: 12px;
+  overflow-wrap: anywhere;
+  padding: 16px 18px;
+  background: var(--ash);
+  border-radius: var(--control-radius);
+  line-height: 1.6;
+}
+.markdown ul,
+.markdown ol {
+  margin: 0;
+  padding-left: 24px;
+}
+.markdown li + li {
+  margin-top: 8px;
+}
+.tableTitle {
+  display: block;
+  color: var(--ink);
+  font-size: 15.5px;
+  font-weight: 500;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.tableTitle:hover {
+  color: var(--olivine);
+  text-decoration: underline;
+}
+/* A title that opens something in place reads exactly like a linked title. */
+button.tableTitle {
+  min-height: 24px;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+}
+.tableNote {
+  margin-top: 10px;
+}
+.tableMeta {
+  display: block;
+  margin-top: 4px;
+  color: var(--slate);
+  font-size: 14px;
+  font-weight: 400;
+}
+/* The name column leads: it keeps a readable width and whole words, status shrinks to its
+ * label, and details wraps into what is left. */
+.catalog tbody th {
+  width: 40%;
+  min-width: 15rem;
+}
+.catalog .tableTitle {
+  overflow-wrap: break-word;
+}
+.catalog td {
+  overflow-wrap: anywhere;
+}
+.catalogStatus {
+  width: 1%;
+  white-space: nowrap;
+}
+.resultTable {
+  min-width: 1000px;
+  font-variant-numeric: tabular-nums;
+}
+.groupHeading th,
+th.groupHeading {
+  background: var(--paper-tint);
+  padding-block: 12px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+}
+.numeric {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.comparisonCards {
+  display: none;
+}
+/* Follow-up actions read as one aligned list, not a cloud of equal buttons. */
+.actionList {
+  display: grid;
+  gap: 8px;
+}
+.actionList + .actionList {
+  margin-top: 8px;
+}
+.actionList > :is(.secondary, .primary) {
+  justify-content: flex-start;
+  width: 100%;
+  text-align: left;
+}
+.expandCaret {
+  transition: transform 120ms ease;
+}
+[aria-expanded="true"] > .expandCaret {
+  transform: rotate(180deg);
+}
+/* An expanded build's observations read as part of the build above, not a new row. */
+.tableWrap tr:has(+ .detailRow) > * {
+  border-bottom-color: transparent;
+}
+.detailRow > td {
+  background: var(--paper-tint);
+  padding-top: 4px;
+}
+.cardGroup {
+  margin: 20px 0 10px;
+  font-size: 17px;
+}
+.cardGroup:first-child {
+  margin-top: 0;
+}
+.buildCard {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+.buildCard + .buildCard {
+  margin-top: 12px;
+}
+.buildCard .factList {
+  justify-self: stretch;
+}
+.cardMarks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.resultTable th[scope="row"] {
+  min-width: 200px;
+}
+.resultTable th[scope="row"] .textButton {
+  padding-inline: 0;
+  font-size: 16px;
+  text-align: left;
+}
+.captureCell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--control-radius);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.captureCell > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.captureCell small {
+  padding-left: 23px;
+  color: var(--slate);
+}
+.captureCell:hover {
+  background: var(--ash);
+  border-color: var(--rule);
+}
+.captureMet {
+  color: var(--ink);
+}
+.captureFailed {
+  color: var(--rust);
+}
+.captureMissing {
+  color: var(--ochre);
+}
+/* Not enough evidence is an answer: the ochre ink of a warning, not of a missing answer. */
+.captureInsufficient {
+  color: var(--ochre-ink);
+}
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--slate);
+}
+.attention {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.attention:last-child {
+  border-bottom: 0;
+}
+.attention > div {
+  flex: 1;
+  min-width: 0;
+}
+.attention p {
+  color: var(--slate);
+  font-size: 14px;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+/* Figures sit in tinted tiles, one tint per kind of measure, sharing hairlines. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1px;
+  margin: 0 0 28px;
+  border: 1px solid var(--rule);
+  background: var(--rule);
+}
+.stat {
+  display: grid;
+  align-content: space-between;
+  gap: 18px;
+  min-width: 0;
+  padding: 16px 20px 18px;
+  background: var(--tile-result);
+}
+.statCost {
+  background: var(--tile-cost);
+}
+.statTime {
+  background: var(--tile-time);
+}
+.stat dt {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.stat dd {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.modelList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--sheet-radius);
+}
+.modelList + p {
+  margin-top: 12px;
+}
+.modelList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.modelList li:last-child {
+  border-bottom: 0;
+}
+.modelList code {
+  color: var(--slate);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.modelList h2 {
+  font-size: 21px;
+}
+/* Why work didn't finish: one row for each recorded cause, with the builds that it stopped. */
+.causes {
+  margin-top: 16px;
+}
+.causes h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.causeList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--sheet-radius);
+}
+.causeList li {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px 24px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  overflow-wrap: anywhere;
+}
+.causeList li:last-child {
+  border-bottom: 0;
+}
+/* The cause keeps a readable width. On a narrow screen its build links wrap below it. */
+.causeList li > :first-child {
+  flex: 1 1 16rem;
+}
+.modelActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+}
+.modelConcurrency {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+/* A styled select keeps an 11rem minimum; a number of requests needs much less. */
+.modelConcurrency select {
+  width: 88px;
+  min-width: 0;
+}
+/* The default models: one column of fields at a readable width. */
+.defaultsForm {
+  display: grid;
+  gap: 16px;
+  max-width: 32rem;
+  margin: 16px 0 20px;
+}
+.defaultsForm > p {
+  margin: -8px 0 0;
+}
+/* Failure hypotheses: one card for each question, two columns where there is room. */
+.hypothesisCriterion {
+  margin: 16px 0 8px;
+  font-size: 16px;
+}
+.hypotheses {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hypotheses > li {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  overflow-wrap: anywhere;
+}
+.hypothesisHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+}
+.hypothesisFacts {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+.hypothesisFacts dt {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.hypothesisFacts dd {
+  margin: 2px 0 0;
+}
+/* The known builds that a person marked, each with its sentence and a Retire action. */
+.markedHeading {
+  margin: 20px 0 8px;
+  font-size: 16px;
+}
+.markedBuilds {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.markedBuilds li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 16px;
+}
+.markedBuilds li + li {
+  border-top: 1px solid var(--rule);
+}
+.markedBuilds li > span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 18rem;
+  overflow-wrap: anywhere;
+}
+.toolSetNote {
+  margin: 10px 0 14px;
+}
+/* Tool names as separate code chips, so each name reads as one unit. */
+.codeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+.codeList code {
+  padding: 1px 6px;
+  border-radius: var(--control-radius);
+  background: var(--code-ground);
+}
+/* The label sets the width: a percentage width inside a shrink-to-fit label stays narrow. */
+.modelSearch {
+  flex: 0 1 24rem;
+}
+.modelSearch input {
+  width: 100%;
+}
+/* The button lines up with the field, not with the field and its label together. */
+.searchRow {
+  align-items: end;
+}
+
+.rowAction {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+.rowAction .secondary {
+  min-height: 40px;
+  padding: 8px 16px;
+}
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+/* The prompt is what the tested model receives; the sealed pane is never shown to it. */
+.authorPane {
+  padding: 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--sheet-radius);
+}
+.sealed {
+  background: var(--ash-deep);
+  border-color: var(--rule-strong);
+  box-shadow: inset 0 3px 0 var(--seal);
+}
+.sealed ol {
+  margin: 0;
+  padding-left: 24px;
+}
+.sealed ol li + li {
+  margin-top: 6px;
+}
+
+.changeCounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  margin: 14px 0 18px;
+  border: 1px solid var(--rule);
+  background: var(--rule);
+}
+.changeCounts > div {
+  display: grid;
+  align-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--tile-result);
+}
+.changeCounts dt {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.changeCounts dd {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.changeRow {
+  display: grid;
+  gap: 4px;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------- Views ---------- */
+/* Views are a segmented control: hairline cells sharing borders, the current one solid. */
+.tabs {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 28px;
+  padding: 0 1px 1px 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.tabNavigation {
+  position: relative;
+  min-width: 0;
+}
+.arrow {
+  display: inline-block;
+  flex: none;
+  width: 0.85em;
+  height: 0.85em;
+  vertical-align: -0.05em;
+}
+.scrollCue {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: var(--slate);
+}
+.tabs :focus-visible,
+.tableWrap :focus-visible,
+.viewerButton:focus-visible {
+  outline-offset: -3px;
+}
+.tabs a,
+.tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  min-height: 44px;
+  margin: 0 -1px -1px 0;
+  padding: 0 16px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.tabs a:hover,
+.tabs button:hover {
+  position: relative;
+  color: var(--ink);
+  background: var(--paper-hover);
+  border-color: var(--ink);
+}
+.tabs [aria-current="page"],
+.tabs [aria-selected="true"],
+.tabs [aria-pressed="true"] {
+  position: relative;
+  color: var(--on-basalt);
+  background: var(--basalt);
+  border-color: var(--basalt);
+}
+.runViews {
+  flex-wrap: wrap;
+}
+.runAttention::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--ochre);
+}
+.runAttention:not([aria-current]) {
+  color: var(--ochre-ink);
+}
+
+/* ---------- Progress timeline ---------- */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+/* Only the steps of the timeline. A list inside a step keeps its own layout. */
+.timeline > li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 16px;
+  position: relative;
+  padding-bottom: 22px;
+}
+.timeline > li:last-child {
+  padding-bottom: 0;
+}
+.timeline > li::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 30px;
+  bottom: 2px;
+  border-left: 1px solid var(--rule-strong);
+}
+.timeline > li:last-child::before {
+  display: none;
+}
+.timeline > li[data-state="done"]::before {
+  border-left-color: var(--basalt);
+}
+.timeline h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-height: 28px;
+  font-size: 18px;
+}
+.timeline > li[data-state="upcoming"] h3 {
+  color: var(--slate);
+}
+.stageMark {
+  display: grid;
+  place-items: center;
+  height: 28px;
+  width: 28px;
+  flex-shrink: 0;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  background: var(--mark-quiet);
+}
+li[data-state="done"] > .stageMark {
+  background: var(--basalt);
+  color: var(--on-basalt);
+}
+li[data-state="current"] > .stageMark {
+  background: var(--olivine);
+  color: var(--on-basalt);
+}
+li[data-state="stopped"] > .stageMark {
+  background: var(--ochre);
+  color: var(--on-basalt);
+}
+.timeline p {
+  font-size: 14.5px;
+  color: var(--slate);
+  margin-top: 2px;
+}
+.currentStep {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: var(--paper-tint);
+  border-left: 2px solid var(--olivine);
+}
+.currentStep p {
+  margin: 0;
+}
+/* A run between steps shows its summary above the whole timeline, apart from step 1. */
+.currentStep + .timeline {
+  margin-top: 20px;
+}
+.currentStep .notice {
+  margin: 4px 0 0;
+}
+.noticeAction {
+  margin-top: 12px;
+}
+.notice .section {
+  margin-top: 12px;
+}
+.currentStep strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.elapsed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  color: var(--slate);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.elapsed strong {
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 400;
+}
+/* Several units of a run can be in flight at once: one line for each unit. */
+.currentStep .unitList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.currentStep .unitList li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  font-size: 14.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--slate);
+}
+
+/* ---------- Execution log: one dense line per transition ---------- */
+.activityLog {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--sheet-radius);
+}
+.activityLog li {
+  display: grid;
+  grid-template-columns: 9.5rem 8px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 4px 14px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.activityLog li:last-child {
+  border-bottom: 0;
+}
+.activityLog time {
+  display: grid;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.activityLog time span {
+  color: var(--ink);
+}
+.activityLog p {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  font-size: 15px;
+}
+.activityLog p strong {
+  font-weight: 500;
+}
+.activityLog p span {
+  color: var(--slate);
+  overflow-wrap: anywhere;
+}
+.logMark {
+  width: 8px;
+  height: 8px;
+  align-self: start;
+  margin-top: 7px;
+  background: var(--control-border);
+}
+.activityLog li[data-kind="completed"] .logMark {
+  background: var(--olivine);
+}
+.activityLog li[data-kind="failed"] .logMark,
+.activityLog li[data-kind="incomplete"] .logMark,
+.activityLog li[data-kind="not_dispatched"] .logMark {
+  background: var(--rust);
+}
+.activityLog li[data-kind="paused"] .logMark,
+.activityLog li[data-kind="provider_paused"] .logMark,
+.activityLog li[data-kind="stop_requested"] .logMark {
+  background: var(--ochre);
+}
+
+/* ---------- Spending ledger ---------- */
+.budget {
+  display: grid;
+  gap: 16px;
+}
+.budgetBar,
+.meter {
+  display: flex;
+  height: 6px;
+  background: var(--ash-deep);
+  overflow: hidden;
+}
+.budgetBar span,
+.meter span {
+  background: var(--basalt);
+}
+.budgetBar i,
+.meter i {
+  background: repeating-linear-gradient(-45deg, var(--ochre) 0 3px, var(--ochre-light) 3px 6px);
+}
+.code {
+  background: var(--code-ground);
+  border: 1px solid var(--rule);
+  padding: 16px;
+  border-radius: var(--control-radius);
+  max-height: 520px;
+  overflow: auto;
+  font-size: 12.5px;
+  margin: 12px 0;
+}
+.dialog {
+  width: min(640px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  border: 1px solid var(--rule);
+  border-radius: var(--control-radius);
+  padding: 28px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 24px 72px var(--shadow-deep);
+}
+.dialog::backdrop {
+  background: var(--backdrop);
+}
+.contentsList {
+  margin: 6px 0 12px;
+  padding-left: 20px;
+}
+.contentsList li + li {
+  margin-top: 2px;
+}
+.contentsList + p {
+  margin: 0 0 16px;
+}
+.dialog > .sectionHeading + p {
+  margin: -6px 0 20px;
+}
+
+/* ---------- Review ---------- */
+.reviewGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(340px, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.questionContext {
+  grid-column: 1 / -1;
+}
+.definitionList {
+  display: grid;
+  gap: 12px;
+  margin-block: 16px;
+}
+.definitionList > div {
+  display: grid;
+  grid-template-columns: minmax(6rem, 0.6fr) minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+}
+.definitionList dd {
+  margin: 0;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-block: 16px;
+}
+.answerPanel {
+  align-self: start;
+  position: sticky;
+  top: 24px;
+}
+.answerChoices {
+  border: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  min-width: 0;
+}
+.answerChoices legend {
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.answerChoice {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  min-height: 52px;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--control-radius);
+  color: inherit;
+  cursor: pointer;
+}
+.answerChoice:hover {
+  border-color: var(--ink);
+}
+.answerChoice[aria-pressed="true"] {
+  border-color: var(--basalt);
+  box-shadow: inset 0 0 0 1px var(--basalt);
+  background: var(--olivine-wash);
+}
+.answerChoice span {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--slate);
+}
+.reviewActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.reviewActions + p {
+  margin-top: 12px;
+}
+.factList {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.factList > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 8px;
+}
+.definitionList dt,
+.factList dt {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.factList dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+/* Every step of a scenario, also one that Studio did not see in time. */
+.scenarioSteps {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  margin-bottom: 24px;
+}
+.scenarioSteps h5 {
+  margin: 4px 0 0;
+}
+.stepList {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.stepList > li {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.stepList > li > p {
+  margin: 0;
+}
+/* A step that Studio did not see in time is inconclusive: an ochre rule, never the red of a failure. */
+.stepList > li[data-step-outcome="not_observed_within_horizon"] {
+  border-left: 3px solid var(--ochre);
+}
+.stepList > li[data-step-outcome="acquisition_failed"] {
+  border-left: 3px dashed var(--rule-strong);
+}
+.stepHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+.stepHead > strong {
+  overflow-wrap: anywhere;
+}
+.stepRequirement {
+  padding-left: 12px;
+  border-left: 3px solid var(--rule-strong);
+  font-size: 15px;
+}
+/* The images of one request, in request order, with their size and the start of their hash. */
+.requestImages {
+  display: grid;
+  gap: 2px;
+  margin: 6px 0 0;
+  padding-left: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.requestImages code {
+  color: var(--slate);
+  font-size: 13px;
+}
+/* Short facts read as a grid, each label above its value, so a wide panel stays scannable. */
+.factGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px 20px;
+  margin: 0;
+}
+.factGrid > div {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+}
+.factGrid dt {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.factGrid dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+/* The recorded facts of an observation, one compact row each, with the source beside the name. */
+.runtimeFacts {
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+.runtimeFacts > li {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.factHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+.factHead > h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ---------- Evidence: a neutral stage keeps color judgments honest ---------- */
+.viewer {
+  display: grid;
+  place-items: center;
+  background: var(--stage);
+  border-radius: var(--sheet-radius);
+  min-height: 260px;
+  overflow: hidden;
+}
+.viewer img {
+  display: block;
+  max-height: 620px;
+  width: 100%;
+  object-fit: contain;
+}
+.viewerButton {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: zoom-in;
+}
+/* The stage and its playback bar read as one player. */
+.screen {
+  display: grid;
+  min-width: 0;
+}
+/* Recorded frames play like a video from one bar under the stage. */
+.player {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 4px;
+  padding: 6px 10px 6px 6px;
+  background: var(--frame);
+  color: var(--on-frame);
+}
+.playerButton {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--control-radius);
+  background: transparent;
+  color: var(--on-frame);
+}
+.playerButton:hover:not(:disabled) {
+  background: var(--frame-raised);
+}
+.playerButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.player :focus-visible {
+  outline: 2px solid var(--on-frame);
+  outline-offset: 1px;
+}
+.playerTime,
+.playerFrame {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.playerTime {
+  margin-inline: 6px 2px;
+}
+.playerFrame {
+  color: var(--on-frame-muted);
+}
+.scrubber {
+  flex: 1 1 160px;
+  min-width: 0;
+  height: 28px;
+  min-height: 0;
+  margin: 0 10px;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.scrubber::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    var(--on-frame) var(--progress, 0%),
+    color-mix(in srgb, var(--on-frame) 28%, transparent) var(--progress, 0%)
+  );
+}
+.scrubber::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: 0;
+  border-radius: 0;
+  background: var(--on-frame);
+}
+.scrubber::-moz-range-track {
+  height: 4px;
+  background: color-mix(in srgb, var(--on-frame) 28%, transparent);
+}
+.scrubber::-moz-range-progress {
+  height: 4px;
+  background: var(--on-frame);
+}
+.scrubber::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 0;
+  background: var(--on-frame);
+}
+select.playerSpeed {
+  --chevron: var(--on-frame);
+  width: auto;
+  min-width: 0;
+  min-height: 32px;
+  padding-block: 2px;
+  border-color: color-mix(in srgb, var(--on-frame) 35%, transparent);
+  background-color: transparent;
+  color: var(--on-frame);
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+select.playerSpeed:hover:not(:disabled) {
+  border-color: var(--on-frame);
+}
+select.playerSpeed::picker-icon {
+  color: var(--on-frame);
+}
+.viewerButton:focus-visible {
+  outline-color: var(--on-frame);
+}
+.acknowledge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 0;
+}
+
+/* ---------- Run a benchmark: three steps; the last, under a spruce bar, authorizes spending ---------- */
+.launchLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 368px;
+  gap: 28px;
+  align-items: start;
+  counter-reset: step;
+}
+.launchLayout > .form {
+  gap: 20px;
+}
+.launchAside {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 24px;
+}
+.launchLayout .panel {
+  padding: 28px;
+}
+.step {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.step > .sectionHeading {
+  margin-bottom: 4px;
+}
+.step > button,
+.step > a {
+  justify-self: start;
+}
+.step > .section,
+.step > details {
+  margin-top: 0;
+}
+.pager {
+  margin-top: 16px;
+}
+.slab .primary {
+  width: 100%;
+  margin-top: 20px;
+}
+.step > .sectionHeading h2::before,
+.step [id="run-models"] > legend::before,
+.slab > h2::before {
+  counter-increment: step;
+  content: counter(step) / "";
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-right: 14px;
+  vertical-align: 3px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--on-basalt);
+  background: var(--basalt);
+}
+.step [id="run-models"] > legend {
+  font-family: var(--serif);
+  font-size: 23px;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.slab {
+  border-color: var(--rule-strong);
+}
+.equation {
+  font-size: 17px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+.equation strong {
+  font-size: 22px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.slab > h2 {
+  display: flex;
+  align-items: center;
+  margin: -28px -28px 22px;
+  padding: 10px 28px;
+  background: var(--frame);
+  color: var(--on-frame);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.slab > h2::before {
+  background: var(--frame-field);
+  color: var(--frame-field-ink);
+}
+.slab .primary {
+  font-size: 15.5px;
+  min-height: 52px;
+}
+.slab input {
+  font-size: 24px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Run workspace ---------- */
+.runWorkspace > .pageHeading {
+  margin-bottom: 24px;
+}
+.copyLink {
+  position: relative;
+  gap: 6px;
+}
+.runSummary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 14px 40px;
+  padding: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--slate);
+}
+.runSummary strong {
+  color: var(--ink);
+}
+.ledger {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.ledger strong,
+.modelNames {
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.ledger .meter {
+  width: 260px;
+  max-width: 100%;
+}
+.progressFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+.runMissing {
+  color: var(--ochre-ink);
+  font-size: 15px;
+  margin: 0 0 12px;
+}
+.runWorkspace > .tabs,
+.runWorkspace > .tabNavigation > .tabs {
+  margin-bottom: 24px;
+}
+
+/* ---------- Results: one mark per observation ---------- */
+.criterionList {
+  display: grid;
+  gap: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--sheet-radius);
+  overflow: hidden;
+}
+.criterionCount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+  padding: 14px 24px;
+  background: var(--paper-tint);
+}
+.criterionGroup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px 32px;
+  padding: 18px 24px;
+  border-top: 1px solid var(--rule);
+}
+.criterionGroup h2 {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.45;
+  margin: 0;
+}
+.criterionObservations {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.criterionTally {
+  min-width: 112px;
+  margin-left: 10px;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+/* A reassessment lists each criterion's answers by observation, with the checker's reason. */
+.judgmentGroup {
+  padding: 18px 24px;
+  border-top: 1px solid var(--rule);
+}
+.judgmentGroup h3 {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.45;
+  margin: 0 0 10px;
+}
+.judgments {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.judgments li {
+  display: grid;
+  grid-template-columns: 7.5rem 11rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 4px 20px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+}
+.judgments li > p {
+  margin: 0;
+  color: var(--slate);
+}
+.judgments .status {
+  justify-self: start;
+}
+.judgmentPass {
+  color: var(--slate);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+/* Recorded errors: identical ones counted together, each with its source and stack trace. */
+.diagnosticChannels h5 {
+  margin: 16px 0 2px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.errorGroups {
+  display: grid;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.errorGroups li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 4px 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+}
+.errorGroups code {
+  overflow-wrap: anywhere;
+}
+.errorCount {
+  color: var(--rust-ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+/* A sensitivity test: per criterion, the recorded answer beside each control's answer. */
+.sensitivity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.sensitivity h3 {
+  margin: 20px 0 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.sensitivity h3 + .small {
+  margin: -6px 0 0;
+}
+.sensitivityNote {
+  max-width: 72ch;
+  margin: 0;
+  color: var(--slate);
+}
+.conditionTable {
+  min-width: 720px;
+  font-variant-numeric: tabular-nums;
+}
+.conditionTable th[scope="row"] .action {
+  display: flex;
+  margin-top: 6px;
+}
+.conditionTable details p {
+  margin: 0 0 4px;
+  max-width: 36ch;
+  color: var(--slate);
+  font-size: 14px;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--slate);
+  font-size: 14px;
+}
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend .mark {
+  width: 14px;
+  min-width: 14px;
+  height: 14px;
+  min-height: 14px;
+  padding: 0;
+  cursor: default;
+}
+.mark {
+  display: inline-grid;
+  place-items: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 6px;
+  border-radius: 0;
+  border: 1.5px solid transparent;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-decoration: none;
+}
+button.mark:hover {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.markMet {
+  background: var(--basalt);
+  color: var(--on-basalt);
+}
+/* The line stops short of the observation number, so the number stays readable. A mark
+   without a number, as in the legend, keeps the whole line. */
+.markFailed {
+  background:
+    radial-gradient(30% 30% at 50% 50%, var(--paper) 92%, transparent 100%),
+    linear-gradient(135deg, transparent 46%, var(--rust) 46% 54%, transparent 54%), var(--paper);
+  border-color: var(--rust);
+  color: var(--rust);
+}
+.markFailed:empty {
+  background: var(--paper)
+    linear-gradient(135deg, transparent 46%, var(--rust) 46% 54%, transparent 54%);
+}
+.markMissing {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--ochre-wash) 0 4px,
+    var(--ochre-hatch) 4px 8px
+  );
+  border-color: var(--ochre);
+  color: var(--ochre-deep);
+}
+.markPending {
+  background: var(--paper);
+  border: 1.5px dashed var(--control-border);
+  color: var(--slate);
+}
+.markScored {
+  background: var(--paper);
+  border-color: var(--basalt);
+  color: var(--ink);
+}
+/* The judge samples disagree: a solid edge on a paper face, neither met nor not met. */
+.markSplit {
+  background: linear-gradient(90deg, var(--basalt) 0 5px, var(--paper) 5px);
+  border-color: var(--basalt);
+  color: var(--ink);
+}
+/* Not enough evidence: a final answer, so a solid ochre base on a wash, never a hatch or a
+   dashed edge. */
+.markInsufficient {
+  background: linear-gradient(0deg, var(--ochre) 0 5px, var(--ochre-wash) 5px);
+  border-color: var(--ochre);
+  color: var(--ochre-deep);
+}
+.criterionObservations .mark {
+  min-width: 40px;
+  height: 40px;
+}
+.markRow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  vertical-align: middle;
+}
+.markRow .mark {
+  min-width: 26px;
+  height: 26px;
+  padding: 0 4px;
+  font-size: 12px;
+}
+.buildState {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 10px 0 4px;
+}
+
+.outcomeBar {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+  max-width: 280px;
+  height: 8px;
+  margin-bottom: 8px;
+}
+.outcomeBar > span {
+  min-width: 4px;
+}
+.barMet {
+  background: var(--basalt);
+}
+.barFailed {
+  background: var(--rust);
+}
+.barScored {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--basalt);
+}
+/* Split answers: the solid edge of the split mark on a paper face. The edge is wide enough to
+   show beside the outline, so a split part never looks like a scored part. */
+.barSplit {
+  background: linear-gradient(90deg, var(--basalt) 0 6px, var(--paper) 6px);
+  box-shadow: inset 0 0 0 1.5px var(--basalt);
+}
+.barInsufficient {
+  background: linear-gradient(0deg, var(--ochre) 0 3px, var(--ochre-wash) 3px);
+  box-shadow: inset 0 0 0 1px var(--ochre);
+}
+.barMissing {
+  background: repeating-linear-gradient(-45deg, var(--ochre) 0 2px, var(--ochre-soft) 2px 5px);
+}
+.barPending {
+  background: transparent;
+  border: 1px dashed var(--control-border);
+}
+
+/* ---------- Desk: running work and unfinished work ---------- */
+.liveRuns,
+.resume {
+  margin: 4px 0 40px;
+}
+/* Desk lists open with a spruce bar naming the list in mono capitals. */
+.liveRuns > .sectionHeading,
+.resume > .sectionHeading {
+  margin: 0;
+  padding: 9px 20px;
+  background: var(--frame);
+  color: var(--on-frame);
+}
+.liveRuns > .sectionHeading h2,
+.resume > .sectionHeading h2 {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.liveRuns > .sectionHeading :is(p, .small),
+.resume > .sectionHeading .small {
+  margin: 0;
+  color: var(--on-frame-muted);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.liveRuns > .sectionHeading a {
+  color: var(--on-frame);
+}
+.liveRuns > .sectionHeading a:hover {
+  background: var(--frame-raised);
+}
+.liveRuns > .sectionHeading :focus-visible {
+  outline-color: var(--on-frame);
+}
+.liveRuns ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 0;
+}
+.liveRuns li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.liveRuns li:last-child {
+  border-bottom: 0;
+}
+.liveRuns li > .status {
+  order: -1;
+  flex-shrink: 0;
+}
+.liveRun {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  /* Every column can shrink, so long model lists wrap in their own column instead of
+     starving the title. */
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: baseline;
+  gap: 4px 24px;
+  min-height: 44px;
+  align-content: center;
+  color: var(--ink);
+  text-decoration: none;
+}
+.liveRun:hover .liveTitle {
+  color: var(--olivine);
+  text-decoration: underline;
+}
+.liveTitle {
+  font-size: 16px;
+  font-weight: 500;
+  overflow-wrap: break-word;
+}
+.livePhase {
+  overflow-wrap: break-word;
+}
+.liveMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  color: var(--slate);
+  font-size: 14px;
+}
+.resume ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 0;
+}
+.resume details ul {
+  border-top: 1px solid var(--rule);
+}
+/* Discard has its own column so every Continue lines up, discardable or not. */
+.resume li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 6rem;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+.resume li > .resumeRow {
+  min-width: 0;
+}
+.resumeDiscard {
+  justify-self: start;
+  margin-inline: 0;
+  color: var(--slate);
+  font-weight: 400;
+}
+.resumeUndo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 16px;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.resume li:last-child {
+  border-bottom: 0;
+}
+.resume details {
+  margin-top: 8px;
+}
+.resume details ul {
+  margin-top: 4px;
+}
+/* One row per unfinished piece of work; the whole row continues it. */
+.resumeRow {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    "kind title go"
+    "kind detail go";
+  align-items: center;
+  gap: 2px 24px;
+  min-height: 64px;
+  padding: 12px 20px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.resumeRow:hover {
+  background: var(--paper-hover);
+  text-decoration: none;
+}
+.resumeRow:focus-visible {
+  outline-offset: -3px;
+}
+.resumeKind {
+  grid-area: kind;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.resumeTitle {
+  grid-area: title;
+  font-size: 16px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.resumeDetail {
+  grid-area: detail;
+  color: var(--slate);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.resumeGo {
+  grid-area: go;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--control-radius);
+  color: var(--olivine);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.resumeGo::after {
+  content: "";
+  width: 11px;
+  height: 11px;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='black' stroke-width='1.4'%3E%3Cpath d='M1 6h9.5M6.5 2 10.5 6l-4 4'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.resumeRow:hover .resumeGo {
+  background: var(--olivine-wash);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .main,
+  .focusMain {
+    --gutter: 24px;
+    padding-top: 32px;
+    padding-bottom: 64px;
+  }
+  .band {
+    padding-inline: 20px;
+  }
+  .primaryNav a,
+  .utilityNav a,
+  .utilityMenu > summary {
+    padding-inline: 11px;
+  }
+}
+@media (max-width: 1023px) {
+  .liveRun {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .liveMeta {
+    grid-column: 1 / -1;
+  }
+  .primaryNav,
+  .utilityNav {
+    display: none;
+  }
+  .bandEnd {
+    margin-left: auto;
+  }
+  .menuButton {
+    display: inline-flex;
+  }
+  .reviewGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .answerPanel {
+    position: static;
+  }
+  .dialog .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .launchLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .launchAside {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+  }
+}
+@media (max-width: 700px) {
+  /* Review actions keep their order on phones. Previous is beside a wider Save & next.
+   * Cannot tell is beside End session. All four buttons use one grid. */
+  .reviewActions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+  .reviewActions > .textButton {
+    justify-self: start;
+  }
+  /* On phones the scrubber spans the bar above the buttons, as in a phone video player. */
+  .scrubber {
+    order: -1;
+    flex-basis: 100%;
+    margin: 4px 6px 2px;
+  }
+  .playerFrame {
+    margin-left: auto;
+  }
+  .desktopComparison {
+    display: none;
+  }
+  .comparisonCards {
+    display: grid;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .comparisonCards h3 {
+    margin-bottom: 8px;
+  }
+  .pagination,
+  .sectionHeading {
+    flex-wrap: wrap;
+  }
+  .main,
+  .focusMain {
+    --gutter: 16px;
+    padding-top: 22px;
+    padding-bottom: 56px;
+  }
+  .band,
+  .reviewHeader {
+    padding-inline: 16px;
+  }
+  .brand {
+    margin-right: 0;
+  }
+  .pageHeading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+    padding-bottom: 20px;
+  }
+  /* The run title keeps its full width; copying the link shrinks to its icon beside it. */
+  .runWorkspace > .pageHeading {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .copyLink {
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+  }
+  .copyLink span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .lede {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  .breadcrumb {
+    margin-bottom: 8px;
+  }
+  .columns,
+  .selectionGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .panelBody,
+  .launchLayout .panel {
+    padding: 20px;
+  }
+  .stats,
+  .changeCounts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .changeCounts dd {
+    font-size: 26px;
+  }
+  .stat dd {
+    font-size: 26px;
+  }
+  .attention {
+    flex-wrap: wrap;
+    padding: 18px;
+  }
+  .attention > div {
+    flex-basis: 70%;
+  }
+  .reviewHeader {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .reviewBrand {
+    display: none;
+  }
+  .tabs a,
+  .tabs button {
+    padding-inline: 12px;
+  }
+  .slab > h2 {
+    margin: -20px -20px 20px;
+    padding-inline: 20px;
+  }
+  .dialog {
+    padding: 20px;
+  }
+  .tableWrap th,
+  .tableWrap td {
+    padding: 12px;
+  }
+  /* Catalog rows read as stacked entries on phones instead of squeezed columns. */
+  .catalog,
+  .catalog tbody,
+  .catalog tr,
+  .catalog th,
+  .catalog td {
+    display: block;
+  }
+  .catalog thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .catalog tr {
+    display: grid;
+    gap: 8px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .catalog tbody tr:last-child {
+    border-bottom: 0;
+  }
+  .tableWrap .catalog th,
+  .tableWrap .catalog td {
+    padding: 0;
+    border: 0;
+  }
+  .catalog tbody th,
+  .catalog .catalogStatus,
+  .catalog .rowAction {
+    width: auto;
+    min-width: 0;
+    text-align: left;
+  }
+  /* Figure tables keep their row name on top and label each value beneath it. */
+  .stackTable,
+  .stackTable tbody,
+  .stackTable th,
+  .stackTable td {
+    display: block;
+  }
+  .stackTable.resultTable {
+    min-width: 0;
+  }
+  .stackTable thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .stackTable tr {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: 6px 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stackTable tbody tr:last-child {
+    border-bottom: 0;
+  }
+  .stackTable tbody th,
+  .stackTable td[colspan] {
+    grid-column: 1 / -1;
+  }
+  .tableWrap .stackTable th,
+  .tableWrap .stackTable td {
+    padding: 0;
+    border: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .stackTable td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    color: var(--slate);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .activityLog li {
+    grid-template-columns: 8px minmax(0, 1fr);
+    padding: 10px 14px;
+  }
+  .activityLog time {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 8px;
+    font-size: 13px;
+  }
+  .activityLog .logMark {
+    grid-row: 1;
+  }
+  .criterionGroup {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 16px;
+  }
+  .criterionObservations {
+    justify-content: flex-start;
+  }
+  .judgmentGroup {
+    padding: 16px;
+  }
+  .judgments li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .judgments li > p {
+    grid-column: 1 / -1;
+  }
+  .liveRuns li {
+    flex-wrap: wrap;
+    padding: 14px 16px;
+  }
+  /* On phones the title takes the full width; Continue and Discard share the last line. */
+  .resume li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .resume li > .resumeRow {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .resumeDiscard {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    margin: 0 8px 4px 0;
+  }
+  .resumeRow {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "kind"
+      "title"
+      "detail"
+      "go";
+    padding: 12px 16px;
+  }
+  .resumeGo {
+    justify-self: start;
+    margin: 6px 0 0 -8px;
+  }
+  .liveRun {
+    flex-basis: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .criterionCount {
+    padding: 14px 16px;
+  }
+  .empty {
+    padding: 28px 20px;
+  }
+  .liveRuns > .sectionHeading,
+  .resume > .sectionHeading {
+    padding-inline: 16px;
+  }
+}
+
+/* ---------- Stages of an evaluation ---------- */
+.stageBlock {
+  display: grid;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.stageHeading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+.stageHeading h2 {
+  margin: 0;
+}
+.stageBlock fieldset {
+  display: grid;
+  gap: 8px;
+}
+/* The gate belongs to the stage above it, so it sits close under the stage inputs. */
+.stageGate {
+  margin-top: 16px;
+}
+.stageUndo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 16px;
+  margin: 0;
+}
+.stageBlock fieldset > small {
+  max-width: 72ch;
+}
+.stageAdd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+}

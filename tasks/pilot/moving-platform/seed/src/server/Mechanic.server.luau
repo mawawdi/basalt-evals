@@ -1,0 +1,2 @@
+--!strict
+-- Implement the moving-platform mechanic described in task.json.

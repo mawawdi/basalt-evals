@@ -1,0 +1,21 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "xp-progress",
+  "title": "Readable XP progression UI",
+  "prompt": "Complete the seed with a small XP progression loop. Start at Level 1 with 80 of 100 XP. Each activation of the visible Gain XP control grants 35 XP. Reaching 100 advances the level and carries excess XP. Update the numeric progress and progress bar together.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "A visible control grants XP during Play mode.",
+    "ProgressText shows Level 2 after enough activations and the bar reflects carried progress.",
+    "The UI remains readable in the native viewport and emits no runtime errors."
+  ],
+  "evidenceInstructions": [
+    "Create the runtime UI at Players.LocalPlayer.PlayerGui.ProgressGui.",
+    "Keep the numeric label named ProgressText and the button named GainXP under ProgressGui.Panel.",
+    "Set a string attribute named CapturePhase on ProgressGui, initially ready. After the first GainXP activation and its UI update, set it to leveled. This is an interaction acknowledgement, not a quality score."
+  ]
+}

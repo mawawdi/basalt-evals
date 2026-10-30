@@ -1,0 +1,74 @@
+{
+  "name": "BombPassingWorkerControl",
+  "tree": {
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "Ground": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [100, 1, 100]
+        }
+      },
+      "EvalSpawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Duration": 0,
+          "Enabled": true,
+          "Neutral": true,
+          "CFrame": [0, 1, 18, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [8, 1, 8]
+        }
+      },
+      "HolderMarker": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "Transparency": 1,
+          "CFrame": [-6, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [4, 1, 4]
+        }
+      },
+      "NearMarker": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "Transparency": 1,
+          "CFrame": [2, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [4, 1, 4]
+        }
+      },
+      "FarMarker": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "Transparency": 1,
+          "CFrame": [36, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [4, 1, 4]
+        }
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "BombState": { "$className": "Folder" },
+      "PassBomb": { "$className": "RemoteEvent" }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "BombServer": { "$path": "src/server/BombServer.server.luau" }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "BombClient": { "$path": "src/client/BombClient.client.luau" }
+      }
+    }
+  }
+}

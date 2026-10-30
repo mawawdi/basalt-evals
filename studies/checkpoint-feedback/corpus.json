@@ -1,0 +1,89 @@
+{
+  "schema": "basalt-evals/authored-corpus",
+  "id": "checkpoint-feedback-development",
+  "taskDirectory": "studies/checkpoint-feedback/task",
+  "environment": {
+    "platform": "Roblox Studio",
+    "studioVersion": "0.739.0.7390687",
+    "captureProtocol": "studio-mcp-viewport",
+    "cameraProtocol": "Scriptable camera at (17,14,26), lookAt (0,1,2), vertical FOV 60; no operator movement."
+  },
+  "protocol": {
+    "camera": "Scriptable camera at (17,14,26), lookAt (0,1,2), vertical FOV 60; no operator movement.",
+    "player": "Single Studio Play client. Server-owned character physics, movement disabled. Fixed controls place the character above or away from the pad; actual falling contact activates it. Wait for grounding before capture.",
+    "lighting": "ClockTime 14, Brightness 2, Ambient and OutdoorAmbient RGB(110,110,110), GlobalShadows false. The server creates identical ground, checkpoint collision geometry, path and course pylons for every variant.",
+    "graphics": "On the validated macOS Studio 0.739 setup, use Rendering > Graphics Mode OpenGL and restart Studio: Metal returned solid-magenta Play screenshots. Set EditQualityLevel to Level21 and require the Play client's QualityLevel to report Level21. This Studio build resets QualityLevel when Play starts; an Edit Command Bar assignment does not establish Play quality. Check the Client render.settings event in the trial trace; unavailable settings or deviations leave capture review incomplete. Keep the same renderer and quality across the corpus. Preserve original acquired bytes.",
+    "action": "The fixed gui_button plan collects three ordered states. BasaltEvalCaptureControls occupies only the top 9% of the native viewport. Mask that strip for judging after human verification; preserve all product UI. No resizing or required resolution. Use Run capture from the connected Edit plugin; do not click controls manually during a trial.",
+    "limitations": "Four authored visual variants, including one intended feedback-suppression contrast, with identical mechanic logic, all development-only. These are state samples, not video; no elapsed duration, response latency, continuous feel, transfer or calibration claim. Camera/framing and native dimensions must be consistent and human-reviewed. Existing draft rubric wording is reused without a new human approval. Hold inference until the expert approves the rubric and clean evidence.",
+    "phases": [
+      {
+        "id": "ready",
+        "captureId": "frame-ready",
+        "elapsedMs": null,
+        "candidateFactId": "ready-candidate",
+        "phaseFactId": "ready-phase"
+      },
+      {
+        "id": "active",
+        "captureId": "frame-active",
+        "elapsedMs": null,
+        "candidateFactId": "active-candidate",
+        "phaseFactId": "active-phase"
+      },
+      {
+        "id": "departed",
+        "captureId": "frame-departed",
+        "elapsedMs": null,
+        "candidateFactId": "departed-candidate",
+        "phaseFactId": "departed-phase"
+      }
+    ]
+  },
+  "rubricStatus": "draft_requires_human_review",
+  "variants": [
+    {
+      "id": "839ba97d1dba",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/839ba97d1dba.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "d26ba1736ce5",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/d26ba1736ce5.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "3c4a4269d54e",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/3c4a4269d54e.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "ab75db75936e",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/ab75db75936e.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    }
+  ]
+}

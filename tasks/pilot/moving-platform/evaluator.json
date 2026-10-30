@@ -1,0 +1,162 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "moving-platform"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["primary"],
+    "scenarios": [],
+    "phases": [
+      {
+        "id": "motion",
+        "label": "Observe one travel leg",
+        "instruction": "Start Play, wait until EvalPlatform begins moving, then capture this phase without moving the platform manually.",
+        "driver": {
+          "kind": "manual"
+        },
+        "facts": [
+          {
+            "id": "platform",
+            "kind": "instance",
+            "path": "game.Workspace.EvalPlatform"
+          },
+          {
+            "id": "travel",
+            "kind": "part_motion",
+            "path": "game.Workspace.EvalPlatform",
+            "sampleCount": 41,
+            "intervalMs": 200
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "platform-wide",
+            "instruction": "Frame the platform and both endpoint markers during motion."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "mechanic-source",
+      "layer": "static",
+      "statement": "The mechanic source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/server/Mechanic.server.luau"
+      }
+    },
+    {
+      "id": "platform-class",
+      "layer": "engine",
+      "statement": "The observed platform remains a Part.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "motion",
+        "factId": "platform",
+        "field": "className",
+        "expected": "Part"
+      }
+    },
+    {
+      "id": "travel-distance",
+      "layer": "engine",
+      "statement": "The platform moves a meaningful distance during the sample.",
+      "required": true,
+      "rule": {
+        "kind": "number_in_range",
+        "phaseId": "motion",
+        "factId": "travel",
+        "field": "delta",
+        "minimum": 18,
+        "maximum": 30
+      }
+    },
+    {
+      "id": "runtime-clean",
+      "layer": "engine",
+      "statement": "Studio reports no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "motion",
+        "factId": "errors"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "motion-design",
+      "statement": "The motion loop is clear, bounded, and avoids accumulating positional drift.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/server"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Fragile",
+          "description": "The loop leaks work, compounds drift, or obscures its timing and endpoints."
+        },
+        {
+          "score": 1,
+          "label": "Maintainable",
+          "description": "The route and timing are bounded and understandable with no material lifecycle defect."
+        },
+        {
+          "score": 2,
+          "label": "Robust",
+          "description": "The implementation expresses endpoints, timing, pause behavior, and cleanup with concise Roblox idioms."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "motion-legibility",
+      "statement": "The moving route and usable platform are visually legible at play distance.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["platform-wide"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unreadable",
+          "description": "The platform or route cannot be identified."
+        },
+        {
+          "score": 1,
+          "label": "Understandable",
+          "description": "The platform and route can be inferred but lack clear visual separation."
+        },
+        {
+          "score": 2,
+          "label": "Clear",
+          "description": "The platform, route, and endpoints are immediately distinguishable."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "Judge whether the motion feels predictable and usable rather than merely detectable."
+  ],
+  "sequence": null
+}

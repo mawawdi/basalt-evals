@@ -1,0 +1,44 @@
+{
+  "name": "ReplicatedCheckpointEval",
+  "tree": {
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "Ground": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [80, 1, 80]
+        }
+      },
+      "EvalSpawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Duration": 0,
+          "Enabled": true,
+          "Neutral": true,
+          "CFrame": [0, 1, 18, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [6, 1, 6]
+        }
+      },
+      "CheckpointA": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [0, 1.25, -18, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [10, 1, 10]
+        }
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "GameState": { "$className": "Folder" }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Checkpoint": { "$path": "src/server/Checkpoint.server.luau" }
+    }
+  }
+}

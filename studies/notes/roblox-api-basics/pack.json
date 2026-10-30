@@ -1,0 +1,14 @@
+{
+  "schema": "basalt-evals/notes-pack",
+  "id": "roblox-api-basics",
+  "title": "Roblox API basics",
+  "review": "needs_person_review",
+  "files": [
+    { "path": "script-contexts.md", "title": "Scripts, contexts and services" },
+    { "path": "instances-and-events.md", "title": "Instances, attributes and events" },
+    { "path": "remote-communication.md", "title": "Replication and remotes" },
+    { "path": "timing-and-motion.md", "title": "Timing, motion and tweens" },
+    { "path": "user-interface.md", "title": "Player interface" },
+    { "path": "luau-language.md", "title": "Luau language" }
+  ]
+}

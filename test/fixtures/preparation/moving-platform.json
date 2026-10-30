@@ -1,0 +1,906 @@
+{
+  "sourceOperation": "flow-8fa206b38bbd9e92bba40cb8f9b6ecf5",
+  "input": {
+    "schema": "basalt-evals/eval-authoring-input",
+    "stages": [
+      {
+        "prompt": "Complete the seed so EvalPlatform carries players smoothly between its two marked endpoints, pauses briefly at each end, and repeats without accumulating drift. The mechanic must work in Roblox Studio Play mode.",
+        "rubric": "- The anchored platform travels at least 18 studs along the marked route and returns.\n  - Evidence class: motion\n- Motion is smooth enough for a player to understand and use the platform.\n  - Evidence class: appearance\n- The Play session emits no runtime errors from the mechanic."
+      }
+    ],
+    "title": "Moving platform with readable timing"
+  },
+  "publicSubmissions": [
+    {
+      "publicScene": {
+        "parts": [
+          {
+            "anchored": true,
+            "canCollide": true,
+            "name": "EvalPlatform",
+            "position": [-20, 3, 0],
+            "size": [8, 1, 8],
+            "transparency": 0
+          },
+          {
+            "anchored": true,
+            "canCollide": false,
+            "name": "EvalEndpointA",
+            "position": [-20, 3, 0],
+            "size": [1, 0.2, 8],
+            "transparency": 0.15
+          },
+          {
+            "anchored": true,
+            "canCollide": false,
+            "name": "EvalEndpointB",
+            "position": [20, 3, 0],
+            "size": [1, 0.2, 8],
+            "transparency": 0.15
+          }
+        ]
+      },
+      "stages": [
+        {
+          "publicDevelopment": {
+            "plan": {
+              "actors": ["rider1", "rider2"],
+              "clients": 2,
+              "phases": [
+                {
+                  "captures": [
+                    {
+                      "id": "platform-setup-frame",
+                      "instruction": "Capture the Play view for scene context; this image is setup evidence, not proof of carrying or repeated motion."
+                    }
+                  ],
+                  "driver": {
+                    "kind": "wait_for_session",
+                    "timeoutMs": 30000
+                  },
+                  "facts": [
+                    {
+                      "id": "phase-platform-presence",
+                      "kind": "instance",
+                      "path": "game.Workspace.EvalPlatform"
+                    },
+                    {
+                      "id": "phase-endpoint-a",
+                      "kind": "part_position",
+                      "path": "game.Workspace.EvalEndpointA"
+                    },
+                    {
+                      "id": "phase-endpoint-b",
+                      "kind": "part_position",
+                      "path": "game.Workspace.EvalEndpointB"
+                    }
+                  ],
+                  "id": "play-scene-context",
+                  "instruction": "Capture the supplied route layout in a Play session as setup context.",
+                  "label": "Play scene context"
+                }
+              ],
+              "roles": [],
+              "scenarios": [
+                {
+                  "durationMs": 130000,
+                  "id": "platform-play-cycle",
+                  "label": "Two riders during platform cycles",
+                  "reportContexts": ["server", "rider1", "rider2"],
+                  "steps": [
+                    {
+                      "action": {
+                        "kind": "wait"
+                      },
+                      "at": {
+                        "startMs": 0
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "initial-layout",
+                      "observations": [
+                        {
+                          "context": "server",
+                          "fact": {
+                            "id": "platform-name",
+                            "kind": "instance_name",
+                            "path": "game.Workspace.EvalPlatform"
+                          }
+                        },
+                        {
+                          "context": "server",
+                          "fact": {
+                            "id": "platform-start",
+                            "kind": "part_position",
+                            "path": "game.Workspace.EvalPlatform"
+                          }
+                        },
+                        {
+                          "context": "server",
+                          "fact": {
+                            "id": "platform-initial-physics",
+                            "kind": "part_physics",
+                            "path": "game.Workspace.EvalPlatform"
+                          }
+                        },
+                        {
+                          "context": "server",
+                          "fact": {
+                            "id": "endpoint-a-position",
+                            "kind": "part_position",
+                            "path": "game.Workspace.EvalEndpointA"
+                          }
+                        },
+                        {
+                          "context": "server",
+                          "fact": {
+                            "id": "endpoint-b-position",
+                            "kind": "part_position",
+                            "path": "game.Workspace.EvalEndpointB"
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "actor": "rider1",
+                        "kind": "place_on_part",
+                        "targetPath": "game.Workspace.EvalPlatform"
+                      },
+                      "at": {
+                        "startMs": 1000
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "place-rider1",
+                      "observations": [
+                        {
+                          "context": "rider1",
+                          "fact": {
+                            "actor": "rider1",
+                            "id": "rider1-initial-platform-support",
+                            "kind": "actor_part_support",
+                            "path": "game.Workspace.EvalPlatform"
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "actor": "rider2",
+                        "kind": "place_on_part",
+                        "targetPath": "game.Workspace.EvalPlatform"
+                      },
+                      "at": {
+                        "startMs": 1000
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "place-rider2",
+                      "observations": [
+                        {
+                          "context": "rider2",
+                          "fact": {
+                            "actor": "rider2",
+                            "id": "rider2-initial-platform-support",
+                            "kind": "actor_part_support",
+                            "path": "game.Workspace.EvalPlatform"
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "kind": "wait"
+                      },
+                      "at": {
+                        "startMs": 2000
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "observe-rider1-cycle",
+                      "observations": [
+                        {
+                          "context": "rider1",
+                          "fact": {
+                            "actor": "rider1",
+                            "id": "rider1-platform-trajectory",
+                            "intervalMs": 250,
+                            "kind": "actor_part_motion",
+                            "path": "game.Workspace.EvalPlatform",
+                            "sampleCount": 480
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "kind": "wait"
+                      },
+                      "at": {
+                        "startMs": 2000
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "observe-rider2-cycle",
+                      "observations": [
+                        {
+                          "context": "rider2",
+                          "fact": {
+                            "actor": "rider2",
+                            "id": "rider2-platform-trajectory",
+                            "intervalMs": 250,
+                            "kind": "actor_part_motion",
+                            "path": "game.Workspace.EvalPlatform",
+                            "sampleCount": 480
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "kind": "wait"
+                      },
+                      "at": {
+                        "startMs": 2000
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "observe-route-cycles",
+                      "observations": [
+                        {
+                          "context": "server",
+                          "fact": {
+                            "durationMs": 120000,
+                            "endPath": "game.Workspace.EvalEndpointB",
+                            "id": "platform-endpoint-visits",
+                            "kind": "part_route_trace",
+                            "path": "game.Workspace.EvalPlatform",
+                            "proximityStuds": 3.5,
+                            "startPath": "game.Workspace.EvalEndpointA"
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "kind": "wait"
+                      },
+                      "at": {
+                        "startMs": 122500
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "check-rider1-support",
+                      "observations": [
+                        {
+                          "context": "rider1",
+                          "fact": {
+                            "actor": "rider1",
+                            "id": "rider1-final-platform-support",
+                            "kind": "actor_part_support",
+                            "path": "game.Workspace.EvalPlatform"
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "kind": "wait"
+                      },
+                      "at": {
+                        "startMs": 122500
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "check-rider2-support",
+                      "observations": [
+                        {
+                          "context": "rider2",
+                          "fact": {
+                            "actor": "rider2",
+                            "id": "rider2-final-platform-support",
+                            "kind": "actor_part_support",
+                            "path": "game.Workspace.EvalPlatform"
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    },
+                    {
+                      "action": {
+                        "kind": "wait"
+                      },
+                      "at": {
+                        "startMs": 124000
+                      },
+                      "horizonMs": 1000,
+                      "holdMs": 0,
+                      "id": "collect-session-diagnostics",
+                      "observations": [
+                        {
+                          "context": "server",
+                          "fact": {
+                            "id": "server-session-diagnostics",
+                            "kind": "diagnostics"
+                          }
+                        },
+                        {
+                          "context": "rider1",
+                          "fact": {
+                            "id": "rider1-session-diagnostics",
+                            "kind": "diagnostics"
+                          }
+                        },
+                        {
+                          "context": "rider2",
+                          "fact": {
+                            "id": "rider2-session-diagnostics",
+                            "kind": "diagnostics"
+                          }
+                        }
+                      ],
+                      "requirement": null
+                    }
+                  ]
+                }
+              ],
+              "schema": "basalt-evals/studio-plan"
+            },
+            "schema": "basalt-evals/public-development",
+            "task": {
+              "slug": "moving-platform-with-readable-timin-e7dc0698"
+            },
+            "views": [
+              {
+                "camera": null,
+                "id": "platform-cycle-view",
+                "frameBudget": 64,
+                "maximumGapMs": 1000,
+                "requiredTransitions": [],
+                "scenarioId": "platform-play-cycle",
+                "viewport": null
+              }
+            ]
+          },
+          "publicTask": {
+            "acceptance": [
+              "In Roblox Studio Play mode, EvalPlatform carries players between its two marked endpoints, pauses briefly at each end, and repeats the trip without accumulating drift.",
+              "The platform's motion is smooth, and the mechanic works during Play."
+            ],
+            "evidenceInstructions": [
+              "Observe the platform and riders over a window long enough to show repeated endpoint visits when feasible; keep the measured timing and sampling gaps in mind when describing motion.",
+              "The neutral setup uses EvalEndpointA and EvalEndpointB as visible route markers and starts EvalPlatform at EvalEndpointA. These chosen positions and dimensions are setup assumptions, not movement-speed or smoothness thresholds."
+            ],
+            "roles": []
+          }
+        }
+      ]
+    }
+  ],
+  "privatePlanSubmissions": [
+    {
+      "studio": {
+        "actors": ["rider1", "rider2"],
+        "clients": 2,
+        "phases": [],
+        "roles": [],
+        "scenarios": [
+          {
+            "durationMs": 130000,
+            "id": "platform-cycle-evaluation",
+            "label": "Platform route, carrying, and runtime diagnostics",
+            "reportContexts": ["server", "rider1", "rider2"],
+            "steps": [
+              {
+                "action": {
+                  "kind": "wait"
+                },
+                "at": {
+                  "startMs": 0
+                },
+                "horizonMs": 1000,
+                "holdMs": 0,
+                "id": "initial-layout",
+                "observations": [
+                  {
+                    "context": "server",
+                    "fact": {
+                      "id": "platform-name",
+                      "kind": "instance_name",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  },
+                  {
+                    "context": "server",
+                    "fact": {
+                      "id": "platform-start",
+                      "kind": "part_position",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  },
+                  {
+                    "context": "server",
+                    "fact": {
+                      "id": "platform-initial-physics",
+                      "kind": "part_physics",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  },
+                  {
+                    "context": "server",
+                    "fact": {
+                      "id": "endpoint-a-position",
+                      "kind": "part_position",
+                      "path": "game.Workspace.EvalEndpointA"
+                    }
+                  },
+                  {
+                    "context": "server",
+                    "fact": {
+                      "id": "endpoint-b-position",
+                      "kind": "part_position",
+                      "path": "game.Workspace.EvalEndpointB"
+                    }
+                  }
+                ],
+                "requirement": null
+              },
+              {
+                "action": {
+                  "actor": "rider1",
+                  "kind": "place_on_part",
+                  "targetPath": "game.Workspace.EvalPlatform"
+                },
+                "at": {
+                  "startMs": 1000
+                },
+                "horizonMs": 1000,
+                "holdMs": 0,
+                "id": "place-rider1",
+                "observations": [
+                  {
+                    "context": "rider1",
+                    "fact": {
+                      "actor": "rider1",
+                      "id": "rider1-initial-platform-support",
+                      "kind": "actor_part_support",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  }
+                ],
+                "requirement": null
+              },
+              {
+                "action": {
+                  "actor": "rider2",
+                  "kind": "place_on_part",
+                  "targetPath": "game.Workspace.EvalPlatform"
+                },
+                "at": {
+                  "startMs": 2000
+                },
+                "horizonMs": 1000,
+                "holdMs": 0,
+                "id": "place-rider2",
+                "observations": [
+                  {
+                    "context": "rider2",
+                    "fact": {
+                      "actor": "rider2",
+                      "id": "rider2-initial-platform-support",
+                      "kind": "actor_part_support",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  }
+                ],
+                "requirement": null
+              },
+              {
+                "action": {
+                  "kind": "wait"
+                },
+                "at": {
+                  "startMs": 3000
+                },
+                "horizonMs": 1000,
+                "holdMs": 0,
+                "id": "dense-motion-window",
+                "observations": [
+                  {
+                    "context": "rider1",
+                    "fact": {
+                      "actor": "rider1",
+                      "id": "rider1-platform-dense-motion",
+                      "intervalMs": 50,
+                      "kind": "actor_part_motion",
+                      "path": "game.Workspace.EvalPlatform",
+                      "sampleCount": 100
+                    }
+                  }
+                ],
+                "requirement": null
+              },
+              {
+                "action": {
+                  "kind": "wait"
+                },
+                "at": {
+                  "startMs": 9000
+                },
+                "horizonMs": 1000,
+                "holdMs": 0,
+                "id": "long-cycle-window",
+                "observations": [
+                  {
+                    "context": "rider1",
+                    "fact": {
+                      "actor": "rider1",
+                      "id": "rider1-platform-long-motion",
+                      "intervalMs": 250,
+                      "kind": "actor_part_motion",
+                      "path": "game.Workspace.EvalPlatform",
+                      "sampleCount": 440
+                    }
+                  },
+                  {
+                    "context": "rider2",
+                    "fact": {
+                      "actor": "rider2",
+                      "id": "rider2-platform-long-motion",
+                      "intervalMs": 250,
+                      "kind": "actor_part_motion",
+                      "path": "game.Workspace.EvalPlatform",
+                      "sampleCount": 440
+                    }
+                  },
+                  {
+                    "context": "server",
+                    "fact": {
+                      "durationMs": 110000,
+                      "endPath": "game.Workspace.EvalEndpointB",
+                      "id": "platform-endpoint-visits",
+                      "kind": "part_route_trace",
+                      "path": "game.Workspace.EvalPlatform",
+                      "proximityStuds": 3.5,
+                      "startPath": "game.Workspace.EvalEndpointA"
+                    }
+                  },
+                  {
+                    "context": "server",
+                    "fact": {
+                      "durationMs": 110000,
+                      "id": "platform-anchored-trace",
+                      "kind": "part_physics_trace",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  }
+                ],
+                "requirement": null
+              },
+              {
+                "action": {
+                  "kind": "wait"
+                },
+                "at": {
+                  "startMs": 121000
+                },
+                "horizonMs": 1000,
+                "holdMs": 0,
+                "id": "post-window-observations",
+                "observations": [
+                  {
+                    "context": "rider1",
+                    "fact": {
+                      "actor": "rider1",
+                      "id": "rider1-final-platform-support",
+                      "kind": "actor_part_support",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  },
+                  {
+                    "context": "rider2",
+                    "fact": {
+                      "actor": "rider2",
+                      "id": "rider2-final-platform-support",
+                      "kind": "actor_part_support",
+                      "path": "game.Workspace.EvalPlatform"
+                    }
+                  },
+                  {
+                    "context": "server",
+                    "fact": {
+                      "id": "server-session-diagnostics",
+                      "kind": "diagnostics"
+                    }
+                  },
+                  {
+                    "context": "rider1",
+                    "fact": {
+                      "id": "rider1-session-diagnostics",
+                      "kind": "diagnostics"
+                    }
+                  },
+                  {
+                    "context": "rider2",
+                    "fact": {
+                      "id": "rider2-session-diagnostics",
+                      "kind": "diagnostics"
+                    }
+                  }
+                ],
+                "requirement": null
+              }
+            ]
+          }
+        ],
+        "schema": "basalt-evals/studio-plan"
+      },
+      "sequence": {
+        "camera": null,
+        "requiredTransitions": [
+          {
+            "id": "rider1-placement",
+            "source": {
+              "kind": "action",
+              "stepId": "place-rider1"
+            },
+            "effectWindowMs": 1000,
+            "holdMs": 0
+          },
+          {
+            "id": "rider2-placement",
+            "source": {
+              "kind": "action",
+              "stepId": "place-rider2"
+            },
+            "effectWindowMs": 1000,
+            "holdMs": 0
+          }
+        ],
+        "frameBudget": 64,
+        "maximumGapMs": 1000,
+        "scenarioId": "platform-cycle-evaluation",
+        "viewport": null
+      }
+    },
+    {
+      "baseHash": "598eb3480d7705f122cf0ef6943d8aaace990a415f6c294bbc23cebed7b54b34",
+      "edits": [
+        {
+          "op": "add",
+          "path": "/studio/phases/-",
+          "value": {
+            "captures": [
+              {
+                "id": "platform-scene-frame",
+                "instruction": "Capture the platform from the acquired actor viewpoint as scene context."
+              }
+            ],
+            "driver": {
+              "kind": "observe_from_actor",
+              "targetPath": "game.Workspace.EvalPlatform",
+              "timeoutMs": 30000
+            },
+            "facts": [
+              {
+                "id": "phase-platform-presence",
+                "kind": "instance",
+                "path": "game.Workspace.EvalPlatform"
+              }
+            ],
+            "id": "platform-scene-context",
+            "instruction": "Acquire the public platform from an actor viewpoint as scene context.",
+            "label": "Platform scene context"
+          }
+        }
+      ]
+    }
+  ],
+  "privateCriteriaSubmissions": [
+    {
+      "deterministic": [],
+      "codeQuality": [],
+      "visual": [],
+      "unscaled": [
+        {
+          "evidence": {
+            "actions": [],
+            "captureIds": [],
+            "facts": [
+              {
+                "context": "server",
+                "factId": "platform-start",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "initial-layout"
+              },
+              {
+                "context": "server",
+                "factId": "platform-initial-physics",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "initial-layout"
+              },
+              {
+                "context": "server",
+                "factId": "endpoint-a-position",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "initial-layout"
+              },
+              {
+                "context": "server",
+                "factId": "endpoint-b-position",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "initial-layout"
+              },
+              {
+                "context": "rider1",
+                "factId": "rider1-platform-long-motion",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "long-cycle-window"
+              },
+              {
+                "context": "server",
+                "factId": "platform-endpoint-visits",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "long-cycle-window"
+              },
+              {
+                "context": "server",
+                "factId": "platform-anchored-trace",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "long-cycle-window"
+              }
+            ],
+            "sequence": false,
+            "sourceSelection": {
+              "kind": "all_luau_in_roots",
+              "roots": ["src"]
+            }
+          },
+          "id": "platform-route-distance-return-and-anchoring"
+        },
+        {
+          "evidence": {
+            "actions": [
+              {
+                "context": "rider1",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "place-rider1"
+              },
+              {
+                "context": "rider2",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "place-rider2"
+              }
+            ],
+            "captureIds": [],
+            "facts": [
+              {
+                "context": "rider1",
+                "factId": "rider1-initial-platform-support",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "place-rider1"
+              },
+              {
+                "context": "rider2",
+                "factId": "rider2-initial-platform-support",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "place-rider2"
+              },
+              {
+                "context": "rider1",
+                "factId": "rider1-platform-dense-motion",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "dense-motion-window"
+              },
+              {
+                "context": "rider1",
+                "factId": "rider1-platform-long-motion",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "long-cycle-window"
+              },
+              {
+                "context": "rider2",
+                "factId": "rider2-platform-long-motion",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "long-cycle-window"
+              },
+              {
+                "context": "rider1",
+                "factId": "rider1-final-platform-support",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "post-window-observations"
+              },
+              {
+                "context": "rider2",
+                "factId": "rider2-final-platform-support",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "post-window-observations"
+              }
+            ],
+            "sequence": true,
+            "sourceSelection": {
+              "kind": "all_luau_in_roots",
+              "roots": ["src"]
+            }
+          },
+          "id": "smoothness-and-player-use"
+        },
+        {
+          "evidence": {
+            "actions": [],
+            "captureIds": [],
+            "facts": [
+              {
+                "context": "server",
+                "factId": "server-session-diagnostics",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "post-window-observations"
+              },
+              {
+                "context": "rider1",
+                "factId": "rider1-session-diagnostics",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "post-window-observations"
+              },
+              {
+                "context": "rider2",
+                "factId": "rider2-session-diagnostics",
+                "scenarioId": "platform-cycle-evaluation",
+                "stepId": "post-window-observations"
+              }
+            ],
+            "sequence": false,
+            "sourceSelection": {
+              "kind": "all_luau_in_roots",
+              "roots": ["src"]
+            }
+          },
+          "id": "mechanic-runtime-errors"
+        }
+      ],
+      "humanReview": [],
+      "criterionMappings": [
+        {
+          "authoredClauseIds": ["criterion-1-clause-1", "criterion-1-clause-2"],
+          "authorityId": "rubric-criterion-1",
+          "executableCriterionId": "platform-route-distance-return-and-anchoring",
+          "method": "unscaled",
+          "rationale": "One categorical judgment assesses the entire authored passage: sealed implementation plus signed endpoint positions, sampled platform trajectory, route visits, and an anchored-state trace covering the measured movement window support the distance, return, and anchored claims."
+        },
+        {
+          "authoredClauseIds": ["criterion-2-clause-1", "criterion-2-clause-2"],
+          "authorityId": "rubric-criterion-2",
+          "executableCriterionId": "smoothness-and-player-use",
+          "method": "unscaled",
+          "rationale": "One categorical judgment combines a dense short trajectory, longer two-rider platform/actor motion samples, support probes after controlled placement and later in the run, action receipts, rendered scenario frames, and source review to assess motion quality and use."
+        },
+        {
+          "authoredClauseIds": ["criterion-3-clause-1"],
+          "authorityId": "rubric-criterion-3",
+          "executableCriterionId": "mechanic-runtime-errors",
+          "method": "unscaled",
+          "rationale": "One categorical judgment reviews post-window server and both client diagnostics with sealed source to attribute any runtime errors to the mechanic; ambiguous or unattributable errors remain insufficient evidence."
+        }
+      ],
+      "requiredCapabilities": [
+        "multiplayer",
+        "actor_placement",
+        "actor_part_support",
+        "actor_part_motion",
+        "part_motion",
+        "part_route_trace",
+        "part_physics",
+        "part_physics_trace",
+        "timing"
+      ]
+    }
+  ]
+}

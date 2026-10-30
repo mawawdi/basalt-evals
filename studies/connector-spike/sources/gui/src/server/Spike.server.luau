@@ -1,0 +1,2 @@
+--!strict
+-- GUI control of the connector spike. The server does no work. The LocalScript makes the GUI.

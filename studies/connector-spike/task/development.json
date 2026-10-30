@@ -1,0 +1,64 @@
+{
+  "schema": "basalt-evals/public-development",
+  "task": {
+    "slug": "connector-spike"
+  },
+  "plan": {
+    "schema": "basalt-evals/studio-plan",
+    "clients": 1,
+    "actors": ["primary"],
+    "roles": [],
+    "scenarios": [
+      {
+        "id": "inspect",
+        "label": "Inspect the scene",
+        "durationMs": 2000,
+        "reportContexts": ["server", "primary"],
+        "steps": [
+          {
+            "id": "observe",
+            "at": {
+              "startMs": 1000
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "scene",
+        "label": "Scene",
+        "instruction": "Capture the current scene.",
+        "driver": {
+          "kind": "wait_for_session",
+          "timeoutMs": 10000
+        },
+        "facts": [],
+        "captures": [
+          {
+            "id": "scene",
+            "instruction": "Capture the scene."
+          }
+        ]
+      }
+    ]
+  },
+  "views": [
+    {
+      "id": "scene",
+      "scenarioId": "inspect",
+      "requiredTransitions": [],
+      "camera": null,
+      "viewport": null,
+      "maximumGapMs": 1000,
+      "frameBudget": 64
+    }
+  ]
+}

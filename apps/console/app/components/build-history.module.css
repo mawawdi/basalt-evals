@@ -1,0 +1,240 @@
+/* How a build was built: its turns in order, each with tool calls and changes. */
+/* The entry in a result row sits below the observations button. */
+.entry {
+  display: flex;
+  margin-top: 4px;
+}
+.heading {
+  margin-bottom: 8px;
+}
+.heading h2 {
+  margin: 0;
+}
+.heading p {
+  margin: 6px 0 0;
+  color: var(--slate);
+}
+.figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 1px;
+  margin: 20px 0;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.figures > div {
+  display: grid;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--paper);
+}
+.figures dt {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.figures dd {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+}
+.prompts {
+  margin-bottom: 24px;
+}
+.prompts > details + details {
+  border-top: 1px solid var(--rule);
+}
+.text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.turns {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.turn {
+  min-width: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.turnHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 10px 16px;
+  background: var(--paper-tint);
+  border-bottom: 1px solid var(--rule);
+}
+.turnHead h3 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.meta li + li::before {
+  content: "·";
+  margin-right: 10px;
+  color: var(--rule-strong);
+}
+/* On a phone the details wrap, and a dot would start a line. The gap alone separates them. */
+@media (max-width: 700px) {
+  .meta {
+    column-gap: 16px;
+  }
+  .meta li + li::before {
+    content: none;
+  }
+}
+.turnBody {
+  display: grid;
+  gap: 14px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.calls {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.call {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+.callHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  overflow-wrap: anywhere;
+}
+/* A turn without text starts with its first call, so that call needs no rule above it. */
+.calls:first-child > .call:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.subject {
+  color: var(--slate);
+  font-size: 14px;
+}
+.callHead code {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.errors {
+  margin: 0;
+  padding: 10px 14px 10px 30px;
+  background: var(--code-ground);
+  border-left: 3px solid var(--rust);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+.change {
+  min-width: 0;
+  border: 1px solid var(--rule);
+}
+.changeHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 8px 12px;
+  background: var(--paper-tint);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+.changeHead span {
+  color: var(--slate);
+}
+.lines {
+  margin: 0;
+  padding: 6px 0;
+  background: var(--code-ground);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+/* Changes use glyphs and neutral grounds, not the colors of results. */
+/* Builders indent Luau with tabs. Studio shows a tab four columns wide, and so does this view. */
+.line {
+  display: grid;
+  grid-template-columns: 2ch minmax(0, 1fr);
+  gap: 8px;
+  padding: 0 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 4;
+}
+.line[data-kind="added"] {
+  background: var(--paper-tint);
+  box-shadow: inset 3px 0 0 var(--control-border);
+}
+.line[data-kind="removed"] {
+  background: var(--ash-deep);
+  box-shadow: inset 3px 0 0 var(--rule-strong);
+}
+.line > span:first-child {
+  color: var(--slate);
+}
+.hunkGap {
+  padding: 2px 12px;
+  color: var(--slate);
+}
+.note {
+  margin: 0;
+  padding: 10px 12px;
+  color: var(--slate);
+  font-size: 14px;
+}
+.result {
+  max-height: 360px;
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  overflow: auto;
+  background: var(--code-ground);
+  border: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 4;
+}
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.images img {
+  max-width: min(100%, 320px);
+  height: auto;
+  border: 1px solid var(--rule);
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "replicated-checkpoint",
+  "title": "Server-owned checkpoint state",
+  "prompt": "Complete the seed so touching CheckpointA records that checkpoint in the server-owned ReplicatedStorage.GameState folder. Give players clear feedback when the checkpoint activates and do not trust a client-provided checkpoint identity.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "Touching CheckpointA sets GameState's LastCheckpoint attribute to CheckpointA.",
+    "The server derives the checkpoint identity from the touched server instance.",
+    "The activation is visible to the player and causes no runtime errors."
+  ],
+  "evidenceInstructions": [
+    "Keep the checkpoint at Workspace.CheckpointA and the shared state folder at ReplicatedStorage.GameState.",
+    "Expose the resulting checkpoint name through GameState's LastCheckpoint attribute.",
+    "Keep CheckpointA reachable on foot from the supplied EvalSpawn so the fixed worker can exercise the same physical touch path as a player."
+  ]
+}

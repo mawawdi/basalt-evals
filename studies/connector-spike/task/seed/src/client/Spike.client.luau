@@ -1,0 +1,2 @@
+--!strict
+-- The neutral seed of the connector spike. Each fixed control source replaces this tree.

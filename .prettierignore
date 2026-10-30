@@ -1,0 +1,9 @@
+# Generated or tool-managed artifacts have their own deterministic writers.
+.basalt-evals/
+dist/
+node_modules/
+**/.next/
+**/next-env.d.ts
+plugin/BasaltEvalStudioPlugin.rbxmx
+package-lock.json
+packages/luau-toolchain/roblox/definitions.json

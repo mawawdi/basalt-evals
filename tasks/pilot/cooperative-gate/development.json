@@ -1,0 +1,265 @@
+{
+  "schema": "basalt-evals/public-development",
+  "task": {
+    "slug": "cooperative-gate"
+  },
+  "plan": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 2,
+    "actors": ["alpha", "beta"],
+    "scenarios": [
+      {
+        "id": "pair-and-reset",
+        "label": "Two players approach distinct consoles and try to open the gate",
+        "durationMs": 25000,
+        "reportContexts": ["server", "alpha", "beta"],
+        "steps": [
+          {
+            "id": "approach-alpha",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "alpha",
+              "targetPath": "game.Workspace.ConsoleA"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "approach-beta",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "beta",
+              "targetPath": "game.Workspace.ConsoleB"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "beta-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "beta",
+                  "path": "game.Workspace.ConsoleB",
+                  "radiusStuds": 4
+                },
+                "scope": "beta"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "first-press",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "alpha",
+                  "path": "game.Workspace.ConsoleA",
+                  "radiusStuds": 4
+                },
+                "scope": "alpha"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "alpha",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "second-press",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 1400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "press_key",
+              "actor": "beta",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "inspect-open",
+            "at": {
+              "after": {
+                "step": "second-press"
+              },
+              "offsetMs": 1300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "gate",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "alpha",
+                "fact": {
+                  "id": "status",
+                  "kind": "gui_text",
+                  "path": "game.Players.LocalPlayer.PlayerGui.GateGui.Panel.Status"
+                }
+              },
+              {
+                "context": "beta",
+                "fact": {
+                  "id": "status",
+                  "kind": "gui_text",
+                  "path": "game.Players.LocalPlayer.PlayerGui.GateGui.Panel.Status"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "inspect-reset",
+            "at": {
+              "after": {
+                "step": "second-press"
+              },
+              "offsetMs": 6800
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "gate",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "alpha",
+                "fact": {
+                  "id": "status",
+                  "kind": "gui_text",
+                  "path": "game.Players.LocalPlayer.PlayerGui.GateGui.Panel.Status"
+                }
+              },
+              {
+                "context": "beta",
+                "fact": {
+                  "id": "status",
+                  "kind": "gui_text",
+                  "path": "game.Players.LocalPlayer.PlayerGui.GateGui.Panel.Status"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "presentation",
+        "label": "Gate player view",
+        "instruction": "Capture the player view even if pairing or feedback failed.",
+        "driver": {
+          "kind": "wait_for_exists",
+          "readyFactId": "state",
+          "timeoutMs": 10000
+        },
+        "facts": [
+          {
+            "id": "state",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.GateState",
+            "attribute": "GateOpen"
+          },
+          {
+            "id": "status",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.GateGui.Panel.Status"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "player-view",
+            "instruction": "Unmodified player view of the gate and its public feedback."
+          }
+        ]
+      }
+    ]
+  },
+  "views": [
+    {
+      "id": "standard",
+      "scenarioId": "pair-and-reset",
+      "requiredTransitions": [
+        {
+          "id": "first-press",
+          "source": {
+            "kind": "action",
+            "stepId": "first-press"
+          },
+          "effectWindowMs": 1000,
+          "holdMs": 0
+        },
+        {
+          "id": "second-press",
+          "source": {
+            "kind": "action",
+            "stepId": "second-press"
+          },
+          "effectWindowMs": 1500,
+          "holdMs": 1000
+        }
+      ],
+      "camera": null,
+      "viewport": null,
+      "maximumGapMs": 1000,
+      "frameBudget": 17
+    }
+  ]
+}

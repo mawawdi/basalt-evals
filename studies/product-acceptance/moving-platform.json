@@ -1,0 +1,10 @@
+{
+  "schema": "basalt-evals/eval-authoring-input",
+  "title": "Moving platform with readable timing",
+  "stages": [
+    {
+      "prompt": "Complete the seed so EvalPlatform carries players smoothly between its two marked endpoints, pauses briefly at each end, and repeats without accumulating drift. The mechanic must work in Roblox Studio Play mode.",
+      "rubric": "- The anchored platform travels at least 18 studs along the marked route and returns.\n  - Evidence class: motion\n- Motion is smooth enough for a player to understand and use the platform.\n- The Play session emits no runtime errors from the mechanic."
+    }
+  ]
+}

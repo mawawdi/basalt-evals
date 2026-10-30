@@ -1,0 +1,714 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "readable-impact-vfx"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["primary"],
+    "scenarios": [],
+    "phases": [
+      {
+        "id": "before",
+        "label": "before (-100 ms)",
+        "instruction": "The connector clicks before, waits for the declared phase marker, then captures the held viewport and observations.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.before",
+          "readyFactId": "before-phase",
+          "readyValue": "before",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "before-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "before-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "before-time",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ElapsedMs"
+          },
+          {
+            "id": "before-width",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportWidth"
+          },
+          {
+            "id": "before-height",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportHeight"
+          },
+          {
+            "id": "before-contact",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Contact"
+          },
+          {
+            "id": "before-effect",
+            "kind": "instance",
+            "path": "game.Workspace.ImpactEffect"
+          },
+          {
+            "id": "before-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-before",
+            "instruction": "Raw unedited viewport with the fixed target and camera. The frame shows no candidate, phase or time text; the CaptureState observations identify the capture. Keep the operating controls visible for provenance review."
+          }
+        ]
+      },
+      {
+        "id": "onset",
+        "label": "onset (50 ms)",
+        "instruction": "The connector clicks onset, waits for the declared phase marker, then captures the held viewport and observations.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.onset",
+          "readyFactId": "onset-phase",
+          "readyValue": "onset",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "onset-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "onset-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "onset-time",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ElapsedMs"
+          },
+          {
+            "id": "onset-width",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportWidth"
+          },
+          {
+            "id": "onset-height",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportHeight"
+          },
+          {
+            "id": "onset-contact",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Contact"
+          },
+          {
+            "id": "onset-effect",
+            "kind": "instance",
+            "path": "game.Workspace.ImpactEffect"
+          },
+          {
+            "id": "onset-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-onset",
+            "instruction": "Raw unedited viewport with the fixed target and camera. The frame shows no candidate, phase or time text; the CaptureState observations identify the capture. Keep the operating controls visible for provenance review."
+          }
+        ]
+      },
+      {
+        "id": "peak",
+        "label": "peak (180 ms)",
+        "instruction": "The connector clicks peak, waits for the declared phase marker, then captures the held viewport and observations.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.peak",
+          "readyFactId": "peak-phase",
+          "readyValue": "peak",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "peak-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "peak-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "peak-time",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ElapsedMs"
+          },
+          {
+            "id": "peak-width",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportWidth"
+          },
+          {
+            "id": "peak-height",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportHeight"
+          },
+          {
+            "id": "peak-contact",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Contact"
+          },
+          {
+            "id": "peak-effect",
+            "kind": "instance",
+            "path": "game.Workspace.ImpactEffect"
+          },
+          {
+            "id": "peak-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-peak",
+            "instruction": "Raw unedited viewport with the fixed target and camera. The frame shows no candidate, phase or time text; the CaptureState observations identify the capture. Keep the operating controls visible for provenance review."
+          }
+        ]
+      },
+      {
+        "id": "decay",
+        "label": "decay (650 ms)",
+        "instruction": "The connector clicks decay, waits for the declared phase marker, then captures the held viewport and observations.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.decay",
+          "readyFactId": "decay-phase",
+          "readyValue": "decay",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "decay-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "decay-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "decay-time",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ElapsedMs"
+          },
+          {
+            "id": "decay-width",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportWidth"
+          },
+          {
+            "id": "decay-height",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "ViewportHeight"
+          },
+          {
+            "id": "decay-contact",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Contact"
+          },
+          {
+            "id": "decay-effect",
+            "kind": "instance",
+            "path": "game.Workspace.ImpactEffect"
+          },
+          {
+            "id": "decay-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-decay",
+            "instruction": "Raw unedited viewport with the fixed target and camera. The frame shows no candidate, phase or time text; the CaptureState observations identify the capture. Keep the operating controls visible for provenance review."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "before-elapsed",
+      "layer": "engine",
+      "statement": "The declared phase time was rendered.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "before",
+        "factId": "before-time",
+        "field": "value",
+        "expected": -100
+      }
+    },
+    {
+      "id": "before-contact-check",
+      "layer": "engine",
+      "statement": "Scripted contact state agrees with event time.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "before",
+        "factId": "before-contact",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "before-effect-check",
+      "layer": "engine",
+      "statement": "Effect container exists, regardless of visible salience.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "before",
+        "factId": "before-effect",
+        "field": "exists",
+        "expected": true
+      }
+    },
+    {
+      "id": "before-diagnostics",
+      "layer": "engine",
+      "statement": "No observed Studio runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "before",
+        "factId": "before-errors"
+      }
+    },
+    {
+      "id": "onset-elapsed",
+      "layer": "engine",
+      "statement": "The declared phase time was rendered.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "onset",
+        "factId": "onset-time",
+        "field": "value",
+        "expected": 50
+      }
+    },
+    {
+      "id": "onset-contact-check",
+      "layer": "engine",
+      "statement": "Scripted contact state agrees with event time.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "onset",
+        "factId": "onset-contact",
+        "field": "value",
+        "expected": true
+      }
+    },
+    {
+      "id": "onset-effect-check",
+      "layer": "engine",
+      "statement": "Effect container exists, regardless of visible salience.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "onset",
+        "factId": "onset-effect",
+        "field": "exists",
+        "expected": true
+      }
+    },
+    {
+      "id": "onset-diagnostics",
+      "layer": "engine",
+      "statement": "No observed Studio runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "onset",
+        "factId": "onset-errors"
+      }
+    },
+    {
+      "id": "peak-elapsed",
+      "layer": "engine",
+      "statement": "The declared phase time was rendered.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "peak",
+        "factId": "peak-time",
+        "field": "value",
+        "expected": 180
+      }
+    },
+    {
+      "id": "peak-contact-check",
+      "layer": "engine",
+      "statement": "Scripted contact state agrees with event time.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "peak",
+        "factId": "peak-contact",
+        "field": "value",
+        "expected": true
+      }
+    },
+    {
+      "id": "peak-effect-check",
+      "layer": "engine",
+      "statement": "Effect container exists, regardless of visible salience.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "peak",
+        "factId": "peak-effect",
+        "field": "exists",
+        "expected": true
+      }
+    },
+    {
+      "id": "peak-diagnostics",
+      "layer": "engine",
+      "statement": "No observed Studio runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "peak",
+        "factId": "peak-errors"
+      }
+    },
+    {
+      "id": "decay-elapsed",
+      "layer": "engine",
+      "statement": "The declared phase time was rendered.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "decay",
+        "factId": "decay-time",
+        "field": "value",
+        "expected": 650
+      }
+    },
+    {
+      "id": "decay-contact-check",
+      "layer": "engine",
+      "statement": "Scripted contact state agrees with event time.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "decay",
+        "factId": "decay-contact",
+        "field": "value",
+        "expected": true
+      }
+    },
+    {
+      "id": "decay-effect-check",
+      "layer": "engine",
+      "statement": "Effect container exists, regardless of visible salience.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "decay",
+        "factId": "decay-effect",
+        "field": "exists",
+        "expected": true
+      }
+    },
+    {
+      "id": "decay-diagnostics",
+      "layer": "engine",
+      "statement": "No observed Studio runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "decay",
+        "factId": "decay-errors"
+      }
+    }
+  ],
+  "codeQuality": [],
+  "visual": [
+    {
+      "id": "readability",
+      "statement": "Assess readability of the requested blue impact cue using only the visible phase sequence. Unknown means insufficient visual evidence. Score 0 requires sufficient visual evidence that this criterion fails.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["frame-before", "frame-onset", "frame-peak", "frame-decay"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "0",
+          "description": "Sufficient visual evidence shows that this criterion fails."
+        },
+        {
+          "score": 1,
+          "label": "1",
+          "description": "Cue exists but is normally missed or detached from the event."
+        },
+        {
+          "score": 2,
+          "label": "2",
+          "description": "Cue is detectable but size, timing, contrast, grounding or clutter makes it unreliable."
+        },
+        {
+          "score": 3,
+          "label": "3",
+          "description": "Event and location are clear under representative play conditions."
+        },
+        {
+          "score": 4,
+          "label": "4",
+          "description": "Immediately clear, well-grounded, well-timed, appropriately salient and non-obstructive."
+        }
+      ],
+      "minimumPassingScore": 3,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "salience",
+      "statement": "Assess salience of the requested blue impact cue using only the visible phase sequence. Unknown means insufficient visual evidence. Score 0 requires sufficient visual evidence that this criterion fails.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["frame-before", "frame-onset", "frame-peak", "frame-decay"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "0",
+          "description": "Sufficient visual evidence shows that this criterion fails."
+        },
+        {
+          "score": 1,
+          "label": "1",
+          "description": "Cue exists but is normally missed or detached from the event."
+        },
+        {
+          "score": 2,
+          "label": "2",
+          "description": "Cue is detectable but size, timing, contrast, grounding or clutter makes it unreliable."
+        },
+        {
+          "score": 3,
+          "label": "3",
+          "description": "Event and location are clear under representative play conditions."
+        },
+        {
+          "score": 4,
+          "label": "4",
+          "description": "Immediately clear, well-grounded, well-timed, appropriately salient and non-obstructive."
+        }
+      ],
+      "minimumPassingScore": 3,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "timing",
+      "statement": "Assess timing of the requested blue impact cue using only the visible phase sequence. Unknown means insufficient visual evidence. Score 0 requires sufficient visual evidence that this criterion fails.",
+      "required": true,
+      "evidenceClass": "timing",
+      "polarity": "presence",
+      "captureIds": ["frame-before", "frame-onset", "frame-peak", "frame-decay"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "0",
+          "description": "Sufficient visual evidence shows that this criterion fails."
+        },
+        {
+          "score": 1,
+          "label": "1",
+          "description": "Cue exists but is normally missed or detached from the event."
+        },
+        {
+          "score": 2,
+          "label": "2",
+          "description": "Cue is detectable but size, timing, contrast, grounding or clutter makes it unreliable."
+        },
+        {
+          "score": 3,
+          "label": "3",
+          "description": "Event and location are clear under representative play conditions."
+        },
+        {
+          "score": 4,
+          "label": "4",
+          "description": "Immediately clear, well-grounded, well-timed, appropriately salient and non-obstructive."
+        }
+      ],
+      "minimumPassingScore": 3,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "spatial-grounding",
+      "statement": "Assess spatial grounding of the requested blue impact cue using only the visible phase sequence. Unknown means insufficient visual evidence. Score 0 requires sufficient visual evidence that this criterion fails.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["frame-before", "frame-onset", "frame-peak", "frame-decay"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "0",
+          "description": "Sufficient visual evidence shows that this criterion fails."
+        },
+        {
+          "score": 1,
+          "label": "1",
+          "description": "Cue exists but is normally missed or detached from the event."
+        },
+        {
+          "score": 2,
+          "label": "2",
+          "description": "Cue is detectable but size, timing, contrast, grounding or clutter makes it unreliable."
+        },
+        {
+          "score": 3,
+          "label": "3",
+          "description": "Event and location are clear under representative play conditions."
+        },
+        {
+          "score": 4,
+          "label": "4",
+          "description": "Immediately clear, well-grounded, well-timed, appropriately salient and non-obstructive."
+        }
+      ],
+      "minimumPassingScore": 3,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "obstruction-clutter",
+      "statement": "Assess obstruction clutter of the requested blue impact cue using only the visible phase sequence. Unknown means insufficient visual evidence. Score 0 requires sufficient visual evidence that this criterion fails.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["frame-before", "frame-onset", "frame-peak", "frame-decay"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "0",
+          "description": "Sufficient visual evidence shows that this criterion fails."
+        },
+        {
+          "score": 1,
+          "label": "1",
+          "description": "Cue exists but is normally missed or detached from the event."
+        },
+        {
+          "score": 2,
+          "label": "2",
+          "description": "Cue is detectable but size, timing, contrast, grounding or clutter makes it unreliable."
+        },
+        {
+          "score": 3,
+          "label": "3",
+          "description": "Event and location are clear under representative play conditions."
+        },
+        {
+          "score": 4,
+          "label": "4",
+          "description": "Immediately clear, well-grounded, well-timed, appropriately salient and non-obstructive."
+        }
+      ],
+      "minimumPassingScore": 3,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "intent-coherence",
+      "statement": "Assess intent coherence of the requested blue impact cue using only the visible phase sequence. Unknown means insufficient visual evidence. Score 0 requires sufficient visual evidence that this criterion fails.",
+      "required": true,
+      "evidenceClass": null,
+      "polarity": "presence",
+      "captureIds": ["frame-before", "frame-onset", "frame-peak", "frame-decay"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "0",
+          "description": "Sufficient visual evidence shows that this criterion fails."
+        },
+        {
+          "score": 1,
+          "label": "1",
+          "description": "Cue exists but is normally missed or detached from the event."
+        },
+        {
+          "score": 2,
+          "label": "2",
+          "description": "Cue is detectable but size, timing, contrast, grounding or clutter makes it unreliable."
+        },
+        {
+          "score": 3,
+          "label": "3",
+          "description": "Event and location are clear under representative play conditions."
+        },
+        {
+          "score": 4,
+          "label": "4",
+          "description": "Immediately clear, well-grounded, well-timed, appropriately salient and non-obstructive."
+        }
+      ],
+      "minimumPassingScore": 3,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "All visual statements, generic supplied anchors and thresholds are draft discussion material. Experts must make them task-specific and approve a frozen revision before operative labels or calls.",
+    "Judge continuous timing and game feel as unknown unless the evidence genuinely establishes them."
+  ],
+  "sequence": null
+}

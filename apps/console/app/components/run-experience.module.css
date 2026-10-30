@@ -1,0 +1,385 @@
+.selectionHeading,
+.selectionRow,
+.filterRow,
+.readinessRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.selectionHeading {
+  margin: 12px 0 8px;
+}
+
+.selectedList {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.selectionRow {
+  background: var(--olivine-wash);
+  border: 1px solid var(--rule-strong);
+  border-left: 2px solid var(--basalt);
+  padding: 12px 12px 12px 18px;
+}
+
+.selectionRow > div:first-child {
+  min-width: 0;
+  flex: 1 1 220px;
+}
+
+.selectionRow strong {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--control-radius);
+  background: var(--paper-tint);
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 500;
+  text-align: left;
+}
+.chip:hover {
+  border-color: var(--ink);
+}
+
+.choiceDescription {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-weight: 400;
+}
+
+.scope {
+  display: grid;
+  gap: 10px;
+  padding: 16px 0;
+  margin: 16px 0;
+  border-block: 1px solid var(--rule);
+}
+
+.scope dt {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.scope dd {
+  margin: 0;
+  font-weight: 500;
+  text-align: right;
+}
+
+.filterRow {
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 16px 0;
+}
+
+.filterRow > :first-child {
+  flex: 0 1 440px;
+}
+
+.criteriaCount {
+  color: var(--slate);
+  font-size: 14px;
+  margin-inline-start: auto;
+}
+
+.emptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+@media (max-width: 600px) {
+  .scope dd {
+    text-align: left;
+  }
+
+  .criteriaCount {
+    margin-inline-start: 0;
+    flex-basis: 100%;
+  }
+}
+.setupJump {
+  display: none;
+}
+.evidenceLayout {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.evidenceBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+.evidenceBar > .criteriaCount {
+  margin: 0;
+}
+.stepper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.stepper .criteriaCount {
+  margin: 0;
+  min-width: 96px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+/* Keyboard shortcuts are quiet support text under a navigation bar. */
+.keyHints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+  margin: -4px 0 20px;
+  padding: 0;
+  list-style: none;
+  color: var(--slate);
+  font-size: 14px;
+}
+.keyHints li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.keyCaps {
+  display: inline-flex;
+  gap: 3px;
+}
+.keyHints kbd {
+  min-width: 24px;
+  padding: 0 5px;
+  border: 1px solid var(--rule-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--control-radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+/* A touch screen without a keyboard cannot use the shortcuts. */
+@media (hover: none) and (pointer: coarse) {
+  .keyHints {
+    display: none;
+  }
+}
+.pickers {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 16px 18px;
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+}
+.pickers select {
+  width: 100%;
+}
+.evidenceHeading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 4px;
+}
+/* The mark keeps its own size when a wider item sits in the first column. */
+.evidenceHeading > span:first-child {
+  justify-self: start;
+}
+.evidenceHeading > h2 {
+  font-size: 26px;
+  outline-offset: 4px;
+}
+/* A criterion is a long sentence. On a phone it takes the size of the other headings. */
+@media (max-width: 700px) {
+  .evidenceHeading > h2 {
+    font-size: 21px;
+  }
+}
+.evidenceHeading > h2:only-of-type:first-child,
+.evidenceHeading > h2:first-child {
+  grid-column: 1 / -1;
+}
+.evidenceHeading > p {
+  grid-column: 1 / -1;
+}
+/* Why an answer is missing, in ochre beside the heading it explains. */
+.evidenceReason {
+  margin-top: 4px;
+  padding-left: 12px;
+  border-left: 3px solid var(--ochre);
+  color: var(--ochre-ink);
+  font-size: 15px;
+}
+.evidenceFooter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px 28px;
+  align-items: start;
+  margin-top: 28px;
+}
+.evidenceResult {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 4px 20px 8px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.evidenceResult > p {
+  margin: 0;
+}
+/* With a Compare with build choice, the pickers hold three fields. */
+.comparePickers {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+}
+/* Two builds of one criterion: each row holds one moment of both builds. */
+.sideBySide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px 20px;
+  align-items: start;
+}
+.sideCards {
+  margin-bottom: 16px;
+}
+.sideCard {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px 18px 16px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.sideCard > p {
+  margin: 0;
+}
+.sideCard select {
+  width: 100%;
+}
+.sideAnswer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+.sidePickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-block: 20px;
+}
+.sidePickers > * {
+  flex: 0 1 260px;
+}
+.sideRows {
+  display: grid;
+  gap: 20px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.sideRows > li + li {
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.sideImage {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+}
+/* Why the judge saw a frame, under its time. A frame that the judge did not see has no line. */
+.judgedFrame {
+  display: block;
+  margin-top: 2px;
+  padding-left: 8px;
+  color: var(--ink);
+  border-left: 2px solid var(--basalt);
+}
+/* A moment with no image of one build stays visible, so absence never reads as a match. */
+.sideMissing {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  min-height: 260px;
+  padding: 16px;
+  text-align: center;
+  color: var(--slate);
+  background: var(--paper-tint);
+  border: 1px dashed var(--rule-strong);
+}
+.sideMissing > p {
+  margin: 0;
+  max-width: 36ch;
+}
+.sideMissing > p:first-child {
+  color: var(--ink);
+  font-weight: 600;
+}
+@media (max-width: 700px) {
+  .sideBySide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sideMissing {
+    min-height: 120px;
+  }
+}
+@media (max-width: 900px) {
+  .setupJump {
+    display: block;
+    margin-block: 4px 12px;
+    font-size: 15px;
+  }
+  .pickers,
+  .comparePickers,
+  .evidenceFooter {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  /* The count reads first; the two steps share the row beneath it. */
+  .stepper {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: 100%;
+  }
+  .stepper .criteriaCount {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    text-align: left;
+  }
+}

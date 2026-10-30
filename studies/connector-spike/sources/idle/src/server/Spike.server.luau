@@ -1,0 +1,3 @@
+--!strict
+-- Idle control of the connector spike. The server does no work, so a performance trace of
+-- this source gives the noise floor of the Studio process.

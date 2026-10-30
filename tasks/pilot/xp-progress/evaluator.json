@@ -1,0 +1,177 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "xp-progress"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["primary"],
+    "scenarios": [],
+    "phases": [
+      {
+        "id": "leveled",
+        "label": "Advance one level",
+        "instruction": "Activate Gain XP once and collect the acknowledged updated state.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.GainXP",
+          "readyFactId": "interaction",
+          "readyValue": "leveled",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "interaction",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui",
+            "attribute": "CapturePhase"
+          },
+          {
+            "id": "progress-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.ProgressText"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "progress-ui",
+            "instruction": "Show the complete progression panel after reaching Level 2."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "client-source",
+      "layer": "static",
+      "statement": "The client UI source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/client/Progress.client.luau"
+      }
+    },
+    {
+      "id": "level-label-source",
+      "layer": "static",
+      "statement": "The source defines a level label.",
+      "required": true,
+      "rule": {
+        "kind": "source_contains",
+        "path": "src/client/Progress.client.luau",
+        "text": "Level",
+        "caseSensitive": true
+      }
+    },
+    {
+      "id": "progress-visible",
+      "layer": "engine",
+      "statement": "The progress label is visible in Play mode.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "leveled",
+        "factId": "progress-text",
+        "field": "visible",
+        "expected": true
+      }
+    },
+    {
+      "id": "level-advanced",
+      "layer": "engine",
+      "statement": "The progress label reports Level 2.",
+      "required": true,
+      "rule": {
+        "kind": "fact_contains",
+        "phaseId": "leveled",
+        "factId": "progress-text",
+        "field": "text",
+        "text": "Level 2",
+        "caseSensitive": false
+      }
+    },
+    {
+      "id": "runtime-clean",
+      "layer": "engine",
+      "statement": "Studio reports no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "leveled",
+        "factId": "errors"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "progress-state-design",
+      "statement": "Progression state, threshold carry, and UI updates are expressed coherently without duplicated state.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/client"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Brittle",
+          "description": "Leveling or carry logic is duplicated, inconsistent, or tightly tangled with presentation."
+        },
+        {
+          "score": 1,
+          "label": "Clear",
+          "description": "One understandable state flow drives the visible level, numeric progress, and bar."
+        },
+        {
+          "score": 2,
+          "label": "Well-structured",
+          "description": "State transitions, rendering, and input wiring are concise, proportionate, and easy to extend."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "progress-hierarchy",
+      "statement": "Level, numeric progress, bar state, and action affordance form a clear visual hierarchy.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["progress-ui"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unusable",
+          "description": "Core progression state or action cannot be read."
+        },
+        {
+          "score": 1,
+          "label": "Usable",
+          "description": "State and action are readable with minor hierarchy or spacing problems."
+        },
+        {
+          "score": 2,
+          "label": "Clear",
+          "description": "State, progress, and action are immediately legible and visually balanced."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "Judge clarity, hierarchy, spacing, and whether the fill amount agrees with the numeric state."
+  ],
+  "sequence": null
+}

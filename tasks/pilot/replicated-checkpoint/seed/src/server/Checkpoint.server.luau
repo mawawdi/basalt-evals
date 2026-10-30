@@ -1,0 +1,2 @@
+--!strict
+-- Implement the server-owned checkpoint mechanic described in task.json.

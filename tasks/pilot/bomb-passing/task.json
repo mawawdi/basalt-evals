@@ -1,0 +1,23 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "bomb-passing",
+  "title": "Server-authoritative bomb passing",
+  "prompt": "Build a multiplayer hot-potato mechanic with an 8-second fuse. For a multiplayer round, wait for at least two players to join; once that joined set has remained unchanged for 2 seconds, the server assigns the first bomb to the joined player with the lowest UserId. A new join restarts the stability timer. To support solo play before a round has begun, start a solo round after a 12-second single-player grace period. The holder presses E to pass it to the nearest player within 12 studs, the fuse keeps its original deadline across passes, and expiration deals 40 damage to the current holder exactly once. Ignore client-supplied player identities. If the holder disconnects, clear ownership and return to a waiting state. Clearly communicate ownership and remaining danger without obscuring play.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "For two or more joined players, a 2-second stable join window precedes initial assignment to the lowest-UserId player; a new join restarts that window. A sole player receives a 12-second grace period before solo assignment. The server owns range validation, the 8-second fuse, damage, cleanup, and disconnect recovery.",
+    "A real E key press passes to the nearby player, while out-of-range and forged requests leave ownership unchanged.",
+    "Passing preserves one fuse deadline; expiration damages the current holder once and records one explosion.",
+    "Both clients converge on the server-owned holder state and receive readable holder/fuse feedback."
+  ],
+  "evidenceInstructions": [
+    "Keep ReplicatedStorage.BombState with HolderUserId, FuseDeadline, ExplosionCount, and Status attributes; use Status values waiting, armed, and inactive.",
+    "Keep the client-to-server RemoteEvent at ReplicatedStorage.PassBomb; the server must derive the target instead of trusting its arguments.",
+    "Keep the supplied HolderMarker, NearMarker, and FarMarker parts reachable so the fixed evaluator can drive both avatars through normal movement.",
+    "Keep the visible status label at PlayerGui.BombGui.Panel.Status for the presentation capture."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "basalt-evals/curated-criteria-map",
+  "status": "approved",
+  "note": "The connector spike reads Studio observations, not answers. This one code check exists because each rubric criterion must map to an executable criterion. Approve this map again if a person changes the rubric.",
+  "criteria": [
+    {
+      "authoredCriterionId": "criterion-1",
+      "text": "The fixed spike source has its server entry script.",
+      "executableCriterionId": "spike-source-present",
+      "rationale": "A static path check reads the fixed source tree."
+    }
+  ],
+  "requiredCapabilities": ["state_observation", "static_capture"]
+}

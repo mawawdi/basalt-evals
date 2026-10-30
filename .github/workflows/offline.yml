@@ -1,0 +1,35 @@
+name: Offline verification
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install pinned Roblox tools
+        uses: paradoxum-games/setup-rokit@c6a9749169e3a0146019b899cd0342556f773908
+        with:
+          version: 1.2.0
+          cache: true
+      - name: Expose tools to isolated test directories
+        run: |
+          brew install luau
+          rojo_version="$(sed -n 's/^rojo = "rojo-rbx\/rojo@\([^"]*\)"$/\1/p' rokit.toml)"
+          test -n "$rojo_version"
+          rojo_directory="$HOME/.rokit/tool-storage/rojo-rbx/rojo/$rojo_version"
+          test -x "$rojo_directory/rojo"
+          echo "$rojo_directory" >> "$GITHUB_PATH"
+      - run: npm ci
+      - run: command -v rojo && command -v luau-compile
+      - run: npm run verify

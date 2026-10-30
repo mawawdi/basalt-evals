@@ -1,0 +1,21 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "timed-shutter",
+  "title": "Single-player timed shutter",
+  "prompt": "Build a server-owned shutter opened by one player pressing E within 8 studs of Lever. Shutter starts closed and collidable. A valid press opens it for 5 seconds, then it closes and blocks passage again. Distant requests must do nothing, and presses while open must not extend the deadline or increment the opening count. The player sees compact status feedback. The server owns the activation, collision, timer and replicated state.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "An avatar is physically blocked by Shutter before activation, can pass during its five-second opening, and is blocked again after it closes.",
+    "Only a player near Lever can activate the shutter; a distant request and a press while open do not create another opening or extend the timer.",
+    "ReplicatedStorage.ShutterState reports server-owned IsOpen, Status, OpenCount and Deadline attributes, and the solo player can see compact status text."
+  ],
+  "evidenceInstructions": [
+    "Keep Workspace.Shutter and Workspace.Lever at their seed locations. Shutter is a rectangular physical barrier; the fixed Studio probe approaches it along its thin axis.",
+    "Keep ReplicatedStorage.ShutterState and ReplicatedStorage.ActivateShutter. The server must validate the real sender's distance from Lever.",
+    "The seed does not include a GUI. Create visible status text at PlayerGui.ShutterGui.Panel.Status before waiting for or updating that path; do not assume ShutterGui already exists."
+  ]
+}

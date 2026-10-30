@@ -1,0 +1,241 @@
+{
+  "source": {
+    "planId": "judge-85dd28a0b3dd32b4c63a",
+    "responseId": "gen-1789818598-mTVmFWyp9sicao6kzBJs",
+    "responseFileHash": "0277a969a176d23bfe5109e5d114e36d941d460cbc69a084992045a557424aff"
+  },
+  "value": {
+    "acceptance": {
+      "outcome": "reject",
+      "probabilities": {
+        "abstain": 0,
+        "accept": 0.02,
+        "reject": 0.98
+      }
+    },
+    "criteria": [
+      {
+        "criterionId": "readability",
+        "probabilities": [
+          {
+            "option": "abstain",
+            "probability": 0.6,
+            "score": null
+          },
+          {
+            "option": "anchor_0",
+            "probability": 0.35,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.03,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.01,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.005,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.005,
+            "score": 4
+          }
+        ],
+        "rationale": "All four supplied captures are uniform black fields. No gray target, projectile, contact point, or blue cue is visible in any frame, so the visible phase sequence cannot establish whether the cue is readable. The 0 anchor ('no usable visible cue or evidence cannot locate it') is partly applicable, but a totally blank capture cannot distinguish a missing cue from a failed exposure, so abstention dominates. No fully visible evidence supports scores 1-4.",
+        "score": null
+      },
+      {
+        "criterionId": "salience",
+        "probabilities": [
+          {
+            "option": "abstain",
+            "probability": 0.6,
+            "score": null
+          },
+          {
+            "option": "anchor_0",
+            "probability": 0.35,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.03,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.01,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.005,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.005,
+            "score": 4
+          }
+        ],
+        "rationale": "Salience cannot be judged: nothing is visible against the black field, so no cue salience, contrast, or grounding can be observed. A still black frame also cannot show how noticeable the cue is at the fixed normal play distance. Abstention dominates, with residual mass on the 'cannot locate it' anchor.",
+        "score": null
+      },
+      {
+        "criterionId": "timing",
+        "probabilities": [
+          {
+            "option": "abstain",
+            "probability": 0.7,
+            "score": null
+          },
+          {
+            "option": "anchor_0",
+            "probability": 0.26,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.02,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.01,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.005,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.005,
+            "score": 4
+          }
+        ],
+        "rationale": "Timing requires relating cue onset to the impact across the elapsed phase sequence, and the instruction forbids inferring timing from stills. With all frames uniformly black, there is no visible event or cue onset to place in time, so abstention is the strongest option.",
+        "score": null
+      },
+      {
+        "criterionId": "spatial-grounding",
+        "probabilities": [
+          {
+            "option": "abstain",
+            "probability": 0.6,
+            "score": null
+          },
+          {
+            "option": "anchor_0",
+            "probability": 0.35,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.03,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.01,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.005,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.005,
+            "score": 4
+          }
+        ],
+        "rationale": "Spatial grounding needs a visible contact point on the gray target. No target, projectile, or contact location appears in any capture, so the cue's position relative to the event cannot be verified. Abstention is favored, with residual support for the anchor meaning evidence cannot locate it.",
+        "score": null
+      },
+      {
+        "criterionId": "obstruction-clutter",
+        "probabilities": [
+          {
+            "option": "abstain",
+            "probability": 0.6,
+            "score": null
+          },
+          {
+            "option": "anchor_0",
+            "probability": 0.35,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.03,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.01,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.005,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.005,
+            "score": 4
+          }
+        ],
+        "rationale": "Obstruction and clutter cannot be assessed because no scene elements — target, projectile, or cue — are rendered. A blank frame neither demonstrates clutter nor demonstrates clear occlusion, so abstention dominates with residual mass on the no-usable-cue anchor.",
+        "score": null
+      },
+      {
+        "criterionId": "intent-coherence",
+        "probabilities": [
+          {
+            "option": "abstain",
+            "probability": 0.65,
+            "score": null
+          },
+          {
+            "option": "anchor_0",
+            "probability": 0.3,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.03,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.01,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.005,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.005,
+            "score": 4
+          }
+        ],
+        "rationale": "Intent coherence — a brief blue cue at the contact point that clears after the event — cannot be confirmed from uniform black captures. Whether the cue matches the simple geometric scene and clears is unobservable, so abstention is the leading option.",
+        "score": null
+      }
+    ]
+  }
+}

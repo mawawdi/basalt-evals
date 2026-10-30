@@ -1,0 +1,20 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "moving-platform",
+  "title": "Moving platform with readable timing",
+  "prompt": "Complete the seed so EvalPlatform carries players smoothly between its two marked endpoints, pauses briefly at each end, and repeats without accumulating drift. The mechanic must work in Roblox Studio Play mode.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "The anchored platform travels at least 18 studs along the marked route and returns.",
+    "Motion is smooth enough for a player to understand and use the platform.",
+    "The Play session emits no runtime errors from the mechanic."
+  ],
+  "evidenceInstructions": [
+    "Keep the observable platform named EvalPlatform in Workspace.",
+    "Make the cycle start automatically in Play mode."
+  ]
+}

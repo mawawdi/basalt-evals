@@ -1,0 +1,749 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "timed-shutter"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["player"],
+    "scenarios": [
+      {
+        "id": "initial-closed",
+        "label": "The shutter blocks an approaching avatar before activation",
+        "durationMs": 3500,
+        "reportContexts": ["server", "player"],
+        "steps": [
+          {
+            "id": "initial-state",
+            "at": {
+              "startMs": 200
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "initial-passage",
+            "at": {
+              "after": {
+                "step": "initial-state"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "probe_barrier",
+              "actor": "player",
+              "barrierPath": "game.Workspace.Shutter"
+            },
+            "observations": [],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "open-and-close",
+        "label": "Real E input opens the shutter once and it closes on schedule",
+        "durationMs": 20000,
+        "reportContexts": ["server", "player"],
+        "steps": [
+          {
+            "id": "approach-lever",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "player",
+              "targetPath": "game.Workspace.Lever"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "activate",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "player",
+                  "path": "game.Workspace.Lever",
+                  "radiusStuds": 4
+                },
+                "scope": "player"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "player",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "opened",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              },
+              {
+                "context": "player",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "count",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "OpenCount"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "open-passage",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "probe_barrier",
+              "actor": "player",
+              "barrierPath": "game.Workspace.Shutter"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "closed",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 5500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "reset-passage",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 5900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "probe_barrier",
+              "actor": "player",
+              "barrierPath": "game.Workspace.Shutter"
+            },
+            "observations": [],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "repeat-near-lever",
+        "label": "A second nearby press cannot extend the open window",
+        "durationMs": 20000,
+        "reportContexts": ["server", "player"],
+        "steps": [
+          {
+            "id": "approach-lever",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "player",
+              "targetPath": "game.Workspace.Lever"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "activate",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "player",
+                  "path": "game.Workspace.Lever",
+                  "radiusStuds": 4
+                },
+                "scope": "player"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "player",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "repeat-press",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 1600
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "press_key",
+              "actor": "player",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "repeat-remote",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 1800
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "fire_remote",
+              "actor": "player",
+              "path": "game.ReplicatedStorage.ActivateShutter",
+              "arguments": []
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "after-repeat",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 2400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "count",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "OpenCount"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "closed-on-schedule",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 5500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "distant-request",
+        "label": "Distant E input and a forged remote do not open the shutter",
+        "durationMs": 15000,
+        "reportContexts": ["server", "player"],
+        "steps": [
+          {
+            "id": "move-away",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "player",
+              "targetPath": "game.Workspace.FarMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "press-far",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "player",
+                  "path": "game.Workspace.FarMarker",
+                  "radiusStuds": 3
+                },
+                "scope": "player"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "player",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "forge-remote",
+            "at": {
+              "after": {
+                "step": "press-far"
+              },
+              "offsetMs": 200
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "fire_remote",
+              "actor": "player",
+              "path": "game.ReplicatedStorage.ActivateShutter",
+              "arguments": []
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "remains-closed",
+            "at": {
+              "after": {
+                "step": "press-far"
+              },
+              "offsetMs": 600
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "count",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "OpenCount"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "solo-closed",
+        "label": "Closed-shutter presentation",
+        "instruction": "Capture the normal solo view after the server declares the shutter closed.",
+        "driver": {
+          "kind": "wait_for_exists",
+          "readyFactId": "status",
+          "timeoutMs": 15000
+        },
+        "facts": [
+          {
+            "id": "status",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.ShutterState",
+            "attribute": "Status"
+          },
+          {
+            "id": "open",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.ShutterState",
+            "attribute": "IsOpen"
+          },
+          {
+            "id": "status-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ShutterGui.Panel.Status"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "shutter-closed",
+            "instruction": "Show the shutter, lever and closed status at normal play scale."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "initial-blocked",
+      "layer": "engine",
+      "statement": "An avatar approaches but cannot pass the initially closed shutter.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_barrier_passage",
+        "scenarioId": "initial-closed",
+        "stepId": "initial-passage",
+        "actor": "player",
+        "expected": "blocked"
+      }
+    },
+    {
+      "id": "open-passed",
+      "layer": "engine",
+      "statement": "An avatar physically passes while the shutter is open.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_barrier_passage",
+        "scenarioId": "open-and-close",
+        "stepId": "open-passage",
+        "actor": "player",
+        "expected": "passed"
+      }
+    },
+    {
+      "id": "reset-blocked",
+      "layer": "engine",
+      "statement": "The shutter blocks the avatar again after its opening ends.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_barrier_passage",
+        "scenarioId": "open-and-close",
+        "stepId": "reset-passage",
+        "actor": "player",
+        "expected": "blocked"
+      }
+    },
+    {
+      "id": "initial-state-closed",
+      "layer": "engine",
+      "statement": "The server reports a closed shutter before activation.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "initial-closed",
+        "stepId": "initial-state",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "key-delivered",
+      "layer": "engine",
+      "statement": "The planned real E input was sent to the client.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_action_succeeded",
+        "scenarioId": "open-and-close",
+        "stepId": "activate",
+        "actor": "player"
+      }
+    },
+    {
+      "id": "state-opens",
+      "layer": "engine",
+      "statement": "A nearby player's input opens the server-owned shutter state.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "open-and-close",
+        "stepId": "opened",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": true
+      }
+    },
+    {
+      "id": "state-replicates",
+      "layer": "engine",
+      "statement": "The client sees the server's open state.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_cross_context_equals",
+        "scenarioId": "open-and-close",
+        "stepId": "opened",
+        "factId": "open",
+        "field": "value",
+        "contexts": ["server", "player"]
+      }
+    },
+    {
+      "id": "one-opening",
+      "layer": "engine",
+      "statement": "The valid press produces exactly one opening.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "open-and-close",
+        "stepId": "opened",
+        "context": "server",
+        "factId": "count",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "repeat-does-not-open",
+      "layer": "engine",
+      "statement": "Repeated nearby input and a direct remote request do not add an opening.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "repeat-near-lever",
+        "stepId": "after-repeat",
+        "context": "server",
+        "factId": "count",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "timed-close",
+      "layer": "engine",
+      "statement": "The shutter closes after five seconds.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "open-and-close",
+        "stepId": "closed",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "repeat-keeps-deadline",
+      "layer": "engine",
+      "statement": "Repeated input does not extend the five-second open window.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "repeat-near-lever",
+        "stepId": "closed-on-schedule",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "repeat-remote-delivered",
+      "layer": "engine",
+      "statement": "The repeated direct remote request reached the declared endpoint.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_action_succeeded",
+        "scenarioId": "repeat-near-lever",
+        "stepId": "repeat-remote",
+        "actor": "player"
+      }
+    },
+    {
+      "id": "distant-remote-delivered",
+      "layer": "engine",
+      "statement": "The distant direct remote request reached the declared endpoint.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_action_succeeded",
+        "scenarioId": "distant-request",
+        "stepId": "forge-remote",
+        "actor": "player"
+      }
+    },
+    {
+      "id": "far-stays-closed",
+      "layer": "engine",
+      "statement": "A distant input does not open the shutter.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "distant-request",
+        "stepId": "remains-closed",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "far-does-not-count",
+      "layer": "engine",
+      "statement": "A distant input does not count as an opening.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "distant-request",
+        "stepId": "remains-closed",
+        "context": "server",
+        "factId": "count",
+        "field": "value",
+        "expected": 0
+      }
+    },
+    {
+      "id": "solo-closed",
+      "layer": "engine",
+      "statement": "The solo presentation starts closed.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "solo-closed",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "status-visible",
+      "layer": "engine",
+      "statement": "The solo status text is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "solo-closed",
+        "factId": "status-text",
+        "field": "visible",
+        "expected": true
+      }
+    },
+    {
+      "id": "runtime-clean",
+      "layer": "engine",
+      "statement": "The presentation reports no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "solo-closed",
+        "factId": "errors"
+      }
+    }
+  ],
+  "codeQuality": [],
+  "visual": [],
+  "unscaled": [],
+  "humanReview": [
+    "This transfer fixture checks physical passage and server state only. The one solo still does not prove opening timing or qualitative UI clarity."
+  ],
+  "sequence": null
+}

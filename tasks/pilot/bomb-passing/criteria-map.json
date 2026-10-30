@@ -1,0 +1,7 @@
+{
+  "schema": "basalt-evals/curated-criteria-map",
+  "status": "draft",
+  "note": "A person writes this map for the preparation parity study. Basalt does not write it. For each rubric criterion, write its ID (criterion-1 is the first list item), its exact text without the list marker, one executable criterion of evaluator.json and one sentence of rationale. The executable criteria are: server-source, client-source, real-pass-input, near-pass-start-owner, near-pass-owner, near-pass-replicates, fuse-preserved, range-rejected, forgery-rejected, expiration-damages, single-explosion, no-repeat-explosion, expiration-cleans-owner, disconnect-cleans-owner, disconnect-removes-player, runtime-clean, server-authority, holder-clarity, fuse-readability, play-obstruction. List the Studio capabilities that the plan needs. Set the status to approved after a person checks the map. This task has no development.json. A person writes the public development recipe first.",
+  "criteria": [],
+  "requiredCapabilities": []
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ReadableImpactVfxEval",
+  "tree": {
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "ImpactTarget": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [0, 2, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [10, 1, 10]
+        }
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Impact": { "$path": "src/server/Impact.server.luau" }
+    }
+  }
+}

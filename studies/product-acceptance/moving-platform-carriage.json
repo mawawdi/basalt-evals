@@ -1,0 +1,10 @@
+{
+  "schema": "basalt-evals/eval-authoring-input",
+  "title": "Moving platform — carriage and readable motion",
+  "stages": [
+    {
+      "prompt": "Complete the seed so EvalPlatform carries players smoothly between its two marked endpoints, pauses briefly at each end, and repeats without accumulating drift. The mechanic must work in Roblox Studio Play mode.",
+      "rubric": "Evidence guidance: The carriage criterion requires a recorded boarding action and evidence spanning travel, the endpoint pause and return. A still image, commanded movement, a valid signature, or platform travel alone cannot establish rider support. When the rider is occluded, the recording misses part of the trip, or observed facts cannot distinguish intentional dismount from unintended loss, record insufficient evidence. Use harness observations only for the assertions they explicitly measure; do not infer unseen contacts or physics. These new criteria do not regrade or replace the original historical rubric. Evaluate the following four criteria independently:\n\n- The anchored platform travels at least 18 studs along the marked route and returns.\n  - Evidence class: motion\n- A player who boards the platform remains supported through outward travel, the endpoint pause, and return travel until an intentional dismount. Unintended detachment, falling from the platform, or leaving the rider behind fails this carriage criterion.\n- The visible platform motion communicates its route and pauses clearly enough for a player to anticipate boarding and arrival. Judge visible readability separately from whether the platform carries the player.\n- The Play session emits no runtime errors from the mechanic."
+    }
+  ]
+}

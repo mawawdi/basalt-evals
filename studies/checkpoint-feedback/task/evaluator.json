@@ -1,0 +1,519 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "checkpoint-feedback"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["primary"],
+    "scenarios": [],
+    "phases": [
+      {
+        "id": "ready",
+        "label": "ready",
+        "instruction": "Activate the planned control and wait for the ready state.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.reset",
+          "readyFactId": "ready-phase",
+          "readyValue": "ready",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "ready-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "ready-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "ready-checkpoint",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "LastCheckpoint"
+          },
+          {
+            "id": "ready-activations",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "Activations"
+          },
+          {
+            "id": "ready-server-phase",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "ready-feedback",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.CheckpointGui.Panel.StatusText"
+          },
+          {
+            "id": "ready-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-ready",
+            "instruction": "Capture the complete native viewport including the product UI."
+          }
+        ]
+      },
+      {
+        "id": "active",
+        "label": "active",
+        "instruction": "Activate the planned control and wait for the active state.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.approach",
+          "readyFactId": "active-phase",
+          "readyValue": "active",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "active-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "active-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "active-checkpoint",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "LastCheckpoint"
+          },
+          {
+            "id": "active-activations",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "Activations"
+          },
+          {
+            "id": "active-server-phase",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "active-feedback",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.CheckpointGui.Panel.StatusText"
+          },
+          {
+            "id": "active-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-active",
+            "instruction": "Capture the complete native viewport including the product UI."
+          }
+        ]
+      },
+      {
+        "id": "departed",
+        "label": "departed",
+        "instruction": "Activate the planned control and wait for the departed state.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.leave",
+          "readyFactId": "departed-phase",
+          "readyValue": "departed",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "departed-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "departed-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "departed-checkpoint",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "LastCheckpoint"
+          },
+          {
+            "id": "departed-activations",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "Activations"
+          },
+          {
+            "id": "departed-server-phase",
+            "kind": "replication_probe",
+            "path": "game.Players.LocalPlayer.CheckpointState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "departed-feedback",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.CheckpointGui.Panel.StatusText"
+          },
+          {
+            "id": "departed-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-departed",
+            "instruction": "Capture the complete native viewport including the product UI."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "source-1",
+      "layer": "static",
+      "statement": "The fixture source src/server/Checkpoint.server.luau exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/server/Checkpoint.server.luau"
+      }
+    },
+    {
+      "id": "source-2",
+      "layer": "static",
+      "statement": "The fixture source src/shared/CheckpointState.luau exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/shared/CheckpointState.luau"
+      }
+    },
+    {
+      "id": "source-3",
+      "layer": "static",
+      "statement": "The fixture source src/client/Feedback.client.luau exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/client/Feedback.client.luau"
+      }
+    },
+    {
+      "id": "ready-checkpoint",
+      "layer": "engine",
+      "statement": "ready: LastCheckpoint is ''.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-checkpoint",
+        "field": "value",
+        "expected": "",
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-activations",
+      "layer": "engine",
+      "statement": "ready: Activations is 0.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-activations",
+        "field": "value",
+        "expected": 0,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-server-phase",
+      "layer": "engine",
+      "statement": "ready: Phase is 'ready'.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-server-phase",
+        "field": "value",
+        "expected": "ready",
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-feedback",
+      "layer": "engine",
+      "statement": "ready: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-feedback",
+        "field": "text",
+        "expected": "Reach checkpoint A",
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-feedback-visible",
+      "layer": "engine",
+      "statement": "ready: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-feedback",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-runtime-clean",
+      "layer": "engine",
+      "statement": "ready: no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "factId": "ready-errors",
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "active-checkpoint",
+      "layer": "engine",
+      "statement": "active: LastCheckpoint is 'CheckpointA'.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "active-checkpoint",
+        "field": "value",
+        "expected": "CheckpointA",
+        "phaseId": "active"
+      }
+    },
+    {
+      "id": "active-activations",
+      "layer": "engine",
+      "statement": "active: Activations is 1.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "active-activations",
+        "field": "value",
+        "expected": 1,
+        "phaseId": "active"
+      }
+    },
+    {
+      "id": "active-server-phase",
+      "layer": "engine",
+      "statement": "active: Phase is 'active'.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "active-server-phase",
+        "field": "value",
+        "expected": "active",
+        "phaseId": "active"
+      }
+    },
+    {
+      "id": "active-feedback",
+      "layer": "engine",
+      "statement": "active: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "active-feedback",
+        "field": "text",
+        "expected": "Checkpoint A secured",
+        "phaseId": "active"
+      }
+    },
+    {
+      "id": "active-feedback-visible",
+      "layer": "engine",
+      "statement": "active: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "active-feedback",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "active"
+      }
+    },
+    {
+      "id": "active-runtime-clean",
+      "layer": "engine",
+      "statement": "active: no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "factId": "active-errors",
+        "phaseId": "active"
+      }
+    },
+    {
+      "id": "departed-checkpoint",
+      "layer": "engine",
+      "statement": "departed: LastCheckpoint is 'CheckpointA'.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "departed-checkpoint",
+        "field": "value",
+        "expected": "CheckpointA",
+        "phaseId": "departed"
+      }
+    },
+    {
+      "id": "departed-activations",
+      "layer": "engine",
+      "statement": "departed: Activations is 1.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "departed-activations",
+        "field": "value",
+        "expected": 1,
+        "phaseId": "departed"
+      }
+    },
+    {
+      "id": "departed-server-phase",
+      "layer": "engine",
+      "statement": "departed: Phase is 'departed'.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "departed-server-phase",
+        "field": "value",
+        "expected": "departed",
+        "phaseId": "departed"
+      }
+    },
+    {
+      "id": "departed-feedback",
+      "layer": "engine",
+      "statement": "departed: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "departed-feedback",
+        "field": "text",
+        "expected": "Checkpoint A secured",
+        "phaseId": "departed"
+      }
+    },
+    {
+      "id": "departed-feedback-visible",
+      "layer": "engine",
+      "statement": "departed: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "departed-feedback",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "departed"
+      }
+    },
+    {
+      "id": "departed-runtime-clean",
+      "layer": "engine",
+      "statement": "departed: no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "factId": "departed-errors",
+        "phaseId": "departed"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "server-authority",
+      "statement": "Checkpoint identity and state mutation remain server-owned and resist client-selected identities.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/server", "src/shared", "src/client"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unsafe",
+          "description": "A client can select authoritative state or the trust boundary is materially unclear."
+        },
+        {
+          "score": 1,
+          "label": "Server-owned",
+          "description": "The server derives and records checkpoint state from the touched server instance."
+        },
+        {
+          "score": 2,
+          "label": "Defensive",
+          "description": "Authority, player validation, repeat-touch behavior, and feedback are handled clearly and proportionally."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "activation-feedback",
+      "statement": "The activated checkpoint state is visually obvious without obscuring play.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["frame-ready", "frame-active", "frame-departed"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Absent",
+          "description": "No activation feedback is visible."
+        },
+        {
+          "score": 1,
+          "label": "Visible",
+          "description": "Feedback exists but is weak, ambiguous, or distracting."
+        },
+        {
+          "score": 2,
+          "label": "Clear",
+          "description": "Feedback is immediate, readable, and tied to the checkpoint."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "Review the reused draft anchors before operative labeling. No score or quality ranking is implied by a variant.",
+    "Check gameplay preservation after masking the separate top capture strip.",
+    "Still images cannot establish immediacy or normal-speed feel; leave unsupported judgments unresolved."
+  ],
+  "sequence": null
+}

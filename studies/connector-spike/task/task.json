@@ -1,0 +1,15 @@
+{
+  "schema": "basalt-evals/task",
+  "slug": "connector-spike",
+  "title": "Connector spike",
+  "prompt": "Keep the fixed spike source at src/server/Spike.server.luau.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "roles": [],
+  "acceptance": ["The fixed spike source has its server entry script."],
+  "evidenceInstructions": [
+    "The GUI control makes the ScreenGuis SpikeHudFull and SpikeHudInset in the local PlayerGui."
+  ]
+}

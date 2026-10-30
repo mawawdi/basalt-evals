@@ -1,0 +1,43 @@
+{
+  "name": "ControlledImpactEvidence",
+  "tree": {
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "Ground": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [100, 1, 100],
+          "CFrame": [0, -0.5, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Color": [0.18, 0.2, 0.22]
+        }
+      }
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "ClockTime": 14,
+        "Brightness": 2,
+        "Ambient": [0.43137254901960786, 0.43137254901960786, 0.43137254901960786],
+        "OutdoorAmbient": [0.43137254901960786, 0.43137254901960786, 0.43137254901960786],
+        "GlobalShadows": false
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Variant": {
+        "$path": "src/shared/Variant.luau"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Capture": {
+          "$path": "src/client/Capture.client.luau"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2 @@
+--!strict
+-- Implement the XP progression UI described in task.json.

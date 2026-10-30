@@ -1,0 +1,111 @@
+/* A comparison of two to six runs: the chosen runs, their summaries and one shared grid. */
+.chosen {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.chosen li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  min-height: 44px;
+  padding: 6px 14px;
+  overflow-wrap: anywhere;
+}
+.chosen li + li {
+  border-top: 1px solid var(--rule);
+}
+.chosen li > span:nth-child(2) {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+.runNumber {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.runChoices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.runChoices legend {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.runChoices > label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.runs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+/* :nth-child(n) outranks the margin between stacked panels, so all cards start level. */
+.runs > section:nth-child(n) {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+/* A card is narrow, so each figure sits under its label. */
+.runs dl > div {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
+}
+.differences + p {
+  margin-top: 16px;
+}
+.runs h3 {
+  margin-top: 6px;
+}
+.differences {
+  margin-top: 8px;
+}
+.differences h3 {
+  margin-top: 16px;
+  font-size: 16px;
+}
+.differences ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+}
+.differences li + li {
+  margin-top: 4px;
+}
+.gridSection {
+  margin-top: 36px;
+}
+.gridSection > h2 {
+  margin-bottom: 8px;
+}
+.evaluation {
+  margin-top: 24px;
+}
+.evaluation > h3 {
+  margin-bottom: 10px;
+}
+.columnHead small {
+  margin-top: 2px;
+}
+.changes {
+  margin-top: 16px;
+}
+@media (max-width: 760px) {
+  .runChoices {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

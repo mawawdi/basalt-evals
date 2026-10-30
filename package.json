@@ -1,0 +1,63 @@
+{
+  "name": "basalt-evals",
+  "private": true,
+  "workspaces": [
+    "apps/console"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "bin": {
+    "basalt-evals": "bin/basalt-evals.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json && node scripts/stamp-build.mjs",
+    "console": "node scripts/console.mjs",
+    "console:dev": "node scripts/console.mjs --dev",
+    "console:build": "npm run build && npm run build --workspace @basalt/eval-console",
+    "console:test": "node scripts/check-console.mjs",
+    "format": "prettier --write --cache --cache-location node_modules/.cache/prettier/.prettier-cache .",
+    "format:check": "prettier --check --cache --cache-location node_modules/.cache/prettier/.prettier-cache .",
+    "lint": "eslint --cache --cache-strategy content --cache-location node_modules/.cache/eslint/ .",
+    "docs:check": "node scripts/check-docs.mjs",
+    "tasks:check": "npm run build --silent && node dist/packages/cli/src/index.js task validate",
+    "rojo:check": "node scripts/check-rojo-builds.mjs",
+    "plugin:test": "node scripts/check-plugin.mjs",
+    "fixtures:test": "node scripts/check-study-fixtures.mjs",
+    "plugin:build": "rojo build plugin/default.project.json -o \"$HOME/Documents/Roblox/Plugins/BasaltEvalStudioPlugin.rbxmx\"",
+    "test:node": "npm run build --silent && node --test dist/test/*.test.js dist/test/e2e/*.test.js",
+    "test": "npm run format:check && npm run lint && npm run docs:check && npm run build && tsc --noEmit -p apps/console/tsconfig.json && node dist/packages/cli/src/index.js task validate && node --test dist/test/*.test.js dist/test/e2e/*.test.js scripts/test-artifact-health.mjs scripts/test-discover-projects.mjs scripts/test-console-launcher.mjs && npm run plugin:test && npm run fixtures:test && npm run rojo:check",
+    "doctor": "npm run build --silent && node dist/packages/cli/src/index.js doctor",
+    "artifacts:health": "node scripts/artifact-health.mjs",
+    "verify": "node scripts/verify.mjs",
+    "prepare": "npm run build --silent"
+  },
+  "dependencies": {
+    "@openrouter/ai-sdk-provider": "3.0.0",
+    "ai": "7.0.105",
+    "ajv": "8.20.0",
+    "jpeg-js": "0.4.4",
+    "mdast-util-from-markdown": "2.0.3",
+    "mdast-util-gfm": "3.1.0",
+    "micromark-extension-gfm": "3.0.0",
+    "pngjs": "7.0.0",
+    "undici": "7.29.1"
+  },
+  "devDependencies": {
+    "axe-core": "4.13.0",
+    "@eslint/js": "10.0.1",
+    "@mermaid-js/mermaid-cli": "11.17.0",
+    "@types/node": "^22.20.1",
+    "@types/pngjs": "6.0.5",
+    "eslint": "10.9.1",
+    "globals": "17.12.0",
+    "prettier": "3.9.6",
+    "puppeteer": "25.11.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "8.69.0"
+  },
+  "allowScripts": {
+    "puppeteer@25.11.0": true
+  }
+}

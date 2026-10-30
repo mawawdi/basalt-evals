@@ -1,0 +1,241 @@
+{
+  "source": {
+    "planId": "judge-85dd28a0b3dd32b4c63a",
+    "responseId": "gen-1789818560-PhJMxRfdGXzAW7Yrn5UD",
+    "responseFileHash": "d995860591d9ca7352d4cb4fd07933f8d871f06895993d59ab2956f006be6528"
+  },
+  "value": {
+    "acceptance": {
+      "outcome": "reject",
+      "probabilities": {
+        "abstain": 0,
+        "accept": 0,
+        "reject": 1
+      }
+    },
+    "criteria": [
+      {
+        "criterionId": "readability",
+        "probabilities": [
+          {
+            "option": "anchor_0",
+            "probability": 0.93,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.015,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.015,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.015,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.015,
+            "score": 4
+          },
+          {
+            "option": "abstain",
+            "probability": 0.01,
+            "score": null
+          }
+        ],
+        "rationale": "All visible phase captures show largely black main areas. No gray target, projectile, or blue impact cue is visible in 'before', 'onset', 'peak', or 'decay'. The only visible elements are the status header and bottom navigation tabs. The requested blue cue cannot be located from the supplied evidence.",
+        "score": 0
+      },
+      {
+        "criterionId": "salience",
+        "probabilities": [
+          {
+            "option": "anchor_0",
+            "probability": 0.93,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.015,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.015,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.015,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.015,
+            "score": 4
+          },
+          {
+            "option": "abstain",
+            "probability": 0.01,
+            "score": null
+          }
+        ],
+        "rationale": "No blue impact cue is visible in any supplied frame, so there is no salient cue to assess. The blank main capture areas do not provide visible evidence of the requested effect.",
+        "score": 0
+      },
+      {
+        "criterionId": "timing",
+        "probabilities": [
+          {
+            "option": "anchor_0",
+            "probability": 0.93,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.015,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.015,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.015,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.015,
+            "score": 4
+          },
+          {
+            "option": "abstain",
+            "probability": 0.01,
+            "score": null
+          }
+        ],
+        "rationale": "The status headers identify before, onset, peak, and decay phases, but no blue cue is visible in any of those phases. Because the visible captures do not contain the cue, timing cannot be read from the supplied evidence.",
+        "score": 0
+      },
+      {
+        "criterionId": "spatial-grounding",
+        "probabilities": [
+          {
+            "option": "anchor_0",
+            "probability": 0.93,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.015,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.015,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.015,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.015,
+            "score": 4
+          },
+          {
+            "option": "abstain",
+            "probability": 0.01,
+            "score": null
+          }
+        ],
+        "rationale": "The visible frames do not show the gray target, the projectile, or the contact point. There is no visible blue cue to ground spatially.",
+        "score": 0
+      },
+      {
+        "criterionId": "obstruction-clutter",
+        "probabilities": [
+          {
+            "option": "anchor_0",
+            "probability": 0.93,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.015,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.015,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.015,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.015,
+            "score": 4
+          },
+          {
+            "option": "abstain",
+            "probability": 0.01,
+            "score": null
+          }
+        ],
+        "rationale": "No blue impact cue is visible in the main capture areas, so there is no cue to evaluate for obstruction or clutter. The visible UI header and bottom navigation are unrelated interface elements, not the requested event cue.",
+        "score": 0
+      },
+      {
+        "criterionId": "intent-coherence",
+        "probabilities": [
+          {
+            "option": "anchor_0",
+            "probability": 0.93,
+            "score": 0
+          },
+          {
+            "option": "anchor_1",
+            "probability": 0.015,
+            "score": 1
+          },
+          {
+            "option": "anchor_2",
+            "probability": 0.015,
+            "score": 2
+          },
+          {
+            "option": "anchor_3",
+            "probability": 0.015,
+            "score": 3
+          },
+          {
+            "option": "anchor_4",
+            "probability": 0.015,
+            "score": 4
+          },
+          {
+            "option": "abstain",
+            "probability": 0.01,
+            "score": null
+          }
+        ],
+        "rationale": "The supplied frames do not visibly contain the requested blue impact cue at the target contact point. Therefore the visible evidence cannot support a coherent impact-feedback read.",
+        "score": 0
+      }
+    ]
+  }
+}

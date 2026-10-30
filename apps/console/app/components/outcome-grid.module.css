@@ -1,0 +1,292 @@
+/* The results of one evaluation: a column for each model, an evaluation row and its criteria. */
+.intro {
+  display: grid;
+  gap: 8px;
+  margin: 20px 0 0;
+}
+.intro p {
+  margin: 0;
+  max-width: 76ch;
+}
+.grid {
+  width: 100%;
+  font-size: 15px;
+  table-layout: fixed;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+/* Child selectors keep these rules off the hidden figure tables inside the cells. */
+.grid > * > tr > * {
+  padding: 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule);
+  overflow-wrap: anywhere;
+}
+.grid > * > tr > :first-child {
+  width: 28%;
+  padding-left: 22px;
+}
+.grid > thead > tr > th {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+/* Model names head the columns, so they keep sentence case. */
+.grid > thead > tr > th:not(:first-child) {
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.grid small {
+  display: block;
+  margin-top: 4px;
+  color: var(--slate);
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+.grid > tbody > tr > th {
+  font-weight: 400;
+}
+/* The evaluation row keeps its rule above the open criteria. */
+.grid > tbody:first-of-type > tr > * {
+  border-bottom: 1px solid var(--rule);
+}
+.grid > tbody:has(+ tbody[hidden]) > tr:last-child > * {
+  border-bottom: 0;
+}
+.grid > tbody[hidden] {
+  display: none;
+}
+.evaluationRow th .count {
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.counts {
+  margin: 0;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.none {
+  color: var(--slate);
+  font-size: 14px;
+}
+/* Each build keeps its own marks, under a hairline and its build number. */
+.builds {
+  display: grid;
+  gap: 6px;
+}
+.build {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+.build + .build,
+.buildPart + .buildPart {
+  padding-top: 6px;
+  border-top: 1px solid var(--rule);
+}
+.buildPart + .buildPart {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.buildName {
+  min-width: 5.5em;
+  color: var(--slate);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.marks {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.marks > a {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 4px;
+  font-size: 12px;
+}
+.marks > a:hover {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+/* A split bar shows separate parts in proportion and never a total. */
+.buildPart {
+  display: grid;
+  gap: 6px;
+}
+.split {
+  display: grid;
+  gap: 6px;
+}
+.splitFigure {
+  margin: 0;
+  color: var(--slate);
+  font-size: 13.5px;
+}
+.splitFigure strong {
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+.splitFigure strong.words,
+.splitKey strong.words {
+  font-family: var(--sans);
+}
+.splitBar {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+  max-width: 280px;
+  height: 8px;
+}
+.splitBar > span {
+  min-width: 4px;
+}
+.splitBar > .unrecorded {
+  flex: 0 0 20px;
+}
+.splitKey {
+  display: grid;
+  gap: 2px;
+  color: var(--slate);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.splitKey ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* The stage name has its own column, so the parts of each stage wrap beside it. */
+.splitRow {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  column-gap: 8px;
+}
+.splitRow > ul:only-child {
+  grid-column: 1 / -1;
+}
+.splitGroup {
+  color: var(--ink);
+  font-weight: 500;
+}
+.splitKey li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.splitKey li > span {
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+}
+.splitKey strong {
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+.toneSolid {
+  background: var(--basalt);
+}
+.toneMid {
+  background: var(--control-border);
+}
+.toneLight {
+  background: var(--rule-strong);
+}
+.toneOutline {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--control-border);
+}
+/* Pending charges use the hatch of the spending ledger. */
+.tonePending {
+  background: repeating-linear-gradient(-45deg, var(--ochre) 0 3px, var(--ochre-light) 3px 6px);
+}
+/* A part without a record is a fixed hatch, never a zero. */
+.unrecorded {
+  background: repeating-linear-gradient(-45deg, var(--ochre) 0 2px, var(--ochre-soft) 2px 5px);
+}
+@media (max-width: 1150px) {
+  .grid > * > tr > * {
+    padding: 12px 8px;
+  }
+  .grid {
+    font-size: 14px;
+  }
+}
+/* On phones, each row is a card, and each model cell keeps its model name. */
+@media (max-width: 760px) {
+  .grid,
+  .grid > tbody {
+    display: block;
+    border: 0;
+    background: transparent;
+  }
+  .grid > tbody[hidden] {
+    display: none;
+  }
+  .grid > thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .grid > tbody > tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 0;
+  }
+  .grid > tbody:first-of-type > tr:first-child {
+    border-top: 1px solid var(--rule);
+  }
+  .grid > tbody > tr > *,
+  .grid > tbody > tr > :first-child,
+  .grid > tbody:first-of-type > tr > * {
+    display: block;
+    width: auto;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+  }
+  /* The label of a cell is a model name, so it keeps sentence case. */
+  .grid > tbody > tr > td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+/* A build of a later stage names the build of the stage before it. */
+.parent {
+  display: block;
+  margin-top: 4px;
+}

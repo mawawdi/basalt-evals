@@ -1,0 +1,20 @@
+{
+  "name": "@basalt/eval-console",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "next build --webpack && node ../../scripts/console-build-state.mjs",
+    "dev": "next dev --webpack --hostname 127.0.0.1 --port 43127"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "2.1.10",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}

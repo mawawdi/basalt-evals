@@ -1,0 +1,7 @@
+{
+  "schema": "basalt-evals/curated-criteria-map",
+  "status": "draft",
+  "note": "A person writes this map for the preparation parity study. Basalt does not write it. For each rubric criterion, write its ID (criterion-1 is the first list item), its exact text without the list marker, one executable criterion of evaluator.json and one sentence of rationale. The executable criteria are: initial-blocked, open-passed, reset-blocked, initial-state-closed, key-delivered, state-opens, state-replicates, one-opening, repeat-does-not-open, timed-close, repeat-keeps-deadline, repeat-remote-delivered, distant-remote-delivered, far-stays-closed, far-does-not-count, solo-closed, status-visible, runtime-clean. List the Studio capabilities that the plan needs. Set the status to approved after a person checks the map.",
+  "criteria": [],
+  "requiredCapabilities": []
+}

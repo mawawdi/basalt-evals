@@ -1,0 +1,149 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "replicated-checkpoint"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["primary"],
+    "scenarios": [],
+    "phases": [
+      {
+        "id": "activated",
+        "label": "Activate checkpoint",
+        "instruction": "Move the local character onto CheckpointA, wait for the replicated server state, then capture this phase.",
+        "driver": {
+          "kind": "character_move_to",
+          "targetPath": "game.Workspace.CheckpointA",
+          "readyFactId": "state",
+          "readyValue": "CheckpointA",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "checkpoint",
+            "kind": "instance",
+            "path": "game.Workspace.CheckpointA"
+          },
+          {
+            "id": "state",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.GameState",
+            "attribute": "LastCheckpoint"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "checkpoint-active",
+            "instruction": "Show the activated checkpoint and player feedback in one frame."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "server-source",
+      "layer": "static",
+      "statement": "A server mechanic source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/server/Checkpoint.server.luau"
+      }
+    },
+    {
+      "id": "checkpoint-state",
+      "layer": "engine",
+      "statement": "Activation records the exact checkpoint identity.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "activated",
+        "factId": "state",
+        "field": "value",
+        "expected": "CheckpointA"
+      }
+    },
+    {
+      "id": "runtime-clean",
+      "layer": "engine",
+      "statement": "Studio reports no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "activated",
+        "factId": "errors"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "server-authority",
+      "statement": "Checkpoint identity and state mutation remain server-owned and resist client-selected identities.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/server"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unsafe",
+          "description": "A client can select authoritative state or the trust boundary is materially unclear."
+        },
+        {
+          "score": 1,
+          "label": "Server-owned",
+          "description": "The server derives and records checkpoint state from the touched server instance."
+        },
+        {
+          "score": 2,
+          "label": "Defensive",
+          "description": "Authority, player validation, repeat-touch behavior, and feedback are handled clearly and proportionally."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "activation-feedback",
+      "statement": "The activated checkpoint state is visually obvious without obscuring play.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["checkpoint-active"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Absent",
+          "description": "No activation feedback is visible."
+        },
+        {
+          "score": 1,
+          "label": "Visible",
+          "description": "Feedback exists but is weak, ambiguous, or distracting."
+        },
+        {
+          "score": 2,
+          "label": "Clear",
+          "description": "Feedback is immediate, readable, and tied to the checkpoint."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": ["Judge whether activation feedback communicates success at normal play speed."],
+  "sequence": null
+}

@@ -1,0 +1,2 @@
+--!strict
+-- Idle control of the connector spike. The client does no work.

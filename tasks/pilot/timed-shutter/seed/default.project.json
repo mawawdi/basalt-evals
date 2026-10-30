@@ -1,0 +1,71 @@
+{
+  "name": "TimedShutterEval",
+  "tree": {
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "Ground": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [120, 1, 120]
+        }
+      },
+      "EvalSpawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Duration": 0,
+          "Enabled": true,
+          "Neutral": true,
+          "CFrame": [18, 1, 18, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [8, 1, 8]
+        }
+      },
+      "Lever": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [18, 2, 9, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [3, 4, 3]
+        }
+      },
+      "Shutter": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CFrame": [0, 5, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [2, 10, 18]
+        }
+      },
+      "FarMarker": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "Transparency": 1,
+          "CFrame": [45, 1, 40, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [3, 1, 3]
+        }
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "ShutterState": { "$className": "Folder" },
+      "ActivateShutter": { "$className": "RemoteEvent" }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "ShutterServer": { "$path": "src/server/ShutterServer.server.luau" }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "ShutterClient": { "$path": "src/client/ShutterClient.client.luau" }
+      }
+    }
+  }
+}

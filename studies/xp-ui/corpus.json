@@ -1,0 +1,89 @@
+{
+  "schema": "basalt-evals/authored-corpus",
+  "id": "xp-ui-development",
+  "taskDirectory": "studies/xp-ui/task",
+  "environment": {
+    "platform": "Roblox Studio",
+    "studioVersion": "0.739.0.7390687",
+    "captureProtocol": "studio-mcp-viewport",
+    "cameraProtocol": "Fullscreen responsive interface; Scriptable camera held at (14,9,24), lookAt (0,2,0), vertical FOV 60. No world-camera quality claim."
+  },
+  "protocol": {
+    "camera": "Fullscreen responsive interface; Scriptable camera held at (14,9,24), lookAt (0,2,0), vertical FOV 60. Holding the camera prevents hidden default follow-camera motion during acquisition.",
+    "player": "Single Studio Play client. Use the actual Gain XP button twice after reset. The loop is client-local; no multiplayer or server-XP claim.",
+    "lighting": "ClockTime 14, Brightness 2, Ambient and OutdoorAmbient RGB(110,110,110), GlobalShadows false. The fullscreen product UI covers the scene and is identical in behavior across variants.",
+    "graphics": "On the validated macOS Studio 0.739 setup, use Rendering > Graphics Mode OpenGL and restart Studio: Metal returned solid-magenta Play screenshots. Set EditQualityLevel to Level21 and require the Play client's QualityLevel to report Level21. This Studio build resets QualityLevel when Play starts; an Edit Command Bar assignment does not establish Play quality. Check the Client render.settings event in the trial trace; unavailable settings or deviations leave capture review incomplete. Keep the same renderer and quality across the corpus. Preserve original acquired bytes.",
+    "action": "The fixed gui_button plan collects three ordered states. BasaltEvalCaptureControls occupies only the top 9% of the native viewport. Mask that strip for judging after human verification; preserve all product UI. No resizing or required resolution. Use Run capture from the connected Edit plugin; do not click controls manually during a trial.",
+    "limitations": "Four authored visual variants, including one intended feedback-suppression contrast, with identical mechanic logic, all development-only. These are state samples, not video; no elapsed duration, response latency, continuous feel, transfer or calibration claim. Camera/framing and native dimensions must be consistent and human-reviewed. Existing draft rubric wording is reused without a new human approval. Hold inference until the expert approves the rubric and clean evidence.",
+    "phases": [
+      {
+        "id": "ready",
+        "captureId": "frame-ready",
+        "elapsedMs": null,
+        "candidateFactId": "ready-candidate",
+        "phaseFactId": "ready-phase"
+      },
+      {
+        "id": "leveled",
+        "captureId": "frame-leveled",
+        "elapsedMs": null,
+        "candidateFactId": "leveled-candidate",
+        "phaseFactId": "leveled-phase"
+      },
+      {
+        "id": "progress",
+        "captureId": "frame-progress",
+        "elapsedMs": null,
+        "candidateFactId": "progress-candidate",
+        "phaseFactId": "progress-phase"
+      }
+    ]
+  },
+  "rubricStatus": "draft_requires_human_review",
+  "variants": [
+    {
+      "id": "839ba97d1dba",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/839ba97d1dba.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "d26ba1736ce5",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/d26ba1736ce5.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "3c4a4269d54e",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/3c4a4269d54e.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "ab75db75936e",
+      "family": "layout",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/xp-ui/variants/ab75db75936e.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    }
+  ]
+}

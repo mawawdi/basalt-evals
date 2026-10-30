@@ -1,0 +1,89 @@
+{
+  "schema": "basalt-evals/authored-corpus",
+  "id": "checkpoint-feedback-validation",
+  "taskDirectory": "studies/checkpoint-feedback/task",
+  "environment": {
+    "platform": "Roblox Studio",
+    "studioVersion": "0.739.0.7390687",
+    "captureProtocol": "studio-mcp-viewport",
+    "cameraProtocol": "Scriptable camera at (17,14,26), lookAt (0,1,2), vertical FOV 60; no operator movement."
+  },
+  "protocol": {
+    "camera": "Scriptable camera at (17,14,26), lookAt (0,1,2), vertical FOV 60; no operator movement.",
+    "player": "Single Studio Play client. Server-owned character physics, movement disabled. Fixed controls place the character above or away from the pad; actual falling contact activates it. Wait for grounding before capture.",
+    "lighting": "ClockTime 14, Brightness 2, Ambient and OutdoorAmbient RGB(110,110,110), GlobalShadows false. The server creates identical ground, checkpoint collision geometry, path and course pylons for every variant.",
+    "graphics": "On the validated macOS Studio 0.739 setup, use Rendering > Graphics Mode OpenGL and restart Studio: Metal returned solid-magenta Play screenshots. Set EditQualityLevel to Level21 and require the Play client's QualityLevel to report Level21. This Studio build resets QualityLevel when Play starts; an Edit Command Bar assignment does not establish Play quality. Check the Client render.settings event in the trial trace; unavailable settings or deviations leave capture review incomplete. Keep the same renderer and quality across the corpus. Preserve original acquired bytes.",
+    "action": "The fixed gui_button plan collects three ordered states. BasaltEvalCaptureControls occupies only the top 9% of the native viewport. Mask that strip for judging after human verification; preserve all product UI. No resizing or required resolution. Use Run capture from the connected Edit plugin; do not click controls manually during a trial.",
+    "limitations": "Four reserved validation presentations in two new layout families. Same mechanic, camera, input sequence and previously human-approved rubric as development; no new mechanic or timing claim. Ordered stills cannot establish response latency. No model outputs or expert labels exist for this population. Keep all cases, including borderline and insufficient evidence; capture failures remain incomplete. Freeze exact clean evidence and independent expert labels before judge output. Do not tune on these candidates. See docs/VALIDATION_PROTOCOL.md.",
+    "phases": [
+      {
+        "id": "ready",
+        "captureId": "frame-ready",
+        "elapsedMs": null,
+        "candidateFactId": "ready-candidate",
+        "phaseFactId": "ready-phase"
+      },
+      {
+        "id": "active",
+        "captureId": "frame-active",
+        "elapsedMs": null,
+        "candidateFactId": "active-candidate",
+        "phaseFactId": "active-phase"
+      },
+      {
+        "id": "departed",
+        "captureId": "frame-departed",
+        "elapsedMs": null,
+        "candidateFactId": "departed-candidate",
+        "phaseFactId": "departed-phase"
+      }
+    ]
+  },
+  "rubricStatus": "draft_requires_human_review",
+  "variants": [
+    {
+      "id": "4d6bb4164306",
+      "family": "world-feedback",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/4d6bb4164306.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "7cb278ea792d",
+      "family": "side-card",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/7cb278ea792d.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "ac0cd1f53a45",
+      "family": "world-feedback",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/ac0cd1f53a45.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "71dbbaccd88d",
+      "family": "side-card",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/checkpoint-feedback/variants/71dbbaccd88d.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,662 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "xp-ui-feedback"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["primary"],
+    "scenarios": [],
+    "phases": [
+      {
+        "id": "ready",
+        "label": "ready",
+        "instruction": "Activate the planned control and wait for the ready state.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.BasaltEvalCaptureControls.reset",
+          "readyFactId": "ready-phase",
+          "readyValue": "ready",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "ready-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "ready-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "ready-level",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Level"
+          },
+          {
+            "id": "ready-xp",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "XP"
+          },
+          {
+            "id": "ready-actions",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Actions"
+          },
+          {
+            "id": "ready-level-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.LevelLabel"
+          },
+          {
+            "id": "ready-progress-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.ProgressText"
+          },
+          {
+            "id": "ready-bar",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "BarFraction"
+          },
+          {
+            "id": "ready-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-ready",
+            "instruction": "Capture the complete native viewport including the product UI."
+          }
+        ]
+      },
+      {
+        "id": "leveled",
+        "label": "leveled",
+        "instruction": "Activate the planned control and wait for the leveled state.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.GainXP",
+          "readyFactId": "leveled-phase",
+          "readyValue": "leveled",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "leveled-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "leveled-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "leveled-level",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Level"
+          },
+          {
+            "id": "leveled-xp",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "XP"
+          },
+          {
+            "id": "leveled-actions",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Actions"
+          },
+          {
+            "id": "leveled-level-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.LevelLabel"
+          },
+          {
+            "id": "leveled-progress-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.ProgressText"
+          },
+          {
+            "id": "leveled-bar",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "BarFraction"
+          },
+          {
+            "id": "leveled-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-leveled",
+            "instruction": "Capture the complete native viewport including the product UI."
+          }
+        ]
+      },
+      {
+        "id": "progress",
+        "label": "progress",
+        "instruction": "Activate the planned control and wait for the progress state.",
+        "driver": {
+          "kind": "gui_button",
+          "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.GainXP",
+          "readyFactId": "progress-phase",
+          "readyValue": "progress",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "progress-candidate",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "CandidateId"
+          },
+          {
+            "id": "progress-phase",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Phase"
+          },
+          {
+            "id": "progress-level",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Level"
+          },
+          {
+            "id": "progress-xp",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "XP"
+          },
+          {
+            "id": "progress-actions",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "Actions"
+          },
+          {
+            "id": "progress-level-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.LevelLabel"
+          },
+          {
+            "id": "progress-progress-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ProgressGui.Panel.ProgressText"
+          },
+          {
+            "id": "progress-bar",
+            "kind": "replication_probe",
+            "path": "game.Workspace.CaptureState",
+            "attribute": "BarFraction"
+          },
+          {
+            "id": "progress-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "frame-progress",
+            "instruction": "Capture the complete native viewport including the product UI."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "source-1",
+      "layer": "static",
+      "statement": "The fixture source src/client/Progress.client.luau exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/client/Progress.client.luau"
+      }
+    },
+    {
+      "id": "source-2",
+      "layer": "static",
+      "statement": "The fixture source src/shared/Progression.luau exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/shared/Progression.luau"
+      }
+    },
+    {
+      "id": "ready-level",
+      "layer": "engine",
+      "statement": "ready: Level is 1.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-level",
+        "field": "value",
+        "expected": 1,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-xp",
+      "layer": "engine",
+      "statement": "ready: XP is 80.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-xp",
+        "field": "value",
+        "expected": 80,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-actions",
+      "layer": "engine",
+      "statement": "ready: Actions is 0.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-actions",
+        "field": "value",
+        "expected": 0,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-level-text",
+      "layer": "engine",
+      "statement": "ready: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-level-text",
+        "field": "text",
+        "expected": "Level 1",
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-level-text-visible",
+      "layer": "engine",
+      "statement": "ready: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-level-text",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-progress-text",
+      "layer": "engine",
+      "statement": "ready: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-progress-text",
+        "field": "text",
+        "expected": "80 / 100 XP",
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-progress-text-visible",
+      "layer": "engine",
+      "statement": "ready: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "ready-progress-text",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-bar",
+      "layer": "engine",
+      "statement": "Rendered bar fraction agrees with numeric XP, allowing float32 rounding.",
+      "required": true,
+      "rule": {
+        "kind": "number_in_range",
+        "factId": "ready-bar",
+        "field": "value",
+        "minimum": 0.7999900000000001,
+        "maximum": 0.80001,
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "ready-runtime-clean",
+      "layer": "engine",
+      "statement": "ready: no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "factId": "ready-errors",
+        "phaseId": "ready"
+      }
+    },
+    {
+      "id": "leveled-level",
+      "layer": "engine",
+      "statement": "leveled: Level is 2.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "leveled-level",
+        "field": "value",
+        "expected": 2,
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-xp",
+      "layer": "engine",
+      "statement": "leveled: XP is 15.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "leveled-xp",
+        "field": "value",
+        "expected": 15,
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-actions",
+      "layer": "engine",
+      "statement": "leveled: Actions is 1.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "leveled-actions",
+        "field": "value",
+        "expected": 1,
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-level-text",
+      "layer": "engine",
+      "statement": "leveled: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "leveled-level-text",
+        "field": "text",
+        "expected": "Level 2",
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-level-text-visible",
+      "layer": "engine",
+      "statement": "leveled: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "leveled-level-text",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-progress-text",
+      "layer": "engine",
+      "statement": "leveled: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "leveled-progress-text",
+        "field": "text",
+        "expected": "15 / 100 XP",
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-progress-text-visible",
+      "layer": "engine",
+      "statement": "leveled: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "leveled-progress-text",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-bar",
+      "layer": "engine",
+      "statement": "Rendered bar fraction agrees with numeric XP, allowing float32 rounding.",
+      "required": true,
+      "rule": {
+        "kind": "number_in_range",
+        "factId": "leveled-bar",
+        "field": "value",
+        "minimum": 0.14998999999999998,
+        "maximum": 0.15001,
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "leveled-runtime-clean",
+      "layer": "engine",
+      "statement": "leveled: no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "factId": "leveled-errors",
+        "phaseId": "leveled"
+      }
+    },
+    {
+      "id": "progress-level",
+      "layer": "engine",
+      "statement": "progress: Level is 2.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "progress-level",
+        "field": "value",
+        "expected": 2,
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-xp",
+      "layer": "engine",
+      "statement": "progress: XP is 50.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "progress-xp",
+        "field": "value",
+        "expected": 50,
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-actions",
+      "layer": "engine",
+      "statement": "progress: Actions is 2.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "progress-actions",
+        "field": "value",
+        "expected": 2,
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-level-text",
+      "layer": "engine",
+      "statement": "progress: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "progress-level-text",
+        "field": "text",
+        "expected": "Level 2",
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-level-text-visible",
+      "layer": "engine",
+      "statement": "progress: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "progress-level-text",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-progress-text",
+      "layer": "engine",
+      "statement": "progress: the visible text agrees with state.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "progress-progress-text",
+        "field": "text",
+        "expected": "50 / 100 XP",
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-progress-text-visible",
+      "layer": "engine",
+      "statement": "progress: the state label is visible.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "factId": "progress-progress-text",
+        "field": "visible",
+        "expected": true,
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-bar",
+      "layer": "engine",
+      "statement": "Rendered bar fraction agrees with numeric XP, allowing float32 rounding.",
+      "required": true,
+      "rule": {
+        "kind": "number_in_range",
+        "factId": "progress-bar",
+        "field": "value",
+        "minimum": 0.49999,
+        "maximum": 0.50001,
+        "phaseId": "progress"
+      }
+    },
+    {
+      "id": "progress-runtime-clean",
+      "layer": "engine",
+      "statement": "progress: no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "factId": "progress-errors",
+        "phaseId": "progress"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "progress-state-design",
+      "statement": "Progression state, threshold carry, and UI updates are expressed coherently without duplicated state.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/client", "src/shared"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Brittle",
+          "description": "Leveling or carry logic is duplicated, inconsistent, or tightly tangled with presentation."
+        },
+        {
+          "score": 1,
+          "label": "Clear",
+          "description": "One understandable state flow drives the visible level, numeric progress, and bar."
+        },
+        {
+          "score": 2,
+          "label": "Well-structured",
+          "description": "State transitions, rendering, and input wiring are concise, proportionate, and easy to extend."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "progress-hierarchy",
+      "statement": "Level, numeric progress, bar state, and action affordance form a clear visual hierarchy.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["frame-ready", "frame-leveled", "frame-progress"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unusable",
+          "description": "Core progression state or action cannot be read."
+        },
+        {
+          "score": 1,
+          "label": "Usable",
+          "description": "State and action are readable with minor hierarchy or spacing problems."
+        },
+        {
+          "score": 2,
+          "label": "Clear",
+          "description": "State, progress, and action are immediately legible and visually balanced."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "Review the reused draft anchors before operative labeling. No score or quality ranking is implied by a variant.",
+    "Check gameplay preservation after masking the separate top capture strip.",
+    "Still images cannot establish immediacy or normal-speed feel; leave unsupported judgments unresolved."
+  ],
+  "sequence": null
+}

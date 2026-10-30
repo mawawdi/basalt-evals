@@ -1,0 +1,23 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "cooperative-gate",
+  "title": "Two-player timed gate",
+  "prompt": "Build a cooperative gate that requires two different players. Each player approaches within 8 studs of one of the two consoles and presses E. The first valid activation starts a 4-second pairing window; a different player must activate the other console within that window. Then the server opens Gate for 5 seconds and closes it. A repeated press by the same player, a late second press, a press from too far away, or a forged console choice must not open the gate. The server owns timing, participant identities and Gate collision. Both clients must see clear, compact feedback about the objective, partial progress, the open window and reset. A solo player can see the objective but cannot open the gate.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "The first valid E press near ConsoleA or ConsoleB records exactly one participant for 4 seconds. Only a different player near the other console can complete the pair.",
+    "A successful pair opens Gate for 5 seconds, then restores its collision and closed appearance. A new round can start after closing.",
+    "The server rejects far-away, duplicate, expired and forged requests, and clears a pending activation if its player disconnects.",
+    "Both clients converge on the server-owned gate state; readable feedback explains what to do and how much time remains without obstructing play."
+  ],
+  "evidenceInstructions": [
+    "Keep Workspace.ConsoleA, Workspace.ConsoleB, Workspace.FarMarker and Workspace.Gate reachable by the fixed evaluator. ConsoleA and ConsoleB are the intended interaction targets; do not move them.",
+    "Keep ReplicatedStorage.GateState with Status (waiting, armed or open), ActiveCount (0 or 1), OpenCount (nonnegative integer), and GateOpen (boolean) attributes. Set the initial state promptly on the server.",
+    "Keep the client-to-server RemoteEvent at ReplicatedStorage.ActivateGate. The client may name Alpha or Beta, but the server must validate the sender's actual position and identity.",
+    "Keep visible status text at PlayerGui.GateGui.Panel.Status for the solo presentation capture."
+  ]
+}

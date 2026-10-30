@@ -1,0 +1,185 @@
+{
+  "schema": "basalt-evals/public-development",
+  "task": {
+    "slug": "timed-shutter"
+  },
+  "plan": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["player"],
+    "scenarios": [
+      {
+        "id": "operate-shutter",
+        "label": "Approach Lever, press E, and watch the shutter reset",
+        "durationMs": 20000,
+        "reportContexts": ["server", "player"],
+        "steps": [
+          {
+            "id": "approach",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "player",
+              "targetPath": "game.Workspace.Lever"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "activate",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "player",
+                  "path": "game.Workspace.Lever",
+                  "radiusStuds": 4
+                },
+                "scope": "player"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "player",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "inspect-open",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 1500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              },
+              {
+                "context": "player",
+                "fact": {
+                  "id": "status",
+                  "kind": "gui_text",
+                  "path": "game.Players.LocalPlayer.PlayerGui.ShutterGui.Panel.Status"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "inspect-reset",
+            "at": {
+              "after": {
+                "step": "activate"
+              },
+              "offsetMs": 6500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.ShutterState",
+                  "attribute": "IsOpen"
+                }
+              },
+              {
+                "context": "player",
+                "fact": {
+                  "id": "status",
+                  "kind": "gui_text",
+                  "path": "game.Players.LocalPlayer.PlayerGui.ShutterGui.Panel.Status"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "presentation",
+        "label": "Shutter player view",
+        "instruction": "Capture the player view even when the activation failed.",
+        "driver": {
+          "kind": "wait_for_exists",
+          "readyFactId": "state",
+          "timeoutMs": 10000
+        },
+        "facts": [
+          {
+            "id": "state",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.ShutterState",
+            "attribute": "IsOpen"
+          },
+          {
+            "id": "status",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.ShutterGui.Panel.Status"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "player-view",
+            "instruction": "Unmodified gameplay view of the shutter and status feedback."
+          }
+        ]
+      }
+    ]
+  },
+  "views": [
+    {
+      "id": "standard",
+      "scenarioId": "operate-shutter",
+      "requiredTransitions": [
+        {
+          "id": "activate",
+          "source": {
+            "kind": "action",
+            "stepId": "activate"
+          },
+          "effectWindowMs": 1500,
+          "holdMs": 1000
+        }
+      ],
+      "camera": null,
+      "viewport": null,
+      "maximumGapMs": 1000,
+      "frameBudget": 5
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+--!strict
+-- Implement the readable impact effect described in task.json.

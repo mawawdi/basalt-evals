@@ -1,0 +1,10 @@
+{
+  "workspace": "studies/connector-spike/sources/gui",
+  "projectFile": "default.project.json",
+  "provenance": {
+    "kind": "control",
+    "evidenceHashes": ["3e3dc7c94bb3666bd15f039529eb0d8c69c831e195a25a5599cb68ed59528b05"],
+    "originOperationId": null,
+    "parentSourceId": null
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "schema": "basalt-evals/public-development",
+  "task": {
+    "slug": "replicated-checkpoint"
+  },
+  "plan": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["player"],
+    "scenarios": [
+      {
+        "id": "touch-checkpoint",
+        "label": "Walk from the spawn to the public checkpoint",
+        "durationMs": 20000,
+        "reportContexts": ["server", "player"],
+        "steps": [
+          {
+            "id": "approach",
+            "at": {
+              "startMs": 3000
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "player",
+              "targetPath": "game.Workspace.CheckpointA"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "inspect-state",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_on_part",
+                  "actor": "player",
+                  "path": "game.Workspace.CheckpointA"
+                },
+                "scope": "player"
+              },
+              "offsetMs": 1000
+            },
+            "horizonMs": 10000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "checkpoint",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GameState",
+                  "attribute": "LastCheckpoint"
+                }
+              },
+              {
+                "context": "player",
+                "fact": {
+                  "id": "errors",
+                  "kind": "diagnostics"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "presentation",
+        "label": "Player view after the attempted touch",
+        "instruction": "Capture the actual player view and public state without requiring a successful activation.",
+        "driver": {
+          "kind": "wait_for_exists",
+          "readyFactId": "state",
+          "timeoutMs": 10000
+        },
+        "facts": [
+          {
+            "id": "state",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.GameState",
+            "attribute": "LastCheckpoint"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "player-view",
+            "instruction": "Unmodified gameplay view after approaching CheckpointA."
+          }
+        ]
+      }
+    ]
+  },
+  "views": [
+    {
+      "id": "standard",
+      "scenarioId": "touch-checkpoint",
+      "requiredTransitions": [
+        {
+          "id": "approach",
+          "source": {
+            "kind": "action",
+            "stepId": "approach"
+          },
+          "effectWindowMs": 2500,
+          "holdMs": 500
+        }
+      ],
+      "camera": null,
+      "viewport": null,
+      "maximumGapMs": 1000,
+      "frameBudget": 5
+    }
+  ]
+}

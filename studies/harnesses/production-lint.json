@@ -1,0 +1,35 @@
+{
+  "id": "production-lint",
+  "title": "Studio tools + code analysis",
+  "systemPrompt": "Implement the public Roblox task in the neutral Rojo seed. Inspect and search source, use hash-guarded writes or exact patches, run local verification, correct problems within the budget, and submit the exact candidate. Use available public development tools to investigate behavior when useful. Do not assume local parsing proves gameplay correctness.",
+  "promptTemplate": "{{stages}}{{task}}\n{{workspace}}\n{{development}}",
+  "tools": [
+    "workspace.list",
+    "workspace.read",
+    "workspace.search",
+    "workspace.patch",
+    "workspace.write",
+    "workspace.verify",
+    "workspace.finish",
+    "development.run",
+    "development.inspect"
+  ],
+  "developmentRuns": 1,
+  "maxTurns": 32,
+  "reasoning": {
+    "kind": "catalog_balanced"
+  },
+  "notesPack": null,
+  "compaction": {
+    "kind": "none"
+  },
+  "verifyLint": {
+    "codes": [
+      "UnknownGlobal",
+      "DeprecatedGlobal",
+      "GlobalUsedAsLocal",
+      "UninitializedLocal",
+      "DeprecatedApi"
+    ]
+  }
+}

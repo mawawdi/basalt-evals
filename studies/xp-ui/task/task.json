@@ -1,0 +1,20 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "xp-ui-feedback",
+  "title": "XP progression feedback",
+  "prompt": "Show a usable XP progression panel with a Gain XP control, a level, numeric progress and a bar. The loop starts at Level 1 with 80 of 100 XP. Each activation grants 35 XP; reaching 100 advances a level and carries excess XP.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "The Gain XP control updates the level, numeric progress and bar together.",
+    "Crossing a level threshold carries excess XP.",
+    "The panel remains usable in the recorded native viewport."
+  ],
+  "evidenceInstructions": [
+    "Preserve product UI in the evidence, including labels and the Gain XP control.",
+    "Ordered stills show states, not elapsed time or continuous interaction."
+  ]
+}

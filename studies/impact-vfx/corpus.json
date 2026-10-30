@@ -1,0 +1,228 @@
+{
+  "schema": "basalt-evals/authored-corpus",
+  "id": "impact-vfx",
+  "taskDirectory": "studies/impact-vfx/task",
+  "environment": {
+    "platform": "Roblox Studio",
+    "studioVersion": "0.739.0.7390687",
+    "captureProtocol": "studio-mcp-viewport",
+    "cameraProtocol": "Scriptable camera at (14,9,24), lookAt (0,2,0), vertical FOV 60; no operator camera movement."
+  },
+  "protocol": {
+    "camera": "CameraType Scriptable; position (14,9,24), lookAt (0,2,0), vertical FOV 60. Keep camera and aspect/framing consistent across the corpus; record actual image dimensions and investigate layout changes before review.",
+    "player": "Single F5 client. Character root anchored at (0,3,14), facing (0,3,0); movement disabled.",
+    "lighting": "ClockTime 14, Brightness 2, Ambient and OutdoorAmbient RGB(110,110,110), GlobalShadows false; gray ground and target fixed in the seed.",
+    "graphics": "On the validated macOS Studio 0.739 setup, use Rendering > Graphics Mode OpenGL and restart Studio: Metal returned solid-magenta Play screenshots. Set EditQualityLevel to Level21 and require the Play client's QualityLevel to report Level21. This Studio build resets QualityLevel when Play starts; an Edit Command Bar assignment does not establish Play quality. Check the Client render.settings event in the trial trace; unavailable settings or deviations leave capture review incomplete. Keep the same renderer and quality across the corpus. Preserve original acquired bytes.",
+    "action": "Enable Studio as MCP server. The host automatically discovers the uniquely named prepared place on every capture; verify one Play-client viewport probe before collection. Click Run capture or start Test/F5 with the connected plugin: collection begins automatically in the Play client. The connector moves the virtual cursor to Before, Onset, Peak, Decay, requires each Activated event, waits for the phase marker and collects observations. The host requests screen_capture without camera overrides, saves original PNG/JPEG bytes and records actual dimensions and MCP diagnostics. After accepted submission, the Edit plugin asks the Studio server to call EndTest. Each button analytically holds the event at its declared time; Preview is not a capture phase.",
+    "limitations": "Held samples of an authored analytic effect, not unconstrained physical contact. Four stills do not establish continuous timing, feel, replication or general gameplay quality. MCP schema availability, Play-client selection, UI inclusion and freshness require measurement on the installed Studio build. Human review must confirm correct candidate/phase, complete framing, camera and sufficient detail; hashes and dimensions alone do not establish usability. Freeze the same reviewed evidence and declared presentation for compared graders. Failed acquisition bytes and errors remain diagnostics, never inferred evidence.",
+    "phases": [
+      {
+        "id": "before",
+        "captureId": "frame-before",
+        "elapsedMs": -100,
+        "candidateFactId": "before-candidate",
+        "phaseFactId": "before-phase"
+      },
+      {
+        "id": "onset",
+        "captureId": "frame-onset",
+        "elapsedMs": 50,
+        "candidateFactId": "onset-candidate",
+        "phaseFactId": "onset-phase"
+      },
+      {
+        "id": "peak",
+        "captureId": "frame-peak",
+        "elapsedMs": 180,
+        "candidateFactId": "peak-candidate",
+        "phaseFactId": "peak-phase"
+      },
+      {
+        "id": "decay",
+        "captureId": "frame-decay",
+        "elapsedMs": 650,
+        "candidateFactId": "decay-candidate",
+        "phaseFactId": "decay-phase"
+      }
+    ]
+  },
+  "rubricStatus": "draft_requires_human_review",
+  "variants": [
+    {
+      "id": "14e29faf9a20",
+      "family": "size",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/14e29faf9a20.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "08abf46d4192",
+      "family": "size",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/08abf46d4192.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "d3d17401a963",
+      "family": "density",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/d3d17401a963.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "c83b0db1ed78",
+      "family": "density",
+      "split": "development",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/c83b0db1ed78.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "0da621d50503",
+      "family": "contrast",
+      "split": "calibration",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/0da621d50503.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "0a72941580ec",
+      "family": "contrast",
+      "split": "calibration",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/0a72941580ec.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "5fc83eca36ba",
+      "family": "delay",
+      "split": "calibration",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/5fc83eca36ba.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "11a9e42eceea",
+      "family": "delay",
+      "split": "calibration",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/11a9e42eceea.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "52351a17f80c",
+      "family": "grounding",
+      "split": "calibration",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/52351a17f80c.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "1e8cd1966ec9",
+      "family": "grounding",
+      "split": "calibration",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/1e8cd1966ec9.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "6ecd5156fb53",
+      "family": "duration",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/6ecd5156fb53.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "8e3bbd227053",
+      "family": "duration",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/8e3bbd227053.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "55f6af00961c",
+      "family": "occlusion",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/55f6af00961c.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "7f901407c18f",
+      "family": "occlusion",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/7f901407c18f.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "3cdcf32da07e",
+      "family": "style",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/3cdcf32da07e.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    },
+    {
+      "id": "075fb77b3a47",
+      "family": "style",
+      "split": "holdout",
+      "overrides": [
+        {
+          "source": "studies/impact-vfx/variants/075fb77b3a47.luau",
+          "destination": "src/shared/Variant.luau"
+        }
+      ]
+    }
+  ]
+}

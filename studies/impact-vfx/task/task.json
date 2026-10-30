@@ -1,0 +1,20 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "readable-impact-vfx",
+  "title": "Controlled impact feedback",
+  "prompt": "A projectile contacting the center of the gray target should produce a brief blue impact cue at the contact point. At the fixed normal play camera distance, the event and location should be noticeable without obscuring the target. The cue should suit the simple geometric scene and clear away after the event.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "The scripted projectile reaches the target and its contact event is observable.",
+    "Visual quality is assessed independently of deterministic event observations.",
+    "The same event can be inspected before contact and at fixed onset, peak and decay times."
+  ],
+  "evidenceInstructions": [
+    "Keep CaptureState and its CandidateId and Phase attributes available to the fixed connector.",
+    "Do not move the camera, resize or alter the raw viewport captures."
+  ]
+}

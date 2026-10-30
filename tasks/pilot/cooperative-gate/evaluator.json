@@ -1,0 +1,1258 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "cooperative-gate"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 2,
+    "actors": ["alpha", "beta"],
+    "scenarios": [
+      {
+        "id": "initial-closed-passage",
+        "label": "A lone avatar approaches the initially closed barrier",
+        "durationMs": 3500,
+        "reportContexts": ["server", "alpha"],
+        "steps": [
+          {
+            "id": "initial-state",
+            "at": {
+              "startMs": 200
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "initial-passage",
+            "at": {
+              "after": {
+                "step": "initial-state"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "probe_barrier",
+              "actor": "alpha",
+              "barrierPath": "game.Workspace.Gate"
+            },
+            "observations": [],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "valid-pair-and-close",
+        "label": "Two real E presses, replication and timed close",
+        "durationMs": 25000,
+        "reportContexts": ["server", "alpha", "beta"],
+        "steps": [
+          {
+            "id": "place-alpha",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "alpha",
+              "targetPath": "game.Workspace.ConsoleA"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-beta",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "beta",
+              "targetPath": "game.Workspace.ConsoleB"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "beta-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "beta",
+                  "path": "game.Workspace.ConsoleB",
+                  "radiusStuds": 4
+                },
+                "scope": "beta"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "first-press",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "alpha",
+                  "path": "game.Workspace.ConsoleA",
+                  "radiusStuds": 4
+                },
+                "scope": "alpha"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "alpha",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "one-active",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 800
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "active",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "ActiveCount"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "second-press",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 1400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "press_key",
+              "actor": "beta",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "open",
+            "at": {
+              "after": {
+                "step": "second-press"
+              },
+              "offsetMs": 1100
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "alpha",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "beta",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "opens",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "OpenCount"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "open-passage",
+            "at": {
+              "after": {
+                "step": "second-press"
+              },
+              "offsetMs": 1500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "probe_barrier",
+              "actor": "alpha",
+              "barrierPath": "game.Workspace.Gate"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "closed",
+            "at": {
+              "after": {
+                "step": "second-press"
+              },
+              "offsetMs": 6100
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "opens",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "OpenCount"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "status",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "Status"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "closed-again-passage",
+            "at": {
+              "after": {
+                "step": "second-press"
+              },
+              "offsetMs": 6400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "probe_barrier",
+              "actor": "alpha",
+              "barrierPath": "game.Workspace.Gate"
+            },
+            "observations": [],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "forged-and-distant",
+        "label": "Forged console and distant player cannot complete the pair",
+        "durationMs": 20000,
+        "reportContexts": ["server", "alpha", "beta"],
+        "steps": [
+          {
+            "id": "place-alpha",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "alpha",
+              "targetPath": "game.Workspace.ConsoleA"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-beta-far",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "beta",
+              "targetPath": "game.Workspace.FarMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "beta-far",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "beta",
+                  "path": "game.Workspace.FarMarker",
+                  "radiusStuds": 3
+                },
+                "scope": "beta"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "first-press",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "alpha",
+                  "path": "game.Workspace.ConsoleA",
+                  "radiusStuds": 4
+                },
+                "scope": "alpha"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "alpha",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "forge-other-console",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "fire_remote",
+              "actor": "alpha",
+              "path": "game.ReplicatedStorage.ActivateGate",
+              "arguments": [
+                {
+                  "kind": "literal",
+                  "value": "Beta"
+                }
+              ]
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "distant-forge",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 800
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "fire_remote",
+              "actor": "beta",
+              "path": "game.ReplicatedStorage.ActivateGate",
+              "arguments": [
+                {
+                  "kind": "literal",
+                  "value": "Beta"
+                }
+              ]
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "still-closed",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 1900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "opens",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "OpenCount"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "active",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "ActiveCount"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "late-second-player",
+        "label": "Expired pairing window cannot open the gate",
+        "durationMs": 25000,
+        "reportContexts": ["server", "alpha", "beta"],
+        "steps": [
+          {
+            "id": "place-alpha",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "alpha",
+              "targetPath": "game.Workspace.ConsoleA"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-beta",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "beta",
+              "targetPath": "game.Workspace.ConsoleB"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "beta-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "beta",
+                  "path": "game.Workspace.ConsoleB",
+                  "radiusStuds": 4
+                },
+                "scope": "beta"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "first-press",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "alpha",
+                  "path": "game.Workspace.ConsoleA",
+                  "radiusStuds": 4
+                },
+                "scope": "alpha"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "alpha",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "late-press",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 5500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "press_key",
+              "actor": "beta",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "still-closed",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 6600
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "opens",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "OpenCount"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "pending-player-disconnects",
+        "label": "Pending participant disconnects before partner activates",
+        "durationMs": 20000,
+        "reportContexts": ["server", "beta"],
+        "steps": [
+          {
+            "id": "place-alpha",
+            "at": {
+              "startMs": 300
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "alpha",
+              "targetPath": "game.Workspace.ConsoleA"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-beta",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "beta",
+              "targetPath": "game.Workspace.ConsoleB"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "beta-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "beta",
+                  "path": "game.Workspace.ConsoleB",
+                  "radiusStuds": 4
+                },
+                "scope": "beta"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "first-press",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "alpha",
+                  "path": "game.Workspace.ConsoleA",
+                  "radiusStuds": 4
+                },
+                "scope": "server"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "alpha",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "disconnect-alpha",
+            "at": {
+              "after": {
+                "step": "first-press"
+              },
+              "offsetMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "disconnect",
+              "actor": "alpha"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "second-press",
+            "at": {
+              "after": {
+                "step": "disconnect-alpha"
+              },
+              "offsetMs": 1000
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "press_key",
+              "actor": "beta",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "still-closed",
+            "at": {
+              "after": {
+                "step": "second-press"
+              },
+              "offsetMs": 1000
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "open",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "GateOpen"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "opens",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.GateState",
+                  "attribute": "OpenCount"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "players",
+                  "kind": "player_count"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "solo-objective",
+        "label": "Solo objective presentation",
+        "instruction": "Capture the normal solo view after the server declares the gate waiting for two players.",
+        "driver": {
+          "kind": "wait_for_fact",
+          "readyFactId": "status",
+          "readyValue": "waiting",
+          "timeoutMs": 15000
+        },
+        "facts": [
+          {
+            "id": "status",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.GateState",
+            "attribute": "Status"
+          },
+          {
+            "id": "open",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.GateState",
+            "attribute": "GateOpen"
+          },
+          {
+            "id": "status-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.GateGui.Panel.Status"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "gate-waiting",
+            "instruction": "Show the gate, interaction affordances and solo waiting feedback at normal play scale."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "initial-barrier-blocks",
+      "layer": "engine",
+      "statement": "An avatar approaches but cannot pass the initially closed gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_barrier_passage",
+        "scenarioId": "initial-closed-passage",
+        "stepId": "initial-passage",
+        "actor": "alpha",
+        "expected": "blocked"
+      }
+    },
+    {
+      "id": "open-barrier-passes",
+      "layer": "engine",
+      "statement": "An avatar physically passes through the opened gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_barrier_passage",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "open-passage",
+        "actor": "alpha",
+        "expected": "passed"
+      }
+    },
+    {
+      "id": "reset-barrier-blocks",
+      "layer": "engine",
+      "statement": "An avatar approaches but cannot pass the closed-again gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_barrier_passage",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "closed-again-passage",
+        "actor": "alpha",
+        "expected": "blocked"
+      }
+    },
+    {
+      "id": "server-source",
+      "layer": "static",
+      "statement": "A server-owned gate source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/server/GateServer.server.luau"
+      }
+    },
+    {
+      "id": "client-source",
+      "layer": "static",
+      "statement": "A client input and presentation source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/client/GateClient.client.luau"
+      }
+    },
+    {
+      "id": "first-input-delivered",
+      "layer": "engine",
+      "statement": "The first player's real E input was delivered.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_action_succeeded",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "first-press",
+        "actor": "alpha"
+      }
+    },
+    {
+      "id": "second-input-delivered",
+      "layer": "engine",
+      "statement": "The second player's real E input was delivered.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_action_succeeded",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "second-press",
+        "actor": "beta"
+      }
+    },
+    {
+      "id": "one-participant",
+      "layer": "engine",
+      "statement": "One player arms but does not open the gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "one-active",
+        "context": "server",
+        "factId": "active",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "first-cannot-open",
+      "layer": "engine",
+      "statement": "A single participant cannot open the gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "one-active",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "pair-opens",
+      "layer": "engine",
+      "statement": "Two distinct nearby players open the gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "open",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": true
+      }
+    },
+    {
+      "id": "pair-replicates",
+      "layer": "engine",
+      "statement": "Both clients see the authoritative open state.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_cross_context_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "open",
+        "factId": "open",
+        "field": "value",
+        "contexts": ["server", "alpha", "beta"]
+      }
+    },
+    {
+      "id": "one-opening",
+      "layer": "engine",
+      "statement": "The valid pair produces one opening.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "open",
+        "context": "server",
+        "factId": "opens",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "timed-close",
+      "layer": "engine",
+      "statement": "The opening closes after five seconds.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "closed",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "no-repeat-open",
+      "layer": "engine",
+      "statement": "Close does not count a second opening.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "closed",
+        "context": "server",
+        "factId": "opens",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "closed-waits",
+      "layer": "engine",
+      "statement": "The gate returns to a waiting state.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "valid-pair-and-close",
+        "stepId": "closed",
+        "context": "server",
+        "factId": "status",
+        "field": "value",
+        "expected": "waiting"
+      }
+    },
+    {
+      "id": "forgery-rejected",
+      "layer": "engine",
+      "statement": "A forged console selection and a distant client do not open the gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "forged-and-distant",
+        "stepId": "still-closed",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "forgery-does-not-pair",
+      "layer": "engine",
+      "statement": "Forged requests do not add a second participant.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "forged-and-distant",
+        "stepId": "still-closed",
+        "context": "server",
+        "factId": "active",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "late-press-rejected",
+      "layer": "engine",
+      "statement": "A second press after the pairing window does not open the gate.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "late-second-player",
+        "stepId": "still-closed",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "disconnect-rejected",
+      "layer": "engine",
+      "statement": "A disconnected first participant cannot complete a pair.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "pending-player-disconnects",
+        "stepId": "still-closed",
+        "context": "server",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "disconnect-removes-player",
+      "layer": "engine",
+      "statement": "The first participant actually disconnected.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "pending-player-disconnects",
+        "stepId": "still-closed",
+        "context": "server",
+        "factId": "players",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "solo-is-closed",
+      "layer": "engine",
+      "statement": "A solo player starts with the gate closed.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "solo-objective",
+        "factId": "open",
+        "field": "value",
+        "expected": false
+      }
+    },
+    {
+      "id": "solo-status-visible",
+      "layer": "engine",
+      "statement": "The solo objective has visible status text.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "solo-objective",
+        "factId": "status-text",
+        "field": "visible",
+        "expected": true
+      }
+    },
+    {
+      "id": "runtime-clean",
+      "layer": "engine",
+      "statement": "The solo presentation reports no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "solo-objective",
+        "factId": "errors"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "gate-authority-and-collision",
+      "statement": "Server code derives participant identity and range, prevents duplicate or expired pairs, and controls Gate collision and lifecycle cleanup.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/server", "src/client"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unsafe",
+          "description": "The client can claim participation or the Gate collider is not server-owned."
+        },
+        {
+          "score": 1,
+          "label": "Bounded",
+          "description": "The server validates participation and changes Gate collision, with basic timeout and disconnect cleanup."
+        },
+        {
+          "score": 2,
+          "label": "Robust",
+          "description": "Validation, timed state transitions, repeated input handling and cleanup are explicit and race-safe."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "objective-clarity",
+      "statement": "A solo player can tell that two consoles and a second player are needed to open the gate.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["gate-waiting"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unclear",
+          "description": "The cooperative objective and interaction affordances are absent or unreadable."
+        },
+        {
+          "score": 1,
+          "label": "Findable",
+          "description": "The objective is discernible with deliberate inspection."
+        },
+        {
+          "score": 2,
+          "label": "Immediate",
+          "description": "The objective and E interaction are obvious at normal play distance."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "unobstructed-play",
+      "statement": "The gate feedback leaves the play area and interaction targets readable.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["gate-waiting"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Obstructive",
+          "description": "Feedback blocks the consoles, gate or avatar view."
+        },
+        {
+          "score": 1,
+          "label": "Usable",
+          "description": "The play area is usable despite some clutter or weak hierarchy."
+        },
+        {
+          "score": 2,
+          "label": "Focused",
+          "description": "Feedback is compact and readable while preserving a clear play view."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "The screenshot covers only the solo waiting presentation. Do not infer pairing timing, open-state animation or physical collision from it; inspect the runtime and code evidence for those claims."
+  ],
+  "sequence": null
+}

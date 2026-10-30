@@ -1,0 +1,79 @@
+{
+  "name": "CooperativeGateEval",
+  "tree": {
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "Ground": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [120, 1, 100]
+        }
+      },
+      "EvalSpawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Duration": 0,
+          "Enabled": true,
+          "Neutral": true,
+          "CFrame": [0, 1, 14, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [8, 1, 8]
+        }
+      },
+      "ConsoleA": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [-10, 2, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [4, 4, 4]
+        }
+      },
+      "ConsoleB": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [10, 2, -8, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [4, 4, 4]
+        }
+      },
+      "Gate": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CFrame": [0, 5, -26, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [18, 10, 2]
+        }
+      },
+      "FarMarker": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "Transparency": 1,
+          "CFrame": [40, 1, 12, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [3, 1, 3]
+        }
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "GateState": { "$className": "Folder" },
+      "ActivateGate": { "$className": "RemoteEvent" }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "GateServer": { "$path": "src/server/GateServer.server.luau" }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "GateClient": { "$path": "src/client/GateClient.client.luau" }
+      }
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "readable-impact-vfx"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 1,
+    "actors": ["primary"],
+    "scenarios": [],
+    "phases": [
+      {
+        "id": "impact",
+        "label": "Trigger impact",
+        "instruction": "Start Play, touch ImpactTarget, and capture immediately while ImpactEffect is visible.",
+        "driver": {
+          "kind": "manual"
+        },
+        "facts": [
+          {
+            "id": "effect",
+            "kind": "instance",
+            "path": "game.Workspace.ImpactEffect"
+          },
+          {
+            "id": "burst",
+            "kind": "particle_state",
+            "path": "game.Workspace.ImpactEffect.Burst"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "impact-frame",
+            "instruction": "Frame the contact point at normal play distance while the effect is near peak intensity."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "effect-source",
+      "layer": "static",
+      "statement": "The impact mechanic source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/server/Impact.server.luau"
+      }
+    },
+    {
+      "id": "effect-instance",
+      "layer": "engine",
+      "statement": "A live ImpactEffect exists at capture time.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "impact",
+        "factId": "effect",
+        "field": "exists",
+        "expected": true
+      }
+    },
+    {
+      "id": "particle-emitter",
+      "layer": "engine",
+      "statement": "The named particle emitter exists on the live effect.",
+      "required": true,
+      "rule": {
+        "kind": "fact_equals",
+        "phaseId": "impact",
+        "factId": "burst",
+        "field": "exists",
+        "expected": true
+      }
+    },
+    {
+      "id": "runtime-clean",
+      "layer": "engine",
+      "statement": "Studio reports no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "impact",
+        "factId": "errors"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "effect-lifecycle",
+      "statement": "Repeated impacts use bounded lifecycle and cleanup without unnecessary global state.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/server"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Leaky",
+          "description": "Repeated activation can leak instances, connections, or unbounded tasks."
+        },
+        {
+          "score": 1,
+          "label": "Sound",
+          "description": "Created effects have a bounded lifetime and the implementation is understandable."
+        },
+        {
+          "score": 2,
+          "label": "Disciplined",
+          "description": "Lifecycle, re-entry, naming, and cleanup are explicit, concise, and idiomatic."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "impact-readability",
+      "statement": "The effect has an immediate focal point and clearly communicates impact.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["impact-frame"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unclear",
+          "description": "The impact is absent, visually lost, or unrelated to the contact point."
+        },
+        {
+          "score": 1,
+          "label": "Readable",
+          "description": "The impact reads but timing, contrast, or composition is ordinary or uneven."
+        },
+        {
+          "score": 2,
+          "label": "Strong",
+          "description": "The impact reads instantly with controlled density, contrast, and spatial focus."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "visual-restraint",
+      "statement": "The effect supports play without filling the frame or obscuring the target.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["impact-frame"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Obscuring",
+          "description": "The effect overwhelms the frame or hides the interaction."
+        },
+        {
+          "score": 1,
+          "label": "Controlled",
+          "description": "The effect remains usable with minor excess or weak composition."
+        },
+        {
+          "score": 2,
+          "label": "Disciplined",
+          "description": "Every visible element contributes to a concise, readable impact."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "Judge focal point, contrast, timing impression, clutter, and whether the effect feels intentionally composed."
+  ],
+  "sequence": null
+}

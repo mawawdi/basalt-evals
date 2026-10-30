@@ -1,0 +1,10 @@
+{
+  "schema": "basalt-evals/eval-authoring-input",
+  "title": "Beacon visible from spawn",
+  "stages": [
+    {
+      "prompt": "Create a blue BasePart named Beacon in Workspace that a solo player can see from the supplied spawn during Play. The player does not need to interact with it.",
+      "rubric": "- During Play, the solo player can see a blue BasePart named Beacon from the supplied spawn without interacting.\n  - Evidence class: appearance"
+    }
+  ]
+}

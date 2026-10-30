@@ -1,0 +1,47 @@
+{
+  "name": "ConnectorSpike",
+  "tree": {
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "Ground": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CFrame": [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [80, 1, 80]
+        }
+      },
+      "EvalSpawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Duration": 0,
+          "Enabled": true,
+          "Neutral": true,
+          "CFrame": [0, 1, 18, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+          "Size": [6, 1, 6]
+        }
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": { "$path": "src/shared" }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "$path": "src/server"
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "$path": "src/client"
+      },
+      "StarterCharacterScripts": {
+        "$className": "StarterCharacterScripts",
+        "$path": "src/character"
+      }
+    }
+  }
+}

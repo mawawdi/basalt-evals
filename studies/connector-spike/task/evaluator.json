@@ -1,0 +1,173 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "connector-spike"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "clients": 1,
+    "actors": ["primary"],
+    "roles": [],
+    "scenarios": [
+      {
+        "id": "performance",
+        "label": "Server performance trace for 30 seconds",
+        "durationMs": 40000,
+        "reportContexts": ["server"],
+        "steps": [
+          {
+            "id": "trace",
+            "at": {
+              "startMs": 0
+            },
+            "horizonMs": 5000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "server-performance",
+                  "kind": "performance_trace",
+                  "sampleCount": 120,
+                  "intervalMs": 250
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "after-trace",
+            "at": {
+              "startMs": 32000
+            },
+            "horizonMs": 5000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "server-errors",
+                  "kind": "diagnostics"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "players",
+                  "kind": "player_count"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "errors",
+        "label": "Script errors on the server and the client",
+        "durationMs": 15000,
+        "reportContexts": ["server", "primary"],
+        "steps": [
+          {
+            "id": "settle",
+            "at": {
+              "startMs": 10000
+            },
+            "horizonMs": 5000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "server-errors",
+                  "kind": "diagnostics"
+                }
+              },
+              {
+                "context": "primary",
+                "fact": {
+                  "id": "client-errors",
+                  "kind": "diagnostics"
+                }
+              },
+              {
+                "context": "primary",
+                "fact": {
+                  "id": "client-layout",
+                  "kind": "gui_layout",
+                  "path": "game.Players.LocalPlayer.PlayerGui.SpikeHudFull"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "hud",
+        "label": "Spike HUD",
+        "instruction": "Wait for the spike HUD, record the layout of both GUI layers and capture one still frame.",
+        "driver": {
+          "kind": "wait_for_exists",
+          "readyFactId": "hud-present",
+          "timeoutMs": 5000
+        },
+        "facts": [
+          {
+            "id": "hud-present",
+            "kind": "instance",
+            "path": "game.Players.LocalPlayer.PlayerGui.SpikeHudFull"
+          },
+          {
+            "id": "layout-full",
+            "kind": "gui_layout",
+            "path": "game.Players.LocalPlayer.PlayerGui.SpikeHudFull"
+          },
+          {
+            "id": "layout-inset",
+            "kind": "gui_layout",
+            "path": "game.Players.LocalPlayer.PlayerGui.SpikeHudInset"
+          },
+          {
+            "id": "presentation-errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "hud-frame",
+            "instruction": "Capture the still frame with the spike HUD."
+          }
+        ]
+      }
+    ]
+  },
+  "sequence": null,
+  "deterministic": [
+    {
+      "id": "spike-source-present",
+      "layer": "static",
+      "statement": "The fixed spike source has its server entry script.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/server/Spike.server.luau"
+      }
+    }
+  ],
+  "codeQuality": [],
+  "visual": [],
+  "unscaled": [],
+  "humanReview": []
+}

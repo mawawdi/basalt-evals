@@ -1,0 +1,20 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "readable-impact-vfx",
+  "title": "Readable impact effect",
+  "prompt": "Complete the seed so touching ImpactTarget produces a brief, polished impact effect at the target. The effect should communicate contact clearly through a restrained combination of particles, light, scale, or color, then clean itself up.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "Touching ImpactTarget creates a visible effect named ImpactEffect in Workspace.",
+    "The effect has a clear focal point, readable contrast, and restrained visual density.",
+    "Repeated activations clean up and emit no runtime errors."
+  ],
+  "evidenceInstructions": [
+    "Keep the trigger named ImpactTarget in Workspace.",
+    "Name the live effect ImpactEffect and include a ParticleEmitter named Burst."
+  ]
+}

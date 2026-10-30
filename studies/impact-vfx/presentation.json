@@ -1,0 +1,9 @@
+{
+  "schema": "basalt-evals/judge-presentation",
+  "width": 1920,
+  "height": 825,
+  "overlayRegions": [
+    { "x": 0, "y": 0, "width": 1920, "height": 68 },
+    { "x": 0, "y": 738, "width": 1920, "height": 87 }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "basalt-evals/task",
+  "roles": [],
+  "slug": "checkpoint-feedback",
+  "title": "Checkpoint activation feedback",
+  "prompt": "Show clear feedback when the player physically reaches checkpoint A. The server records the checkpoint for that player, repeated contact does not count twice, and the recorded state remains after the player leaves. Feedback should remain readable while preserving the gameplay view.",
+  "seed": {
+    "projectFile": "default.project.json",
+    "sourceRoots": ["src"]
+  },
+  "acceptance": [
+    "A physical touch records CheckpointA in the player's server-owned CheckpointState folder.",
+    "Repeated limb contacts count as one activation; leaving preserves the recorded state.",
+    "Visible feedback agrees with the recorded state."
+  ],
+  "evidenceInstructions": [
+    "Preserve the checkpoint sign and product feedback in evidence.",
+    "Ordered stills do not establish response latency, respawning or multiplayer correctness."
+  ]
+}

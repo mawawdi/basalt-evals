@@ -1,0 +1,1184 @@
+{
+  "schema": "basalt-evals/evaluator",
+  "task": {
+    "slug": "bomb-passing"
+  },
+  "studio": {
+    "schema": "basalt-evals/studio-plan",
+    "roles": [],
+    "clients": 2,
+    "actors": ["holder", "receiver"],
+    "scenarios": [
+      {
+        "id": "legitimate-pass",
+        "label": "Nearby real-input pass",
+        "durationMs": 20000,
+        "reportContexts": ["server", "holder", "receiver"],
+        "steps": [
+          {
+            "id": "place-holder",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "holder",
+              "targetPath": "game.Workspace.HolderMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-receiver-near",
+            "at": {
+              "startMs": 900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "receiver",
+              "targetPath": "game.Workspace.NearMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "holder-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_on_part",
+                  "actor": "holder",
+                  "path": "game.Workspace.HolderMarker"
+                },
+                "scope": "holder"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "before-pass",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_on_part",
+                  "actor": "receiver",
+                  "path": "game.Workspace.NearMarker"
+                },
+                "scope": "receiver"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "deadline",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "FuseDeadline"
+                }
+              },
+              {
+                "context": "holder",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              },
+              {
+                "context": "receiver",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "press-pass",
+            "at": {
+              "after": {
+                "step": "before-pass"
+              },
+              "offsetMs": 400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "press_key",
+              "actor": "holder",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "after-pass",
+            "at": {
+              "after": {
+                "step": "press-pass"
+              },
+              "offsetMs": 1500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "deadline",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "FuseDeadline"
+                }
+              },
+              {
+                "context": "holder",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              },
+              {
+                "context": "receiver",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "out-of-range",
+        "label": "Out-of-range pass rejection",
+        "durationMs": 20000,
+        "reportContexts": ["server", "holder", "receiver"],
+        "steps": [
+          {
+            "id": "place-holder",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "holder",
+              "targetPath": "game.Workspace.HolderMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-receiver-far",
+            "at": {
+              "startMs": 900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "receiver",
+              "targetPath": "game.Workspace.FarMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "holder-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_on_part",
+                  "actor": "holder",
+                  "path": "game.Workspace.HolderMarker"
+                },
+                "scope": "holder"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "before-attempt",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "receiver",
+                  "path": "game.Workspace.FarMarker",
+                  "radiusStuds": 3
+                },
+                "scope": "receiver"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "press-pass",
+            "at": {
+              "after": {
+                "step": "before-attempt"
+              },
+              "offsetMs": 400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "press_key",
+              "actor": "holder",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "after-attempt",
+            "at": {
+              "after": {
+                "step": "press-pass"
+              },
+              "offsetMs": 1500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "forged-request",
+        "label": "Forged client identity rejection",
+        "durationMs": 20000,
+        "reportContexts": ["server", "holder", "receiver"],
+        "steps": [
+          {
+            "id": "place-holder",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "holder",
+              "targetPath": "game.Workspace.HolderMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-receiver-far",
+            "at": {
+              "startMs": 900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "receiver",
+              "targetPath": "game.Workspace.FarMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "holder-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_on_part",
+                  "actor": "holder",
+                  "path": "game.Workspace.HolderMarker"
+                },
+                "scope": "holder"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "before-forge",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_near_part",
+                  "actor": "receiver",
+                  "path": "game.Workspace.FarMarker",
+                  "radiusStuds": 3
+                },
+                "scope": "receiver"
+              },
+              "offsetMs": 300
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "forge-pass",
+            "at": {
+              "after": {
+                "step": "before-forge"
+              },
+              "offsetMs": 400
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "fire_remote",
+              "actor": "holder",
+              "path": "game.ReplicatedStorage.PassBomb",
+              "arguments": [
+                {
+                  "kind": "actor_user_id",
+                  "actor": "receiver"
+                }
+              ]
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "after-forge",
+            "at": {
+              "after": {
+                "step": "forge-pass"
+              },
+              "offsetMs": 1500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "expiration",
+        "label": "Single authoritative expiration",
+        "durationMs": 11500,
+        "reportContexts": ["server", "holder", "receiver"],
+        "steps": [
+          {
+            "id": "place-holder",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "holder",
+              "targetPath": "game.Workspace.HolderMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-receiver-far",
+            "at": {
+              "startMs": 900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "receiver",
+              "targetPath": "game.Workspace.FarMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "armed",
+            "at": {
+              "startMs": 1800
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "health",
+                  "kind": "actor_health",
+                  "actor": "holder"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "explosions",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "ExplosionCount"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "expired",
+            "at": {
+              "startMs": 9800
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "health",
+                  "kind": "actor_health",
+                  "actor": "holder"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "explosions",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "ExplosionCount"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "status",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "Status"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "settled",
+            "at": {
+              "startMs": 10800
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "explosions",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "ExplosionCount"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      },
+      {
+        "id": "holder-disconnect",
+        "label": "Holder disconnect recovery",
+        "durationMs": 20000,
+        "reportContexts": ["server", "holder"],
+        "steps": [
+          {
+            "id": "place-holder",
+            "at": {
+              "startMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "holder",
+              "targetPath": "game.Workspace.HolderMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "place-receiver-near",
+            "at": {
+              "startMs": 900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "move_to",
+              "actor": "receiver",
+              "targetPath": "game.Workspace.NearMarker"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "holder-ready",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_on_part",
+                  "actor": "holder",
+                  "path": "game.Workspace.HolderMarker"
+                },
+                "scope": "holder"
+              },
+              "offsetMs": 0
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "pass-to-receiver",
+            "at": {
+              "after": {
+                "fact": {
+                  "kind": "character_on_part",
+                  "actor": "receiver",
+                  "path": "game.Workspace.NearMarker"
+                },
+                "scope": "server"
+              },
+              "offsetMs": 400
+            },
+            "horizonMs": 10000,
+            "holdMs": 200,
+            "action": {
+              "kind": "press_key",
+              "actor": "holder",
+              "key": "E"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "receiver-owned",
+            "at": {
+              "after": {
+                "step": "pass-to-receiver"
+              },
+              "offsetMs": 1500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              }
+            ],
+            "requirement": null
+          },
+          {
+            "id": "disconnect-receiver",
+            "at": {
+              "after": {
+                "step": "receiver-owned"
+              },
+              "offsetMs": 500
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "disconnect",
+              "actor": "receiver"
+            },
+            "observations": [],
+            "requirement": null
+          },
+          {
+            "id": "recovered",
+            "at": {
+              "after": {
+                "step": "disconnect-receiver"
+              },
+              "offsetMs": 1900
+            },
+            "horizonMs": 1000,
+            "holdMs": 0,
+            "action": {
+              "kind": "wait"
+            },
+            "observations": [
+              {
+                "context": "server",
+                "fact": {
+                  "id": "players",
+                  "kind": "player_count"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "owner",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "HolderUserId"
+                }
+              },
+              {
+                "context": "server",
+                "fact": {
+                  "id": "status",
+                  "kind": "replication_probe",
+                  "path": "game.ReplicatedStorage.BombState",
+                  "attribute": "Status"
+                }
+              }
+            ],
+            "requirement": null
+          }
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "presentation",
+        "label": "Live bomb presentation",
+        "instruction": "Wait for the server-owned bomb to arm, then capture the normal solo play view.",
+        "driver": {
+          "kind": "wait_for_fact",
+          "readyFactId": "status",
+          "readyValue": "armed",
+          "timeoutMs": 30000
+        },
+        "facts": [
+          {
+            "id": "status",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.BombState",
+            "attribute": "Status"
+          },
+          {
+            "id": "owner",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.BombState",
+            "attribute": "HolderUserId"
+          },
+          {
+            "id": "deadline",
+            "kind": "replication_probe",
+            "path": "game.ReplicatedStorage.BombState",
+            "attribute": "FuseDeadline"
+          },
+          {
+            "id": "status-text",
+            "kind": "gui_text",
+            "path": "game.Players.LocalPlayer.PlayerGui.BombGui.Panel.Status"
+          },
+          {
+            "id": "errors",
+            "kind": "diagnostics"
+          }
+        ],
+        "captures": [
+          {
+            "id": "bomb-armed",
+            "instruction": "Show the holder and fuse feedback at normal play distance."
+          }
+        ]
+      }
+    ]
+  },
+  "deterministic": [
+    {
+      "id": "server-source",
+      "layer": "static",
+      "statement": "A server mechanic source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/server/BombServer.server.luau"
+      }
+    },
+    {
+      "id": "client-source",
+      "layer": "static",
+      "statement": "A client input/presentation source exists.",
+      "required": true,
+      "rule": {
+        "kind": "path_exists",
+        "path": "src/client/BombClient.client.luau"
+      }
+    },
+    {
+      "id": "real-pass-input",
+      "layer": "engine",
+      "statement": "The holder's real E input was delivered.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_action_succeeded",
+        "scenarioId": "legitimate-pass",
+        "stepId": "press-pass",
+        "actor": "holder"
+      }
+    },
+    {
+      "id": "near-pass-start-owner",
+      "layer": "engine",
+      "statement": "The legitimate-pass scenario begins with the declared holder.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals_actor_user_id",
+        "scenarioId": "legitimate-pass",
+        "stepId": "before-pass",
+        "context": "server",
+        "factId": "owner",
+        "actor": "holder"
+      }
+    },
+    {
+      "id": "near-pass-owner",
+      "layer": "engine",
+      "statement": "A nearby pass transfers server ownership to the receiver.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals_actor_user_id",
+        "scenarioId": "legitimate-pass",
+        "stepId": "after-pass",
+        "context": "server",
+        "factId": "owner",
+        "actor": "receiver"
+      }
+    },
+    {
+      "id": "near-pass-replicates",
+      "layer": "engine",
+      "statement": "Server and both clients converge on the same holder.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_cross_context_equals",
+        "scenarioId": "legitimate-pass",
+        "stepId": "after-pass",
+        "factId": "owner",
+        "field": "value",
+        "contexts": ["server", "holder", "receiver"]
+      }
+    },
+    {
+      "id": "fuse-preserved",
+      "layer": "engine",
+      "statement": "Passing does not reset the fuse deadline.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_number_delta_in_range",
+        "scenarioId": "legitimate-pass",
+        "context": "server",
+        "fromStepId": "before-pass",
+        "fromFactId": "deadline",
+        "toStepId": "after-pass",
+        "toFactId": "deadline",
+        "field": "value",
+        "minimum": -0.001,
+        "maximum": 0.001
+      }
+    },
+    {
+      "id": "range-rejected",
+      "layer": "engine",
+      "statement": "An out-of-range input leaves ownership with the holder.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals_actor_user_id",
+        "scenarioId": "out-of-range",
+        "stepId": "after-attempt",
+        "context": "server",
+        "factId": "owner",
+        "actor": "holder"
+      }
+    },
+    {
+      "id": "forgery-rejected",
+      "layer": "engine",
+      "statement": "A forged client-selected receiver leaves ownership unchanged.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals_actor_user_id",
+        "scenarioId": "forged-request",
+        "stepId": "after-forge",
+        "context": "server",
+        "factId": "owner",
+        "actor": "holder"
+      }
+    },
+    {
+      "id": "expiration-damages",
+      "layer": "engine",
+      "statement": "Expiration damages the authoritative holder.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_number_delta_in_range",
+        "scenarioId": "expiration",
+        "context": "server",
+        "fromStepId": "armed",
+        "fromFactId": "health",
+        "toStepId": "expired",
+        "toFactId": "health",
+        "field": "value",
+        "minimum": -100,
+        "maximum": -1
+      }
+    },
+    {
+      "id": "single-explosion",
+      "layer": "engine",
+      "statement": "Expiration produces exactly one stable explosion count.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "expiration",
+        "stepId": "expired",
+        "context": "server",
+        "factId": "explosions",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "no-repeat-explosion",
+      "layer": "engine",
+      "statement": "The explosion count does not increment again after cleanup.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_number_delta_in_range",
+        "scenarioId": "expiration",
+        "context": "server",
+        "fromStepId": "expired",
+        "fromFactId": "explosions",
+        "toStepId": "settled",
+        "toFactId": "explosions",
+        "field": "value",
+        "minimum": 0,
+        "maximum": 0
+      }
+    },
+    {
+      "id": "expiration-cleans-owner",
+      "layer": "engine",
+      "statement": "Expiration clears authoritative ownership.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "expiration",
+        "stepId": "expired",
+        "context": "server",
+        "factId": "owner",
+        "field": "value",
+        "expected": 0
+      }
+    },
+    {
+      "id": "disconnect-cleans-owner",
+      "layer": "engine",
+      "statement": "Disconnecting the holder clears stale ownership.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "holder-disconnect",
+        "stepId": "recovered",
+        "context": "server",
+        "factId": "owner",
+        "field": "value",
+        "expected": 0
+      }
+    },
+    {
+      "id": "disconnect-removes-player",
+      "layer": "engine",
+      "statement": "The planned holder disconnect leaves one connected player.",
+      "required": true,
+      "rule": {
+        "kind": "scenario_fact_equals",
+        "scenarioId": "holder-disconnect",
+        "stepId": "recovered",
+        "context": "server",
+        "factId": "players",
+        "field": "value",
+        "expected": 1
+      }
+    },
+    {
+      "id": "runtime-clean",
+      "layer": "engine",
+      "statement": "The presentation run reports no runtime errors.",
+      "required": true,
+      "rule": {
+        "kind": "diagnostics_empty",
+        "phaseId": "presentation",
+        "factId": "errors"
+      }
+    }
+  ],
+  "codeQuality": [
+    {
+      "id": "server-authority",
+      "statement": "Ownership, range, fuse, damage, cleanup, and recovery are server-owned and client arguments are untrusted.",
+      "required": true,
+      "sourceSelection": {
+        "kind": "all_luau_in_roots",
+        "roots": ["src/server", "src/client"]
+      },
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Unsafe",
+          "description": "The client can select authoritative state or core cleanup/timing is missing."
+        },
+        {
+          "score": 1,
+          "label": "Server-owned",
+          "description": "The server validates passes and owns fuse, damage, and recovery."
+        },
+        {
+          "score": 2,
+          "label": "Defensive",
+          "description": "The authority boundary, lifecycle, duplicate prevention, and cleanup are clear and proportionate."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null
+    }
+  ],
+  "visual": [
+    {
+      "id": "holder-clarity",
+      "statement": "The current holder is immediately identifiable in the play view.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["bomb-armed"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Absent",
+          "description": "The holder is not visually identifiable."
+        },
+        {
+          "score": 1,
+          "label": "Visible",
+          "description": "The holder can be found, but the signal is weak or ambiguous."
+        },
+        {
+          "score": 2,
+          "label": "Clear",
+          "description": "The holder is obvious at normal play distance."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "fuse-readability",
+      "statement": "Remaining danger is readable without requiring deliberate inspection.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["bomb-armed"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Absent",
+          "description": "No readable fuse or danger state is visible."
+        },
+        {
+          "score": 1,
+          "label": "Readable",
+          "description": "The danger state is visible but small, vague, or weakly prioritized."
+        },
+        {
+          "score": 2,
+          "label": "Strong",
+          "description": "The fuse and danger state are clear at a glance."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    },
+    {
+      "id": "play-obstruction",
+      "statement": "Feedback communicates urgency without obscuring the play space.",
+      "required": true,
+      "evidenceClass": "appearance",
+      "polarity": "presence",
+      "captureIds": ["bomb-armed"],
+      "anchors": [
+        {
+          "score": 0,
+          "label": "Obstructive",
+          "description": "Feedback materially blocks or overwhelms play."
+        },
+        {
+          "score": 1,
+          "label": "Acceptable",
+          "description": "Feedback is usable with minor clutter or balance issues."
+        },
+        {
+          "score": 2,
+          "label": "Focused",
+          "description": "Feedback is prominent, coherent, and leaves the play space readable."
+        }
+      ],
+      "minimumPassingScore": 1,
+      "scoreRange": null,
+      "sequence": false
+    }
+  ],
+  "unscaled": [],
+  "humanReview": [
+    "Judge holder clarity, fuse readability, urgency, and obstruction at normal play scale. Runtime timing and authority come only from the hidden scenarios."
+  ],
+  "sequence": null
+}
